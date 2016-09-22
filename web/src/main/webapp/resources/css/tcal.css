@@ -53,6 +53,7 @@
 	cursor: pointer;
 }
 #tcalControls th {
+	color: #000;
 	border-collapse: collapse;
 	border: 0;
 	padding: 0;

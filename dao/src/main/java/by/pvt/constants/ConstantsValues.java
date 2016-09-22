@@ -3,7 +3,7 @@ package by.pvt.constants;
 
 public class ConstantsValues {
     //params for date
-    public static final String START_DATE = "strDate";
+    public static final String START_DATE = "startDate";
     public static final String END_DATE = "endDate";
     public static final String DATE_PATTERN = "yyyy-MM-dd";
     //params for car

@@ -79,5 +79,4 @@
         <exception-type>java.lang.Exception</exception-type>
         <location>/WEB-INF/pages/error.jsp</location>
     </error-page>
-
 </web-app>

@@ -28,7 +28,7 @@ import static by.pvt.constants.Pages.*;
 
 @org.springframework.stereotype.Controller
 public class OrderController {
-    private static final int HOURS = 24;
+    private static final int HOURS = 24;//TODO refactoring code
     private static final int MINUTES = 60;
     private static final int SECONDS = 60;
     private static final int MILLISECONDS = 1000;
@@ -74,7 +74,7 @@ public class OrderController {
         int perPages = Integer.valueOf(request.getParameter(PER_PAGES));
         //get client orders for UI
         try {
-            List orders = orderService.getAll(page, perPages);
+            List<Order> orders = orderService.getAll(page, perPages);
             request.setAttribute(UIParams.REQUEST_ALL_ORDERS_ADMIN, orders);
         } catch (ServiceException e) {
             model.addAttribute(UIParams.MESSAGE_ERROR_GET_ORDERS,MessageManager.getInstance().getValue(Message.ERROR_GET_ALL_ORDERS, Locale.getDefault()));
@@ -286,7 +286,14 @@ public class OrderController {
         sortingDTO.setASC(sorting.getSorting(request));
         //get the resulting list after filtering and sorting
         try {
-            List allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getPerPage(request), sortingDTO);
+            List<Order> allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getPerPage(request), sortingDTO);
+            Date today = new Date();
+            for(int i =0; i<allOrders.size(); i++){
+                if(allOrders.get(i).getEndDate().getTime() < today.getTime()){
+                    allOrders.get(i).setOrderStatus(statusOfOrderService.get(StatusOfOrder.class,5));
+                    orderService.update(allOrders.get(i));
+                }
+            }
             request.setAttribute(UIParams.REQUEST_ORDERS , allOrders);
         } catch (ServiceException e) {
             model.addAttribute(UIParams.MESSAGE_GET_LIST_CARS,MessageManager.getInstance().getValue(Message.ERROR_GET_ALL_ORDERS, Locale.getDefault()));

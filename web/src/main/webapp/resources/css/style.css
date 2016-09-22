@@ -31,11 +31,11 @@ inbody {
     font-size: 14px;
     padding: 20px;
     height: auto;
-    width: 70%;
+    width: 90%;
     position: absolute;
     background: #000;
     top: 40%;
-    left: 15%;
+    left: 5%;
 }
 /* Стиль логотипа */
 hgroup {
@@ -70,7 +70,7 @@ hgroup h4 {
 
 ul.menu {
     margin: 0;
-    margin-top: -70px;
+    margin-top: -20px;
     padding: 0;
     list-style: none;
     font-family: "Myriad Pro", "Trebuchet MS", sans-serif;

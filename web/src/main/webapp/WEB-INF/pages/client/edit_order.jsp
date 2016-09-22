@@ -99,8 +99,8 @@
                         <td><spring:message code="other_info"/>:</td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="startDate" class="tcal" value="${orderEdit.startDate}"/></td>
-                        <td><input type="text" name="endDate" class="tcal" value="${orderEdit.endDate}"/></td>
+                        <td><input type="text" readonly="readonly" name="startDate" class="tcal" value="${orderEdit.startDate}"/></td>
+                        <td><input type="text" readonly="readonly" name="endDate" class="tcal" value="${orderEdit.endDate}"/></td>
                         <td><input type="text" name="message_for_order" value="${orderEdit.message}" size="20"/></td>
                     </tr>
                 </table>

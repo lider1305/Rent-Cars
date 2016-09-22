@@ -62,12 +62,12 @@
 
             <spring:message code="client_passport_start"/>: *<br/>
             ${exception_null_date}
-            <s:input type="text" name="passportIssueDate" path="passports.passportIssueDate" id="passportIssueDate" class="tcal" value=""/>
+            <s:input type="text" name="passportIssueDate" readonly="true" path="passports.passportIssueDate" id="passportIssueDate" class="tcal" value=""/>
             ${date_error}<br/>
 
             <spring:message code="client_passport_end"/>: *<br/>
             ${exception_null_date}
-            <s:input type="text" path="passports.passportEndDate" name="passportEndDate" id="passportEndDate" class="tcal" value=""/>
+            <s:input type="text" path="passports.passportEndDate" readonly="true" name="passportEndDate" id="passportEndDate" class="tcal" value=""/>
             ${date_error}<br/>
 
             <input type="submit"  value="<spring:message code="button_registration"/>"/>
