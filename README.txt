@@ -13,6 +13,8 @@ Tomcat 8.0.36
 Сборка и запуск:
 
 Настройки базы данных лежат в библиотеке dao-1.0-SNAPSHOT.jar (config.properties)
+Dump базы данных dump_work_database.sql
+Dump базы для тестов dump_test_database.sql
 
 Запустить Apache Tomcat указаной выше версии:
 Произвести настройку файла tomcat-users.xml (..\apache-tomcat-8.0.36\conf\tomcat-users.xml)
