@@ -1,0 +1,16 @@
+/go_to_registration
+/forgot_password
+/login
+/get_password
+/new_user
+/contact_info
+/index
+/resources/css/style.css
+/resources/js/tcal.js
+/resources/css/tcal.css
+/resources/css/style-validation.css
+/resources/css/bootstrap.css
+/resources/js/required_fields.js
+/resources/js/jquery-1.5.1.min.js
+/resources/js/validation.js
+/resources/js/bootstrap.js

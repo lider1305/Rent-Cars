@@ -1,0 +1,707 @@
+
+html, body {
+    height: 100%;
+}
+
+* {
+    outline: none;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    background: url(../images/fone.jpg) no-repeat;
+    background-color: #000000;
+    font-family: 'Century Gothic', arial, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Myriad Pro", "Trebuchet MS", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+/* Стиль текстового поля */
+inbody {
+    color: #FFF;
+    opacity: 0.8;
+    font-family: "Myriad Pro", "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    padding: 20px;
+    height: auto;
+    width: 70%;
+    position: absolute;
+    background: #000;
+    top: 40%;
+    left: 15%;
+}
+/* Стиль логотипа */
+hgroup {
+    position: fixed;
+    z-index: 3;
+    left: 10px;
+    top: 10px;
+    padding: 10px;
+    background: url(../images/fs_img_g_bg.png);
+    color: #FFF;
+    font-family: "Myriad Pro", "Trebuchet MS", sans-serif;
+    font-size: 30px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-shadow: rgba(0, 0, 0, 0.50) 0 1px 1px;
+}
+
+hgroup h1 {
+    margin: 0px;
+    text-shadow: rgba(0, 0, 0, 1) 3px 2px 0;
+}
+
+hgroup h4 {
+    font-family: 'Century Gothic', arial, serif;
+    font-size: 22px;
+    font-weight: normal;
+    margin: 0px;
+    margin-left: 5%;
+}
+
+/* Стиль меню */
+
+ul.menu {
+    margin: 0;
+    margin-top: -70px;
+    padding: 0;
+    list-style: none;
+    font-family: "Myriad Pro", "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    width: 100%;
+    position: absolute;
+    top: 30%;
+    right: 0%
+}
+
+ul.menu a {
+    text-decoration: none;
+    outline: none;
+}
+
+ul.menu li {
+    float: right;
+    width: 15%;
+    height: 85px;
+    position: relative;
+    cursor: pointer;
+}
+
+ul.menu li > a {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    height: 85px;
+    z-index: 12;
+    background: transparent url(../images/overlay.png) no-repeat bottom right;
+    background-color: rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 2px #000 inset;
+    -webkit-box-shadow: 0px 0px 2px #000 inset;
+    box-shadow: 0px 0px 2px #000 inset;
+}
+
+ul.menu li a img {
+    border: none;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    bottom: 0px;
+    left: 85px;
+    z-index: 100;
+    -moz-box-shadow: 0px 0px 4px #000;
+    -webkit-box-shadow: 0px 0px 4px #000;
+    box-shadow: 0px 0px 4px #000;
+}
+
+ul.menu li span.wrap {
+    position: absolute;
+    top: 25px;
+    left: 0px;
+    width: 200px;
+    height: 60px;
+    z-index: 15;
+}
+
+ul.menu li span.active {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.75);
+    top: 85px;
+    width: 170px;
+    height: 0px;
+    left: 0px;
+    z-index: 14;
+    -moz-box-shadow: 0px 0px 4px #000 inset;
+    -webkit-box-shadow: 0px 0px 4px #000 inset;
+    box-shadow: 0px 0px 4px #000 inset;
+    -webkit-box-shadow: 0px 0px 4px #000 inset;
+    -moz-box-shadow: 0px 0px 4px #000 inset;
+    box-shadow: 0px 0px 4px #000 inset;
+    -webkit-border-bottom-right-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    -moz-border-radius-bottomright: 15px;
+    border-bottom-left-radius: 15px;
+    -moz-border-radius-bottomleft: 15px;
+}
+
+ul.menu li span span.link, ul.menu li span span.descr, ul.menu li div.box a {
+    margin-left: 15px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 1px #000;
+}
+
+ul.menu li span span.link {
+    color: #fff;
+    font-size: 24px;
+    float: left;
+    clear: both;
+}
+
+ul.menu li span span.descr {
+    color: #0B75AF;
+    float: left;
+    clear: both;
+    width: 155px; /*For dumbass IE7*/
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+ul.menu li div.box {
+    display: block;
+    position: absolute;
+    width: 170px;
+    overflow: hidden;
+    height: 170px;
+    top: 85px;
+    left: 0px;
+    display: none;
+    background: #000;
+}
+
+ul.menu li div.box a {
+    float: left;
+    clear: both;
+    line-height: 30px;
+    color: #0B75AF;
+}
+
+ul.menu li div.box a:first-child {
+    margin-top: 15px;
+}
+
+ul.menu li div.box a:hover {
+    color: #fff;
+}
+
+article {
+    display: none
+}
+
+.image {
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+    float: right;
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.border {
+    height: 3px;
+    clear: both;
+    border-bottom: 1px dotted #FFF;
+}
+
+*:focus {
+    outline: none; /* Prevents blue border in Webkit */
+}
+
+form {
+    font-family: 'Century Gothic', arial, serif;
+    width: 100%;
+    margin-left: 5px;
+}
+
+input, textarea {
+    font-family: "Myriad Pro", "Trebuchet MS", sans-serif;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 100%;
+    min-height: 30px;
+    display: block;
+    margin-bottom: 16px;
+    margin-top: 8px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    color: #fff;
+}
+
+textarea {
+    min-height: 200px;
+    resize: none;
+}
+
+input:focus, textarea:focus {
+    -webkit-box-shadow: 0 0 25px #ccc;
+    -moz-box-shadow: 0 0 25px #ccc;
+    box-shadow: 0 0 25px #ccc;
+}
+
+
+
+input[type=submit] {
+    font-size: 20px;
+    padding: 10px;
+    background: none;
+    opacity: 1.0;
+}
+
+
+
+.login {
+    position: fixed;
+    z-index: 3;
+    right: 10px;
+    top: 0px;
+    padding: 10px;
+    background: url(../images/fs_img_g_bg.png);
+    width: 350px;
+    padding-right: 32px;
+    font-weight: 200;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+
+.login p {
+    margin: 0 0 10px;
+}
+
+input, button, label {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+.input{
+    padding: 0 10px;
+    height: 30px;
+    color: #030716;
+    text-shadow: 1px 1px 1px black;
+    background: rgba(255, 255, 255, 0.5);
+    border: 0;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+}
+
+input[type=text], input[type=password] {
+    padding: 0 10px;
+    width: 200px;
+    height: 30px;
+    color: #bbb;
+    text-shadow: 1px 1px 1px black;
+    background: rgba(255, 255, 255, 0.5);
+    border: 0;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    color: white;
+    background: rgba(0, 0, 0, 0.1);
+    outline: 0;
+}
+
+label {
+    float: left;
+    width: 100px;
+    line-height: 30px;
+    padding-right: 10px;
+    font-weight: 100;
+    text-align: right;
+    letter-spacing: 1px;
+}
+
+.forgot-password {
+    padding-left: 40px;
+    font-size: 13px;
+    font-weight: 100;
+    letter-spacing: 1px;
+
+}
+
+.login-submit {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    width: 48px;
+    height: 48px;
+    padding: 8px;
+    border-radius: 32px;
+    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+}
+
+.login-submit:before, .login-submit:after {
+    content: '';
+    z-index: 1;
+    position: absolute;
+}
+
+.login-submit:before {
+    top: 28px;
+    left: -4px;
+    width: 4px;
+    height: 10px;
+    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.login-submit:after {
+    top: -4px;
+    bottom: -4px;
+    right: -4px;
+    width: 36px;
+}
+
+.login-button {
+    position: relative;
+    z-index: 2;
+    top: 10px;
+    width: 48px;
+    height: 48px;
+    padding: 0 0 48px;
+    opacity: 0.5;
+    /* Fix wrong positioning in Firefox 9 & older (bug 450418) */
+    text-indent: 120%;
+    white-space: nowrap;
+    overflow: hidden;
+    background: none;
+    border: 0;
+    border-radius: 24px;
+    cursor: pointer;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.1);
+    /* Must use another pseudo element for the gradient background because Webkit */
+    /* clips the background incorrectly inside elements with a border-radius.     */
+}
+
+.login-button:before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    background: #00a2d3;
+    border-radius: 24px;
+    background-image: -webkit-linear-gradient(top, #00a2d3, #0d7796);
+    background-image: -moz-linear-gradient(top, #00a2d3, #0d7796);
+    background-image: -o-linear-gradient(top, #00a2d3, #0d7796);
+    background-image: linear-gradient(to bottom, #00a2d3, #0d7796);
+    -webkit-box-shadow: inset 0 0 0 1px #00a2d3, 0 0 0 5px rgba(0, 0, 0, 0.16);
+    box-shadow: inset 0 0 0 1px #00a2d3, 0 0 0 5px rgba(0, 0, 0, 0.16);
+}
+
+.login-button:active:before {
+    background: #0591ba;
+    background-image: -webkit-linear-gradient(top, #0591ba, #00a2d3);
+    background-image: -moz-linear-gradient(top, #0591ba, #00a2d3);
+    background-image: -o-linear-gradient(top, #0591ba, #00a2d3);
+    background-image: linear-gradient(to bottom, #0591ba, #00a2d3);
+}
+
+.login-button:after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 12px;
+    width: 25px;
+    height: 19px;
+    background: url(../images/arrow.png) 0 0 no-repeat;
+}
+
+.overlay {
+    background: url("../images/bg.png");
+}
+ul.admmenu {
+    margin: 0;
+    margin-top: -70px;
+    padding: 0;
+    list-style: none;
+    font-family: "Myriad Pro", "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    width: 800px;
+    position: absolute;
+    top: 30%;
+    right: 0%
+}
+
+ul.admmenu a {
+    text-decoration: none;
+    outline: none;
+}
+
+ul.admmenu li {
+    float: left;
+    width: 200px;
+    height: 85px;
+    position: relative;
+    cursor: pointer;
+}
+
+ul.admmenu li > a {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    height: 85px;
+    z-index: 12;
+    background: transparent url(../images/overlay.png) no-repeat bottom right;
+    background-color: rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 2px #000 inset;
+    -webkit-box-shadow: 0px 0px 2px #000 inset;
+    box-shadow: 0px 0px 2px #000 inset;
+}
+
+ul.admmenu li a img {
+    border: none;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    bottom: 0px;
+    left: 85px;
+    z-index: 100;
+    -moz-box-shadow: 0px 0px 4px #000;
+    -webkit-box-shadow: 0px 0px 4px #000;
+    box-shadow: 0px 0px 4px #000;
+}
+
+ul.admmenu li span.wrap {
+    position: absolute;
+    top: 25px;
+    left: 0px;
+    width: 200px;
+    height: 60px;
+    z-index: 15;
+}
+
+ul.admmenu li span.active {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.75);
+    top: 85px;
+    width: 170px;
+    height: 0px;
+    left: 0px;
+    z-index: 14;
+    -moz-box-shadow: 0px 0px 4px #000 inset;
+    -webkit-box-shadow: 0px 0px 4px #000 inset;
+    box-shadow: 0px 0px 4px #000 inset;
+    -webkit-box-shadow: 0px 0px 4px #000 inset;
+    -moz-box-shadow: 0px 0px 4px #000 inset;
+    box-shadow: 0px 0px 4px #000 inset;
+    -webkit-border-bottom-right-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    -moz-border-radius-bottomright: 15px;
+    border-bottom-left-radius: 15px;
+    -moz-border-radius-bottomleft: 15px;
+}
+
+ul.admmenu li span span.link, ul.admmenu li span span.descr, ul.admmenu li div.box a {
+    margin-left: 15px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 1px #000;
+}
+
+ul.admmenu li span span.link {
+    color: #fff;
+    font-size: 24px;
+    float: left;
+    clear: both;
+}
+
+ul.admmenu li span span.descr {
+    color: #0B75AF;
+    float: left;
+    clear: both;
+    width: 155px; /*For dumbass IE7*/
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+ul.admmenu li div.box {
+    display: block;
+    position: absolute;
+    width: 170px;
+    overflow: hidden;
+    height: 170px;
+    top: 85px;
+    left: 0px;
+    display: none;
+    background: #000;
+}
+
+ul.admmenu li div.box a {
+    float: left;
+    clear: both;
+    line-height: 30px;
+    color: #0B75AF;
+}
+
+ul.admmenu li div.box a:first-child {
+    margin-top: 15px;
+}
+
+ul.admmenu li div.box a:hover {
+    color: #fff;
+}
+/* стиль таблицы*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    color: #FFFFFF;
+    border: 1px solid white;
+}
+
+td {
+    padding: 5px;
+    padding-right: 10px;
+    border: 1px solid white;
+}
+
+th {
+    padding: 10px;
+    border: 1px solid white;
+}
+
+caption {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* стили радио кнопки*/
+
+.regular-radio {
+    -webkit-appearance: none;
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 9px;
+    border-radius: 50px;
+    display: inline-block;
+    position: relative;
+}
+
+.regular-radio:checked:after {
+    content: ' ';
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    position: absolute;
+    top: 3px;
+    background: #99a1a7;
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
+    text-shadow: 0px;
+    left: 3px;
+    font-size: 32px;
+}
+
+.regular-radio:checked {
+    background-color: #e9ecee;
+    color: #99a1a7;
+    border: 1px solid #adb8c0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1), inset 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.regular-radio:active, .regular-radio:checked:active {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.big-radio {
+    padding: 16px;
+}
+.big-radio:checked:after {
+    width: 24px;
+    height: 24px;
+    left: 4px;
+    top: 4px;
+}
+.client-menu{
+    position: fixed;
+    z-index: 3;
+    right: 10px;
+    top: 30px;
+    padding: 10px;
+
+    width: 350px;
+    padding-right: 32px;
+    font-weight: 200;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+
+ul.client-menu a {
+    color:#ffffff;
+    text-decoration: none;
+    outline: none;
+}
+/*javascript validation style*/
+.info {
+    text-align: left;
+    padding: 5px;
+    font: normal 11px Verdana, Arial, Helvetica, sans-serif;
+    color: #030716;
+    position: absolute;
+    display: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: -1px 1px 2px #a9a9a9;
+    -moz-box-shadow: -1px 1px 2px #a9a9a9;
+    box-shadow: -1px 1px 2px #a9a9a9;
+
+}
+
+.error-validation {
+    color: #d50000;
+}
+
+.correct {
+    background: #56d800;
+    border: 3px solid #008000;
+}
+
+.wrong {
+    font-weight: bold;
+    color: #e90000;
+}
+
+.normal {
+    font-weight: normal;
+    color: #222;
+}
+
