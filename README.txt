@@ -13,6 +13,7 @@ Tomcat 8.0.36
 Сборка и запуск:
 
 Настройки базы данных лежат в библиотеке dao-1.0-SNAPSHOT.jar (config.properties)
+Настройки базы данных для тестов /dao/src/test/resources/config-test.properties
 Dump базы данных dump_work_database.sql
 Dump базы для тестов dump_test_database.sql
 
