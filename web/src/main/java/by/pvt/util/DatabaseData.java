@@ -68,7 +68,7 @@ public class DatabaseData {
         //get pagination params
         int pagesCount = 0;
         try {
-            pagesCount = (int) (carService.getCountCars(carDTO) / pagination.getPerPage(request));
+            pagesCount = (int) (carService.getCountCars(carDTO) / pagination.getItemPerPage(request));
         } catch (ServiceException e) {
             model.addAttribute(UIParams.MESSAGE_GET_COUNT,MessageManager.getInstance().getValue(Message.ERROR_GET_COUNT, Locale.getDefault()));
         }
@@ -78,7 +78,7 @@ public class DatabaseData {
         sortingDTO.setASC(sorting.getSorting(request));
         //get the resulting list after filtering and sorting
         try {
-            List allCar = carService.getCarByFilter(carDTO, pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getPerPage(request), sortingDTO);
+            List allCar = carService.getCarByFilter(carDTO, pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request), sortingDTO);
             model.addAttribute(UIParams.REQUEST_GET_CARS, allCar);
         } catch (ServiceException e) {
             model.addAttribute(UIParams.MESSAGE_GET_LIST_CARS,MessageManager.getInstance().getValue(Message.ERROR_GET_ALL_ORDERS, Locale.getDefault()));

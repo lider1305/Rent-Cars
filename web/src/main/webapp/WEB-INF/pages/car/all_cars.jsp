@@ -37,40 +37,61 @@
 </section>
 <inbody>
     <h2>Фильтр</h2>
+    <h3>${message_wrong_param}</h3>
+    <h3>${exception_null_date}</h3>
+    <h3>${exception_wrong_date}</h3>
+    <h3>${exception_wrong_date_end}</h3>
     <div>
         <form method="GET" action="get_cars_by_filter">
             <jsp:include page="/WEB-INF/pages/modules/filters/cars_filter.jsp"/>
             <input type="submit" value="Применить"/>
+        </form>
 
+        <form method="get" action="check_car">
             <table>
                 <h2><spring:message code="list_of_all_cars"/></h2>
                 <tr>
                     <td width="15%"><spring:message code="auto_brand"/></td>
                     <td width="15%"><spring:message code="auto_model"/></td>
                     <td width="10%"><spring:message code="auto_body_type"/></td>
-                    <td width="20%"><spring:message code="auto_engine_type"/></td>
-                    <td width="20%"><spring:message code="auto_transmission"/></td>
+                    <td width="15%"><spring:message code="auto_engine_type"/></td>
+                    <td width="15%"><spring:message code="auto_transmission"/></td>
                     <td width="10%"><spring:message code="auto_year"/></td>
                     <td width="10%"><spring:message code="auto_amount"/></td>
+                    <td width="10%">Выбрать</td>
                 </tr>
                 <c:forEach var="car" items="${cars}">
-                <tr>
-                    <td colspan="7"></td>
-                </tr>
-                <tr>
-                    <td width="15%"><c:out value="${car.brand.brandName}"/></td>
-                    <td width="15%"><c:out value="${car.model}"/></td>
-                    <td width="10%"><c:out value="${car.bodyType.bodyType}"/></td>
-                    <td width="20%"><c:out value="${car.engineType.engineType}"/></td>
-                    <td width="20%"><c:out value="${car.transmissionType.transmissionType}"/></td>
-                    <td width="10%"><c:out value="${car.yearOfManufacture}"/></td>
-                    <td width="10%"><c:out value="${car.amount} y.e."/></td>
-                </tr>
+                    <tr>
+                        <td colspan="8"></td>
+                    </tr>
+                    <tr>
+                        <td width="15%"><c:out value="${car.brand.brandName}"/></td>
+                        <td width="15%"><c:out value="${car.model}"/></td>
+                        <td width="10%"><c:out value="${car.bodyType.bodyType}"/></td>
+                        <td width="15%"><c:out value="${car.engineType.engineType}"/></td>
+                        <td width="15%"><c:out value="${car.transmissionType.transmissionType}"/></td>
+                        <td width="10%"><c:out value="${car.yearOfManufacture}"/></td>
+                        <td width="10%"><c:out value="${car.amount} y.e."/></td>
+                        <td width="10%"><input type="radio" name="carId" value="${car.id}"/></td>
+                    </tr>
                 </c:forEach>
-                <tr>  
-                    <td colspan="7"></td>
+                <tr>
+                    <td colspan="8"></td>
+                </tr>
+            </table><br/>
+            <table align="center" border="0">
+                <tr>
+                    <td width="20%"><spring:message code="date_start_of_rent"/>:</td>
+                    <td width="20%"><spring:message code="date_end_of_rent"/>:</td>
+                    <td> Сообщение о статусе автомобиля</td>
+                </tr>
+                <tr>
+                    <td width="20%"><input type="text" readonly="readonly" name="startDate" class="tcal" value=""/></td>
+                    <td width="20%"><input type="text" readonly="readonly" name="endDate" class="tcal" value=""/></td>
+                    <td>${car_status} </td>
                 </tr>
             </table>
+            <input type="submit" value="Проверить"/>
             <jsp:include page="/WEB-INF/pages/modules/pagination/pagination.jsp"/>
         </form>
     </div>

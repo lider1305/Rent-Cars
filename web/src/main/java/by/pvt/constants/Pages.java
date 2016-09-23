@@ -54,4 +54,5 @@ public class Pages {
     public static final String VALUE_GET_ALL_CARS = "get_all_cars";
     public static final String VALUE_GET_CARS_BY_FILTER = "get_cars_by_filter";
     public static final String VALUE_ADD_CAR = "add_car";
+    public static final String VALUE_CHECK_CAR = "check_car";
 }

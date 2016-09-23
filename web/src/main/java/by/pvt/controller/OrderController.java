@@ -45,8 +45,13 @@ public class OrderController {
     private Pagination pagination = Pagination.getInstance();
 
     @RequestMapping(value = VALUE_GO_TO_ORDERS, method = RequestMethod.GET)
-    public String goToOrders(HttpServletRequest request) {
+    public String goToOrders(HttpServletRequest request,Model model) {
         pagination.getStartRow(request);
+        Client sessionClient = (Client) request.getSession().getAttribute(CLIENT);
+        //get client orders for UI
+        int pagesCount = getPagesCountForOrders(request, model, sessionClient);
+        request.setAttribute(TOTAL_PAGE, pagesCount);
+        request.getSession().setAttribute(COMMAND, VALUE_CLIENT_ORDERS);
         return PAGE_ALL_CLIENT_ORDERS;
     }
 
@@ -86,8 +91,8 @@ public class OrderController {
                 //get selected car
                 Car car = carService.get(Car.class, Integer.valueOf(request.getParameter(CAR_ID_FOR_ORDER)));
                 // checks dates for null
-                if (DateValidation(request, ISSUE_DATE)) return PAGE_RENT_CAR;
-                if (DateValidation(request, END_DATE)) return PAGE_RENT_CAR;
+                if (dateValidation(request, ISSUE_DATE)) return PAGE_RENT_CAR;
+                if (dateValidation(request, END_DATE)) return PAGE_RENT_CAR;
                 //get dates
                 Date start = DateFormatUtil.dateFormatterFromStringToDate(request.getParameter(ISSUE_DATE));
                 Date end = DateFormatUtil.dateFormatterFromStringToDate(request.getParameter(END_DATE));
@@ -152,8 +157,8 @@ public class OrderController {
                 // get selected order
                 order = orderService.get(Order.class, orderId);
                 // checks dates for null
-                if (DateValidation(request, ISSUE_DATE)) return PAGE_EDIT_ORDER;
-                if (DateValidation(request, END_DATE)) return PAGE_EDIT_ORDER;
+                if (dateValidation(request, ISSUE_DATE)) return PAGE_EDIT_ORDER;
+                if (dateValidation(request, END_DATE)) return PAGE_EDIT_ORDER;
                 //get dates
                 Date start = DateFormatUtil.dateFormatterFromStringToDate(request.getParameter(ISSUE_DATE));
                 Date end = DateFormatUtil.dateFormatterFromStringToDate(request.getParameter(END_DATE));
@@ -187,7 +192,7 @@ public class OrderController {
     }
 
     //the method checks whether the machine is reserved on this date
-    private boolean checkCarForBooking(Car car, Date start, Date end, Model model) {
+    public boolean checkCarForBooking(Car car, Date start, Date end, Model model) {
         List<Car> rentCar = null;
         try {
             rentCar = orderService.getAllRentCarForDate(start, end);
@@ -215,7 +220,7 @@ public class OrderController {
     }
 
     //the method checks that the end date less than start date
-    private boolean checkEndDateOnActual(HttpServletRequest request, Date start, Date end) {
+    public boolean checkEndDateOnActual(HttpServletRequest request, Date start, Date end) {
         if (end.getTime() < start.getTime()) {
             request.setAttribute(UIParams.REQUEST_EXCEPTION_WRONG_DATE_END,
                     MessageManager.getInstance().getValue(Message.PARAM_WRONG_DATE_END, Locale.getDefault()));
@@ -225,7 +230,7 @@ public class OrderController {
     }
 
     //the method checks the date on the relevance
-    private boolean checkDateOnActual(HttpServletRequest request, Date start) {
+    public boolean checkDateOnActual(HttpServletRequest request, Date start) {
         Date today = new Date();
         if (start.getTime() < today.getTime()) {
             request.setAttribute(UIParams.REQUEST_EXCEPTION_WRONG_DATE,
@@ -236,7 +241,7 @@ public class OrderController {
     }
 
     //the method checks the entered date to an empty string
-    private boolean DateValidation(HttpServletRequest request, String requestParam) {
+    public boolean dateValidation(HttpServletRequest request, String requestParam) {
         if (request.getParameter(requestParam).length() == 0) {
             request.setAttribute(UIParams.REQUEST_EXCEPTION_NULL_DATE,
                     MessageManager.getInstance().getValue(Message.PARAM_NULL_DATE, Locale.getDefault()));
@@ -270,7 +275,7 @@ public class OrderController {
         //get pagination params
         int pagesCount = 0;
         try {
-            pagesCount = (int) (orderService.getCountOrder(sessionClient) / pagination.getPerPage(request));
+            pagesCount = (int) (orderService.getCountOrder(sessionClient) / pagination.getItemPerPage(request));
         } catch (ServiceException e) {
             model.addAttribute(UIParams.MESSAGE_GET_COUNT,MessageManager.getInstance().getValue(Message.ERROR_GET_COUNT, Locale.getDefault()));
         }
@@ -280,12 +285,12 @@ public class OrderController {
         sortingDTO.setASC(sorting.getSorting(request));
         //get the resulting list after filtering and sorting
         try {
-            List<Order> allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getPerPage(request), sortingDTO);
+            List<Order> allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request), sortingDTO);
             Date today = new Date();
-            for(int i =0; i<allOrders.size(); i++){
-                if(allOrders.get(i).getEndDate().getTime() < today.getTime()){
-                    allOrders.get(i).setOrderStatus(statusOfOrderService.get(StatusOfOrder.class,5));
-                    orderService.update(allOrders.get(i));
+            for (Order allOrder : allOrders) {
+                if (allOrder.getEndDate().getTime() < today.getTime()) {
+                    allOrder.setOrderStatus(statusOfOrderService.get(StatusOfOrder.class, 5));
+                    orderService.update(allOrder);
                 }
             }
             request.setAttribute(UIParams.REQUEST_ORDERS , allOrders);

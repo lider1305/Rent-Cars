@@ -81,8 +81,8 @@
                     <tr>
                         <td colspan="8"></td>
                     </tr>
-                </table>
-                <table>
+                </table><br/>
+                <table align="center" border="0" >
                     <tr>
                         <td><spring:message code="date_start_of_rent"/>:</td>
                         <td><spring:message code="date_end_of_rent"/>:</td>
@@ -97,7 +97,6 @@
                 <input type="submit" value="<fmt:message key="make_order"/>"/>
                 <jsp:include page="/WEB-INF/pages/modules/pagination/pagination.jsp"/>
             </form>
-            </div>
         </c:when>
         <c:when test="${client == null}">
             <h2><fmt:message key="message_for_make_order"/></h2>

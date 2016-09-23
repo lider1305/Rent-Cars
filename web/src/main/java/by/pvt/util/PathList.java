@@ -12,6 +12,7 @@ public class PathList {
         list.add("/index");
         list.add("/");
         list.add("/forgot_password");
+        list.add("/check_car");
         list.add("/rent_car");
         list.add("/login");
         list.add("/get_password");

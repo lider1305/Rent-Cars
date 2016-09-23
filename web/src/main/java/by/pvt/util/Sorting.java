@@ -64,7 +64,8 @@ public class Sorting {
         }
         return sortingDTO;
     }
-//sets default params
+
+    //sets default params
     private void setCarSortingDTO(CarSortingDTO sortingDTO) {
         sortingDTO.setBrand("");
         sortingDTO.setBodyType("");
@@ -77,6 +78,11 @@ public class Sorting {
     //the method gets the parameters for sorting
     public OrderSortingDTO getSortingParamOrder(HttpServletRequest request) {
         OrderSortingDTO sortingDTO = new OrderSortingDTO();
+        sortingDTO.setStartDate("");
+        sortingDTO.setEndDate("");
+        sortingDTO.setAmount("");
+        sortingDTO.setStatus("");
+
         if (request.getParameter(SORT_NAME) != null) {
             String param = request.getParameter(SORT_NAME);
             if (param.equals(ISSUE_DATE)) {

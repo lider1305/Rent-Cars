@@ -24,7 +24,7 @@ public class Pagination {
     }
 
     // the method receives a  number of records per page
-    public int getPerPage(HttpServletRequest request) {
+    public int getItemPerPage(HttpServletRequest request) {
         int perPage;
         //checks whether the  number of records to output to the page
         if (request.getParameter(Constants.PER_PAGES) == null || request.getParameter(Constants.PER_PAGES).length() == 0) {
@@ -39,7 +39,7 @@ public class Pagination {
     //the method gets the record number from which to read the value from the database
     public int getStartRow(HttpServletRequest request) {
         //default params to read
-        int perPage = getPerPage(request);
+        int perPage = getItemPerPage(request);
         int currentRowFromDatabase = FIRST_PAGE;
         int currentPage = currentRowFromDatabase;
         //checks the current page number on the user interface
