@@ -60,7 +60,7 @@
                 </table>
             </c:forEach>
             <input type="submit" value="<spring:message code="button_show"/>" />
-            <input name="pages" value="0"/>
+            <jsp:include page="/WEB-INF/pages/modules/pagination/pagination_all_order.jsp"/>
             <select name="perPages">
                 <option value="5">5</option>
                 <option value="10">10</option>

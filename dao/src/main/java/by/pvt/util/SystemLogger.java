@@ -19,11 +19,6 @@ public class SystemLogger {
         return instance;
     }
 
-    public void setLogger(Class sender, Throwable e,String message) {
-        logger = Logger.getLogger(sender);
-        logger.error(e);
-        logger.error(message);
-    }
     public void setLogger(Class sender, Throwable e) {
         logger = Logger.getLogger(sender);
         logger.error(e);

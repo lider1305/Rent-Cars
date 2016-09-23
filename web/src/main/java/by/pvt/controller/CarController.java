@@ -1,28 +1,29 @@
 package by.pvt.controller;
 
-import by.pvt.constants.Constants;
+import by.pvt.VO.CarAddDTO;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
 import by.pvt.exception.ServiceException;
-import by.pvt.pojo.*;
+import by.pvt.pojo.Car;
 import by.pvt.service.impl.*;
 import by.pvt.util.DatabaseData;
 import by.pvt.util.DateFormatUtil;
-import by.pvt.util.MessageManager;
 import by.pvt.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Date;
-import java.util.Locale;
 
 import static by.pvt.constants.Constants.*;
 import static by.pvt.constants.Pages.*;
-import static by.pvt.constants.UIParams.MESSAGE_ERROR_SAVE_CAR;
-import static java.lang.Integer.valueOf;
+import static by.pvt.constants.UIParams.*;
 
 @org.springframework.stereotype.Controller
 public class CarController {
@@ -31,17 +32,9 @@ public class CarController {
     @Autowired
     DatabaseData databaseData;
     @Autowired
-    private BrandsService brandsService;
-    @Autowired
-    private EngineTypeService engineTypeService;
-    @Autowired
-    private BodyTypeService bodyTypeService;
-    @Autowired
-    private TransmissionTypeService transmissionTypeService;
-    @Autowired
     private CarService carService;
     @Autowired
-    private StatusOfCarService statusOfCarService;
+    Pagination pagination;
 
     @RequestMapping(value = VALUE_RENT_CAR, method = RequestMethod.GET)
     public String rentCar(HttpServletRequest request, Model model) {
@@ -60,10 +53,9 @@ public class CarController {
         Car car;
         setFilterParams(request, model, PAGE_ALL_CARS);
         if (request.getParameter(CAR_ID_FOR_ORDER) == null) {
-            model.addAttribute(UIParams.REQUEST_WRONG_PARAM, MessageManager.getInstance().getValue(Message.PARAM_NO_CHOSEN, Locale.getDefault()));
+            model.addAttribute(REQUEST_WRONG_PARAM, Message.PARAM_NO_CHOSEN);
         } else {
-            car = carService.get(Car.class, Integer.valueOf(request.getParameter(CAR_ID_FOR_ORDER)));//TODO
-
+            car = carService.get(Car.class, Integer.valueOf(request.getParameter(CAR_ID_FOR_ORDER)));
             // checks dates for null
             if (orderController.dateValidation(request, ISSUE_DATE)) return PAGE_ALL_CARS;
             if (orderController.dateValidation(request, END_DATE)) return PAGE_RENT_CAR;
@@ -74,9 +66,9 @@ public class CarController {
             if (orderController.checkDateOnActual(request, start)) return PAGE_ALL_CARS;
             if (orderController.checkEndDateOnActual(request, start, end)) return PAGE_ALL_CARS;
             if (orderController.checkCarForBooking(car, start, end, model)) {
-                model.addAttribute("car_status", car.getBrand().getBrandName()+" "+car.getModel()+" Занят");
+                model.addAttribute(CAR_STATUS, car.getBrand().getBrandName() + " " + car.getModel());
             } else {
-                model.addAttribute("car_status", car.getBrand().getBrandName()+" "+car.getModel()+" Свободен");
+                model.addAttribute(CAR_STATUS_FREE, car.getBrand().getBrandName() + " " + car.getModel());
             }
         }
         return PAGE_ALL_CARS;
@@ -89,42 +81,30 @@ public class CarController {
     }
 
     @RequestMapping(value = VALUE_ADD_CAR, method = RequestMethod.GET)
-    public String addCarGet(HttpServletRequest request, Model model) {
+    public String addCarGet(HttpServletRequest request, Model model, ModelMap modelMap) {
         databaseData.setToSessionCarParams(request, model);
+        modelMap.put(ALL_CAR, new CarAddDTO());
         return PAGE_ADD_CAR;
     }
 
     @RequestMapping(value = VALUE_ADD_CAR, method = RequestMethod.POST)
-    public String addCarPost(HttpServletRequest request, Model model) {
-        Car newCar = new Car();
+    public String addCarPost(HttpServletRequest request, Model model, @Valid @ModelAttribute(ALL_CAR) CarAddDTO car, BindingResult result) {
+        if (result.hasErrors()) {
+            request.setAttribute(REQUEST_EXCEPTION_NULL_MODEL, Message.PARAM_NULL_MODEL);
+            return PAGE_ADD_CAR;
+        }
         try {
-            newCar.setBrand(brandsService.get(Brands.class, valueOf(request.getParameter(Constants.AUTO_BRAND))));
-            if (request.getParameter(Constants.AUTO_MODEL).length() != 0) {
-                newCar.setModel(request.getParameter(Constants.AUTO_MODEL));
-            } else {
-                request.setAttribute(UIParams.REQUEST_EXCEPTION_NULL_MODEL,
-                        MessageManager.getInstance().getValue(Message.PARAM_NULL_MODEL, Locale.getDefault()));
-                return PAGE_ADD_CAR;
-            }
-            newCar.setBodyType(bodyTypeService.get(BodyType.class, valueOf(request.getParameter(Constants.AUTO_BODY_TYPE))));
-            newCar.setEngineType(engineTypeService.get(EngineType.class, valueOf(request.getParameter(Constants.AUTO_ENGINE_TYPE))));
-            newCar.setTransmissionType(transmissionTypeService.get(TransmissionType.class, valueOf(request.getParameter(Constants.AUTO_TRANSMISSION_TYPE))));
-            newCar.setYearOfManufacture(valueOf(request.getParameter(Constants.AUTO_YEAR_MANUFACTURE)));
-            newCar.setAmount(valueOf(request.getParameter(Constants.AUTO_AMOUNT_PER_DAY)));
-            newCar.setStatus(statusOfCarService.get(StatusOfCar.class, 2));
-
-            carService.save(newCar);
-            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_ADD_NEW_CAR,
-                    MessageManager.getInstance().getValue(Message.SUCCESS_ADD_NEW_CAR, Locale.getDefault()));
+            carService.save(car);
+            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_ADD_NEW_CAR, Message.SUCCESS_ADD_NEW_CAR);
         } catch (ServiceException e) {
-            model.addAttribute(MESSAGE_ERROR_SAVE_CAR, MessageManager.getInstance().getValue(Message.ERROR_SAVE_OBJECT, Locale.getDefault()));
+            model.addAttribute(MESSAGE_ERROR_SAVE_CAR, Message.ERROR_SAVE_OBJECT);
         }
         return REDIRECT_PAGE_ADD_CAR;
     }
 
     private void setFilterParams(HttpServletRequest request, Model model, String path) {
         databaseData.setToSessionCarParams(request, model);
-        Pagination.getInstance().getStartRow(request);
+        pagination.getStartRow(request);
         request.getSession().setAttribute(REQUEST_PAGE, path);
         getCarsByDefaultFilter(request, model);
     }

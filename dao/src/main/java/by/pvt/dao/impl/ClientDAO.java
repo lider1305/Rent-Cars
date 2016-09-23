@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static by.pvt.constants.ConstantsValues.*;
+
 @Repository
 public class ClientDAO extends BaseDAO<Client> implements IClientDAO<Client> {
     private static final String LOGIN = "FROM Client WHERE  email=:email AND password=:password";
@@ -23,15 +25,15 @@ public class ClientDAO extends BaseDAO<Client> implements IClientDAO<Client> {
     @Override
     public Client login(String email, String password){
             Query query = getSession().createQuery(LOGIN);
-            query.setString("email", email);
-            query.setString("password", password);
+            query.setString(EMAIL, email);
+            query.setString(PASSWORD, password);
         return (Client) query.uniqueResult();
     }
 
     @Override
     public String forgotPassword(String email){
             Query query = getSession().createQuery(FORGOT_PASSWORD);
-            query.setString("email", email);
+            query.setString(EMAIL, email);
         return (String) query.uniqueResult();
     }
 

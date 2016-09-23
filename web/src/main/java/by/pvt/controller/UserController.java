@@ -1,8 +1,7 @@
 package by.pvt.controller;
 
-import by.pvt.DTO.LoginDTO;
+import by.pvt.VO.LoginDTO;
 import by.pvt.constants.Message;
-import by.pvt.constants.Pages;
 import by.pvt.constants.WebErrorMessages;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Client;
@@ -29,9 +28,9 @@ import java.util.List;
 import java.util.Locale;
 
 import static by.pvt.constants.Constants.*;
-import static by.pvt.constants.UIParams.*;
-import static by.pvt.constants.Pages.*;
 import static by.pvt.constants.Message.*;
+import static by.pvt.constants.Pages.*;
+import static by.pvt.constants.UIParams.*;
 
 @org.springframework.stereotype.Controller
 public class UserController {
@@ -169,13 +168,7 @@ public class UserController {
 
     }
 
-
-    @RequestMapping(value = Pages.VALUE_GET_ALL_USERS, method = RequestMethod.GET)
-    public String getAllUserGet() {
-        return PAGE_ALL_USERS;
-    }
-
-    @RequestMapping(value = VALUE_GET_ALL_USERS, method = RequestMethod.POST)
+    @RequestMapping(value = VALUE_GET_ALL_USERS, method = RequestMethod.GET)
     public String getAllUsersPost(HttpServletRequest request, Model model) {
         int perPages = Integer.valueOf(request.getParameter(PER_PAGES));
         int page = Integer.valueOf(request.getParameter(PAGES));

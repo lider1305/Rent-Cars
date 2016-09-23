@@ -1,7 +1,7 @@
 package by.pvt.service.impl;
 
 
-import by.pvt.DTO.PaginationDTO;
+import by.pvt.VO.PaginationDTO;
 import by.pvt.VO.OrderSortingDTO;
 import by.pvt.dao.IOrderDAO;
 import by.pvt.exception.ServiceException;
@@ -36,7 +36,7 @@ public class OrderService extends BaseService<Order> {
             orders = orderDAO.getClientOrders(id, page, perPages);
         } catch (HibernateException e) {
             message = UNABLE_TO_GET_CLIENT_ORDERS;
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return orders;
@@ -48,7 +48,7 @@ public class OrderService extends BaseService<Order> {
             result = orderDAO.getAllRentCarForDate(start, end);
         } catch (HibernateException e) {
             message = UNABLE_TO_GET_LIST_OF_CARS;
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return result;
@@ -60,7 +60,7 @@ public class OrderService extends BaseService<Order> {
             all = orderDAO.getAll(page, perPage);
         } catch (HibernateException e) {
             message = ERROR_GET_LIST_OF_ORDERS;
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return all;
@@ -69,10 +69,10 @@ public class OrderService extends BaseService<Order> {
     public List getOrdersByFilter(int page, int perPage, OrderSortingDTO sort) throws ServiceException {
         List result;
         try {
-            result =orderDAO.getOrderByFilter(page, perPage, sort);
+            result = orderDAO.getOrderByFilter(page, perPage, sort);
         } catch (HibernateException e) {
             message = ERROR_GET_LIST_OF_ORDERS;
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return result;
@@ -83,10 +83,23 @@ public class OrderService extends BaseService<Order> {
         try {
             count = orderDAO.getCountOrders(client);
         } catch (HibernateException e) {
-            message =  UNABLE_TO_GET_COUNT_OF_ORDERS;
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            message = UNABLE_TO_GET_COUNT_OF_ORDERS;
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return count;
+    }
+
+    public long getCountOfAllOrders() throws ServiceException {
+        long count;
+        try {
+            count = orderDAO.getCountOfAllOrders();
+        } catch (HibernateException e) {
+            message = UNABLE_TO_GET_COUNT_OF_ORDERS;
+            SystemLogger.getInstance().setLogger(getClass(), e);
+            throw new ServiceException(message, e);
+        }
+        return count;
+
     }
 }

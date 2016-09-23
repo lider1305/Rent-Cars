@@ -17,5 +17,7 @@ public class ConstantsValues {
     public static final String CLIENT = "client";
     public static final String ID = "id";
     public static final String CLIENT_ID = "clientId";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
 
 }

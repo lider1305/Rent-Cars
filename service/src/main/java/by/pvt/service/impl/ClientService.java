@@ -29,7 +29,7 @@ public class ClientService extends BaseService<Client> {
             client = clientDAO.login(email, password);
         } catch (HibernateException e) {
             message = UNABLE_TO_GET_CLIENT_BY_LOGIN_AND_PASSWORD;
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return client;
@@ -41,7 +41,7 @@ public class ClientService extends BaseService<Client> {
             password = clientDAO.forgotPassword(email);
         } catch (HibernateException e) {
             message = UNABLE_TO_GET_CLIENT_PASSWORD;
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return password;
@@ -53,7 +53,7 @@ public class ClientService extends BaseService<Client> {
             all = clientDAO.getAll(page, perPage);
         } catch (HibernateException e) {
             message = ERROR_GET_LIST_OF_CLIENT;
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return all;

@@ -2,6 +2,7 @@ package by.pvt.util;
 
 import by.pvt.VO.CarSortingDTO;
 import by.pvt.VO.OrderSortingDTO;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,17 +11,10 @@ import static by.pvt.constants.Constants.*;
 /**
  * Class for getting sorting params from the user interface
  */
+@Component("sorting")
 public class Sorting {
-    private static Sorting instance;
 
     public Sorting() {
-    }
-
-    public static synchronized Sorting getInstance() {
-        if (instance == null) {
-            instance = new Sorting();
-        }
-        return instance;
     }
 
     //the method gets the sort order

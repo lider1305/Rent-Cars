@@ -42,7 +42,10 @@ public class OrderController {
     private StatusOfOrderService statusOfOrderService;
     @Autowired
     private DatabaseData databaseData;
-    private Pagination pagination = Pagination.getInstance();
+    @Autowired
+    private Pagination pagination;
+    @Autowired
+    private Sorting sorting;
 
     @RequestMapping(value = VALUE_GO_TO_ORDERS, method = RequestMethod.GET)
     public String goToOrders(HttpServletRequest request,Model model) {
@@ -68,13 +71,20 @@ public class OrderController {
 
     @RequestMapping(value = VALUE_GET_ALL_ORDERS, method = RequestMethod.GET)
     public String getAllOrdersGet(HttpServletRequest request,Model model) {
-        Pagination.getInstance().getStartRow(request);
+        pagination.getStartRow(request);
         request.getSession().setAttribute(REQUEST_PAGE, PAGE_ALL_ORDERS);
-        int page = Integer.valueOf(request.getParameter(PAGES));//TODO ref
-        int perPages = Integer.valueOf(request.getParameter(PER_PAGES));
+        int pagesCount = 0;
+        try {
+            pagesCount = (int) (orderService.getCountOfAllOrders() / pagination.getItemPerPage(request));
+        } catch (ServiceException e) {
+            model.addAttribute(UIParams.MESSAGE_GET_COUNT,MessageManager.getInstance().getValue(Message.ERROR_GET_COUNT, Locale.getDefault()));
+        }
+        pagesCount = pagination.getPagesCount(pagesCount);
+        request.setAttribute(TOTAL_PAGE, pagesCount);
+        request.getSession().setAttribute(COMMAND, VALUE_GET_ALL_ORDERS);
         //get client orders for UI
         try {
-            List<Order> orders = orderService.getAll(page, perPages);
+            List<Order> orders = orderService.getAll(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request));
             request.setAttribute(UIParams.REQUEST_ALL_ORDERS_ADMIN, orders);
         } catch (ServiceException e) {
             model.addAttribute(UIParams.MESSAGE_ERROR_GET_ORDERS,MessageManager.getInstance().getValue(Message.ERROR_GET_ALL_ORDERS, Locale.getDefault()));
@@ -105,11 +115,12 @@ public class OrderController {
                 setParamsToOrder(request, order, car, start, end, model);
 
                 orderService.save(order);
-                request.setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, MessageManager.getInstance().getValue(Message.SUCCESS_ORDER, Locale.getDefault()));
+                request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, MessageManager.getInstance().getValue(Message.SUCCESS_ORDER, Locale.getDefault()));
             } catch (ServiceException e) {
                 model.addAttribute(UIParams.MESSAGE_ERROR_SAVE_ORDER, MessageManager.getInstance().getValue(Message.ERROR_SAVE_OBJECT, Locale.getDefault()));
+                return PAGE_RENT_CAR;
             }
-            return PAGE_SUCCESS;
+            return REDIRECT_PAGE_CLIENT;
         }
         request.setAttribute(UIParams.REQUEST_WRONG_PARAM, MessageManager.getInstance().getValue(Message.PARAM_NO_CHOSEN, Locale.getDefault()));
         return PAGE_RENT_CAR;
@@ -179,7 +190,9 @@ public class OrderController {
                 if (checkEndDateOnActual(request, start, end)) return PAGE_EDIT_ORDER;
                 //get car from edit order
                 Car car = order.getCar();
-                if (checkCarForBooking(car, start, end, model)) return PAGE_EDIT_ORDER;
+                if(start.getTime()!=order.getStartDate().getTime() | end.getTime()!=order.getEndDate().getTime()){
+                    if (checkCarForBooking(car, start, end, model)) return PAGE_EDIT_ORDER;
+                }
                 setParamsToOrder(request, order, car, start, end, model);
                 orderService.update(order);
                 request.setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, MessageManager.getInstance().getValue(Message.SUCCESS_ORDER, Locale.getDefault()));
@@ -270,8 +283,6 @@ public class OrderController {
     }
 
     private int getPagesCountForOrders(HttpServletRequest request, Model model, Client sessionClient) {
-        Pagination pagination = Pagination.getInstance();
-        Sorting sorting = Sorting.getInstance();
         //get pagination params
         int pagesCount = 0;
         try {

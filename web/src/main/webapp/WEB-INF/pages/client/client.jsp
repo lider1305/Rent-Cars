@@ -24,6 +24,7 @@
 </section>
 <inbody>
    <h2><spring:message code="hello_user"/> ${client.name}  ${client.surname}</h2>
+    <h2>${success}</h2>
     <p></p>
    <div> <table width="100%" border="1" class="table">
         <tr>

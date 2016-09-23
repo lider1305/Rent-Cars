@@ -1,4 +1,4 @@
-package by.pvt.DTO;
+package by.pvt.VO;
 
 public class LoginDTO {
     private String email;

@@ -13,19 +13,22 @@ import java.util.List;
  * @param <T>
  */
 public interface IOrderDAO<T> extends DAO<T> {
-    //return all client orders
+    //returns all client orders
     List getClientOrders(long id, int page, int perPages);
 
-    //return all cars which are rented for those dates
+    //returns all cars which are rented for those dates
     List getAllRentCarForDate(Date start, Date end);
 
-    //return  all orders
+    //returns  all orders
     List<Order> getAll(int page, int perPage);
 
-    // return all orders that match sorted in the desired order
+    //returns count of orders
+    long getCountOfAllOrders();
+
+    // returns all orders that match sorted in the desired order
     List getOrderByFilter(int page, int perPage, OrderSortingDTO sort);
 
-    // return count of orders
+    // returns count of orders
     long getCountOrders(Client client);
 
 }

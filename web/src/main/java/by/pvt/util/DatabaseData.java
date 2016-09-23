@@ -21,11 +21,13 @@ import static by.pvt.constants.UIParams.MESSAGE_NULL_LIST;
 
 @Component("dataBase")
 public class DatabaseData {
-    private static final int MIN_PER_PAGE = 5;
     private static final int PAGE_FOR_PAGINATION = 1;
     private static final int START_ROW = 0;
     private static final int ROWS_PER_PAGE = 100;
-
+    @Autowired
+    Sorting sorting;
+    @Autowired
+    Pagination pagination;
     @Autowired
     private Filter filter;
     @Autowired
@@ -62,8 +64,6 @@ public class DatabaseData {
 
     //the method get cars by filter and sort params
     public void getCarsListByFilter(HttpServletRequest request, Model model) {
-        Pagination pagination = Pagination.getInstance();
-        Sorting sorting = Sorting.getInstance();
         CarDTO carDTO = filter.getCarFilter(request);
         //get pagination params
         int pagesCount = 0;

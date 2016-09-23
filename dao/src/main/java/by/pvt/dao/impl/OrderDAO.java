@@ -31,33 +31,42 @@ public class OrderDAO extends BaseDAO<Order> implements IOrderDAO<Order> {
     }
 
     @Override
-    public List getClientOrders(long id, int page, int perPages){
-            Query query = getSession().createQuery(GET_ALL_ORDERS);
-            query.setLong(CLIENT_ID, id);
-            query.setFirstResult(page);
-            query.setMaxResults(perPages);
+    public List getClientOrders(long id, int page, int perPages) {
+        Query query = getSession().createQuery(GET_ALL_ORDERS);
+        query.setLong(CLIENT_ID, id);
+        query.setFirstResult(page);
+        query.setMaxResults(perPages);
         return query.list();
     }
 
     @Override
-    public List getAllRentCarForDate(Date start, Date end){
-            Query query = getSession().createQuery(GET_CAR_FROM_PERIOD);
-            query.setParameter(START_DATE, start);
-            query.setParameter(END_DATE, end);
+    public List getAllRentCarForDate(Date start, Date end) {
+        Query query = getSession().createQuery(GET_CAR_FROM_PERIOD);
+        query.setParameter(START_DATE, start);
+        query.setParameter(END_DATE, end);
         return query.list();
     }
-@Override
-    public List<Order> getAll(int page, int perPage){
-            Criteria criteria = getSession().createCriteria(Order.class);
-            criteria.setFirstResult(page);
-            criteria.setMaxResults(perPage);
-    return (List<Order>) criteria.list();
+
+    @Override
+    public List<Order> getAll(int page, int perPage) {
+        Criteria criteria = getSession().createCriteria(Order.class);
+        criteria.addOrder(org.hibernate.criterion.Order.asc("id"));
+        criteria.setFirstResult(page);
+        criteria.setMaxResults(perPage);
+        return (List<Order>) criteria.list();
+    }
+
+    @Override
+    public long getCountOfAllOrders() {
+        Criteria criteria = getSession().createCriteria(Order.class);
+        criteria.setProjection(Projections.rowCount());
+        return (long) criteria.uniqueResult();
     }
 
     @Override
     public List getOrderByFilter(int page, int perPage, OrderSortingDTO sort) {
         List result;
-            SortingUtil sortingUtil = SortingUtil.getInstance();
+        SortingUtil sortingUtil = SortingUtil.getInstance();
         Criteria criteria = getSession().createCriteria(Order.class);
         if (sort.isASC()) {
             criteria.addOrder(org.hibernate.criterion.Order.asc(sortingUtil.orderSorting(sort)));

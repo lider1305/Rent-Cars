@@ -26,7 +26,7 @@
     <h2><spring:message code="all_users"/></h2>
     <h2>${message_error_get_users}</h2>
     <div>
-        <form  method="POST" action="get_all_users" >
+        <form  method="GET" action="get_all_users" >
             <table>
                 <tr>
                     <td width="5%"><spring:message code="client_id"/></td>

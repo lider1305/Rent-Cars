@@ -1,6 +1,6 @@
 package by.pvt.controller;
 
-import by.pvt.DTO.LoginDTO;
+import by.pvt.VO.LoginDTO;
 import by.pvt.constants.Constants;
 import by.pvt.pojo.Client;
 import org.springframework.stereotype.Controller;

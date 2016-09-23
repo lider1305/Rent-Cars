@@ -45,6 +45,7 @@ public class Constants {
     public static final String FILTER_YEAR_TO = "filterYearTo";
     // auto param
     public static final String AUTO_MODEL = "model";
+    public static final String CAR = "car";
     public static final String ID = "id";
     public static final String AUTO_BRAND = "brand";
     public static final String AUTO_BODY_TYPE = "body_type";
@@ -53,7 +54,7 @@ public class Constants {
     public static final String AUTO_YEAR_MANUFACTURE = "year";
     public static final String AUTO_AMOUNT_PER_DAY = "amount";
     public static final String YEAR_OF_MANUFACTURE = "yearOfManufacture";
-
+    public static final String ALL_CAR = "carAll";
     //page params
     public static final String PAGES = "pages";
     public static final String PER_PAGES = "perPages";

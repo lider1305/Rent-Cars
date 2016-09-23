@@ -1,27 +1,21 @@
 package by.pvt.util;
 
-import by.pvt.DTO.PaginationDTO;
+import by.pvt.VO.PaginationDTO;
 import by.pvt.constants.Constants;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
 import static by.pvt.constants.Constants.*;
-
+@Component("pagination")
 public class Pagination {
     private static final int MIN_ROWS_ON_PAGE = 5;
     private static final int FIRST_PAGE = 1;
     private static final int PAGE_FOR_PAGINATION = 1;
-    private static Pagination instance;
 
-    private Pagination() {
+    public Pagination() {
     }
 
-    public static synchronized Pagination getInstance() {
-        if (instance == null) {
-            instance = new Pagination();
-        }
-        return instance;
-    }
 
     // the method receives a  number of records per page
     public int getItemPerPage(HttpServletRequest request) {

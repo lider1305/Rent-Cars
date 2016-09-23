@@ -31,42 +31,35 @@
         <s:form method="POST" action="new_user" modelAttribute="client" onclick="validateRegistration()">
             Введите ваши данные:<br/><br/>
             <spring:message code="client_name"/>: *<br/>
-            ${exception_null_name}
             <s:input type="text" name="name" path="name" value="" size="20"/>
             <s:errors path="name" cssClass="error-validation"/><br/>
 
             <spring:message code="client_sur_name"/>: *<br/>
-            ${exception_null_surname}
             <s:input type="text" name="surname" path="surname" id="surname" value="" size="20"/>
             <s:errors path="surname" cssClass="error-validation"/><br/>
 
             <spring:message code="client_email"/>: *<br/>
-            ${exception_null_mail}
             <s:input type="text" name="email" path="email" id="email" value="" size="20"/>
             <s:errors path="email" cssClass="error-validation"/><br/>
 
             <spring:message code="client_password"/>: *<br/>
-            ${exception_null_password}
             <s:input type="text" name="password" path="password" id="password" value="" size="20"/>
             <s:errors path="password" cssClass="error-validation"/><br/>
 
             <spring:message code="client_phone"/>: *<br/>
-            ${exception_null_phone}
             <s:input type="text" name="phone" path="phone" id="phone" value="" size="20"/>
             <s:errors path="phone" cssClass="error-validation"/><br/>
 
             <spring:message code="client_passport"/>: *<br/>
-            ${exception_null_passport}
+
             <s:input type="text" name="passport" path="passports.passport" id="passport" value="" size="20"/>
             ${passport_error}<br/><br/>
 
             <spring:message code="client_passport_start"/>: *<br/>
-            ${exception_null_date}
             <s:input type="text" name="passportIssueDate" readonly="true" path="passports.passportIssueDate" id="passportIssueDate" class="tcal" value=""/>
             ${date_error}<br/>
 
             <spring:message code="client_passport_end"/>: *<br/>
-            ${exception_null_date}
             <s:input type="text" path="passports.passportEndDate" readonly="true" name="passportEndDate" id="passportEndDate" class="tcal" value=""/>
             ${date_error}<br/>
 

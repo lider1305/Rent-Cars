@@ -17,9 +17,8 @@ import java.io.Serializable;
 import static by.pvt.exception.ExceptionMessages.*;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.READ_COMMITTED)
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class BaseService<T extends Entity> implements IServices<T> {
-
     private String message;
     @Autowired
     private DAO<T> baseDAO;
@@ -30,7 +29,7 @@ public class BaseService<T extends Entity> implements IServices<T> {
             baseDAO.save(t);
         } catch (HibernateException e) {
             message = ERROR_SAVE + t.getClass();
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
     }
@@ -42,7 +41,7 @@ public class BaseService<T extends Entity> implements IServices<T> {
             t = baseDAO.get(clazz, id);
         } catch (HibernateException e) {
             message = ERROR_GETTING + clazz.getClass();
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return t;
@@ -54,7 +53,7 @@ public class BaseService<T extends Entity> implements IServices<T> {
             baseDAO.update(t);
         } catch (HibernateException e) {
             message = ERROR_UPDATE + t.getClass();
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
     }
@@ -65,7 +64,7 @@ public class BaseService<T extends Entity> implements IServices<T> {
             baseDAO.delete(t);
         } catch (HibernateException e) {
             message = ERROR_DELETE + t.getClass();
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
     }

@@ -37,7 +37,7 @@
 </section>
 <inbody>
     <h2>Фильтр</h2>
-    <h3>${message_wrong_param}</h3>
+    <h3><c:if test="${message_wrong_param ne null}"><spring:message code="message_no_chosen"/></c:if></h3>
     <h3>${exception_null_date}</h3>
     <h3>${exception_wrong_date}</h3>
     <h3>${exception_wrong_date_end}</h3>
@@ -78,7 +78,8 @@
                 <tr>
                     <td colspan="8"></td>
                 </tr>
-            </table><br/>
+            </table>
+            <br/>
             <table align="center" border="0">
                 <tr>
                     <td width="20%"><spring:message code="date_start_of_rent"/>:</td>
@@ -88,7 +89,8 @@
                 <tr>
                     <td width="20%"><input type="text" readonly="readonly" name="startDate" class="tcal" value=""/></td>
                     <td width="20%"><input type="text" readonly="readonly" name="endDate" class="tcal" value=""/></td>
-                    <td>${car_status} </td>
+                    <td><c:if test="${car_status ne null}">${car_status} <spring:message code="reserved"/></c:if>
+                        <c:if test="${car_status_free ne null}">${car_status_free} <spring:message code="free"/></c:if></td>
                 </tr>
             </table>
             <input type="submit" value="Проверить"/>

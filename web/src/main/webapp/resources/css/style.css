@@ -277,7 +277,7 @@ input[type=submit] {
 
 
 .login {
-    position: fixed;
+    position: absolute;
     z-index: 3;
     right: 10px;
     top: 0px;
@@ -389,11 +389,11 @@ label {
 .login-button {
     position: relative;
     z-index: 2;
-    top: 10px;
+    top: 25px;
     width: 48px;
     height: 48px;
     padding: 0 0 48px;
-    opacity: 0.5;
+    opacity: 0.8;
     /* Fix wrong positioning in Firefox 9 & older (bug 450418) */
     text-indent: 120%;
     white-space: nowrap;
@@ -651,7 +651,7 @@ caption {
     top: 4px;
 }
 .client-menu{
-    position: fixed;
+    position: absolute;
     z-index: 3;
     right: 10px;
     top: 30px;

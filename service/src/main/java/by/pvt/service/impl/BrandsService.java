@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.READ_UNCOMMITTED)
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
 public class BrandsService extends BaseService<Brands> {
     @Autowired
     IBrandsDAO brandsDAO;
@@ -26,7 +26,7 @@ public class BrandsService extends BaseService<Brands> {
             all = brandsDAO.getAll(page, perPage);
         } catch (HibernateException e) {
             String message = ExceptionMessages.ERROR_GET_LIST_OF_BRANDS;
-            SystemLogger.getInstance().setLogger(getClass(), e,message);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(message, e);
         }
         return all;

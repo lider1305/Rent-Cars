@@ -39,4 +39,6 @@ public class Message {
     public static final String ERROR_GET_PASSWORD = "message_error_get_password";
     public static final String ERROR_GET_USERS = "message_error_get_users";
     public static final String ERROR_NULL_LIST = "message_null_list";
+    public static final String RESERVED = "reserved";
+    public static final String FREE = "free";
 }
