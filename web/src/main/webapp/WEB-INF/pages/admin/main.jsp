@@ -25,6 +25,7 @@
 <inbody>
     <h2><spring:message code="hello_user"/> ${client.name} ${client.surname} (ADMIN)</h2>
     <p></p>
+    <h2>${new_car}</h2>
     <div>
         <table width="100%" border="1" class="table">
             <tr>

@@ -50,7 +50,7 @@ public class OrderController {
         return PAGE_ALL_CLIENT_ORDERS;
     }
 
-    @RequestMapping(value = VALUE_CLIENT_ORDERS, method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = VALUE_CLIENT_ORDERS, method = RequestMethod.GET)
     public String getClientOrders(HttpServletRequest request, Model model) {
         Client sessionClient = (Client) request.getSession().getAttribute(CLIENT);
         //get client orders for UI
@@ -62,15 +62,10 @@ public class OrderController {
 
 
     @RequestMapping(value = VALUE_GET_ALL_ORDERS, method = RequestMethod.GET)
-    public String getAllOrdersGet(HttpServletRequest request) {
+    public String getAllOrdersGet(HttpServletRequest request,Model model) {
         Pagination.getInstance().getStartRow(request);
         request.getSession().setAttribute(REQUEST_PAGE, PAGE_ALL_ORDERS);
-        return PAGE_ALL_ORDERS;
-    }
-
-    @RequestMapping(value = VALUE_GET_ALL_ORDERS, method = RequestMethod.POST)
-    public String getAllOrdersPost(HttpServletRequest request, Model model) {
-        int page = Integer.valueOf(request.getParameter(PAGES));
+        int page = Integer.valueOf(request.getParameter(PAGES));//TODO ref
         int perPages = Integer.valueOf(request.getParameter(PER_PAGES));
         //get client orders for UI
         try {
@@ -79,7 +74,6 @@ public class OrderController {
         } catch (ServiceException e) {
             model.addAttribute(UIParams.MESSAGE_ERROR_GET_ORDERS,MessageManager.getInstance().getValue(Message.ERROR_GET_ALL_ORDERS, Locale.getDefault()));
         }
-
         return PAGE_ALL_ORDERS;
     }
 
@@ -127,7 +121,7 @@ public class OrderController {
             model.addAttribute(UIParams.MESSAGE_ERROR_DELETE, MessageManager.getInstance().getValue(Message.ERROR_DELETE_OBJECT, Locale.getDefault()));
         }
 
-        return PAGE_ALL_CLIENT_ORDERS;
+        return REDIRECT_ALL_CLIENT_ORDERS;
     }
 
     @RequestMapping(value = VALUE_EDIT_ORDER, method = RequestMethod.GET)
@@ -171,7 +165,7 @@ public class OrderController {
                 setParamsToOrder(request, order, car, start, end, model);
                 orderService.update(order);
                 request.setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, MessageManager.getInstance().getValue(Message.SUCCESS_ORDER, Locale.getDefault()));
-                return PAGE_ALL_CLIENT_ORDERS;
+                return REDIRECT_ALL_CLIENT_ORDERS;
             } else {
                 order = orderService.get(Order.class, orderId);
                 Date start = DateFormatUtil.dateFormatterFromStringToDate(request.getParameter(ISSUE_DATE));
@@ -184,7 +178,7 @@ public class OrderController {
                 setParamsToOrder(request, order, car, start, end, model);
                 orderService.update(order);
                 request.setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, MessageManager.getInstance().getValue(Message.SUCCESS_ORDER, Locale.getDefault()));
-                return PAGE_ALL_CLIENT_ORDERS;
+                return REDIRECT_ALL_CLIENT_ORDERS;
             }
         } catch (ServiceException e) {
             model.addAttribute(UIParams.MESSAGE_ERROR_UPDATE, MessageManager.getInstance().getValue(Message.SUCCESS_ORDER, Locale.getDefault()));

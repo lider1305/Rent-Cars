@@ -50,21 +50,16 @@ public class CarController {
 
     @RequestMapping(value = VALUE_GET_ALL_CARS,method = RequestMethod.GET)
     public String getAllCars(HttpServletRequest request, Model model) {
-       databaseData.setToSessionCarParams(request,model);
+        databaseData.setToSessionCarParams(request,model);
         Pagination.getInstance().getStartRow(request);
         request.getSession().setAttribute(REQUEST_PAGE, PAGE_ALL_CARS);
+        databaseData.getCarsListByFilter(request, model);
+        request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
         return PAGE_ALL_CARS;
     }
 
-    @RequestMapping(value = VALUE_GET_CARS_BY_FILTER, method = RequestMethod.POST)
-    public String getCarsByFilterPost(HttpServletRequest request, Model model) {
-        databaseData.getCarsListByFilter(request, model);
-        request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
-        return (String) request.getSession().getAttribute(REQUEST_PAGE);
-    }
-
     @RequestMapping(value = VALUE_GET_CARS_BY_FILTER, method = RequestMethod.GET)
-    public String getCarsByFilterGet(HttpServletRequest request, Model model){
+    public String getCarsByFilterPost(HttpServletRequest request, Model model) {
         databaseData.getCarsListByFilter(request, model);
         request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
         return (String) request.getSession().getAttribute(REQUEST_PAGE);
@@ -96,11 +91,11 @@ public class CarController {
             newCar.setStatus(statusOfCarService.get(StatusOfCar.class, 2));
 
             carService.save(newCar);
-            request.setAttribute(UIParams.REQUEST_SUCCESS_ADD_NEW_CAR,
+            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_ADD_NEW_CAR,
                     MessageManager.getInstance().getValue(Message.SUCCESS_ADD_NEW_CAR, Locale.getDefault()));
         }catch (ServiceException e){
             model.addAttribute(MESSAGE_ERROR_SAVE_CAR,MessageManager.getInstance().getValue(Message.ERROR_SAVE_OBJECT, Locale.getDefault()));
         }
-        return PAGE_ADD_CAR;
+        return REDIRECT_PAGE_ADD_CAR;
     }
 }

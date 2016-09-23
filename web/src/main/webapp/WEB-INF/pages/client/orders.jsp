@@ -27,7 +27,7 @@
     <h2><spring:message code="all_orders"/></h2>
     <div>
 <h2>${message_error_delete}</h2>
-        <form method="POST" action="client_orders">
+        <form method="GET" action="client_orders">
             <table>
                 <tr>
                     <td colspan="2" width="10%">Сортировать по:

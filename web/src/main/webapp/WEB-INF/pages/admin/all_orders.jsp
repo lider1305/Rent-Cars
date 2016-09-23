@@ -27,7 +27,7 @@
     <h2><spring:message code="all_orders"/></h2>
     <div>
         ${message_error_get_orders}
-        <form  method="POST" action="get_all_orders" >
+        <form  method="GET" action="get_all_orders" >
             <table>
                 <tr>
                     <td width="10%"><spring:message code="client_id"/></td>

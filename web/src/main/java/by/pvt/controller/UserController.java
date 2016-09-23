@@ -87,7 +87,7 @@ public class UserController {
                 model.addAttribute(CLIENT, clientUI);
                 HttpSession session = request.getSession();
                 session.setAttribute(CLIENT, clientUI);
-                return PAGE_USER;
+                return REDIRECT_PAGE_USER;
             }
             model.addAttribute(PASSWORD_ERROR, MessageManager.getInstance().getValue(PASSWORD_ERROR_I18N, Locale.getDefault()));
             return PAGE_INDEX;
@@ -128,7 +128,7 @@ public class UserController {
 
         HttpSession session = request.getSession();
         session.setAttribute(CLIENT, client);
-        return PAGE_CLIENT;
+        return REDIRECT_PAGE_CLIENT;
     }
 
     @RequestMapping(value = VALUE_GET_PASSWORD, method = RequestMethod.POST)
@@ -165,7 +165,7 @@ public class UserController {
             model.addAttribute(MESSAGE_ERROR_SAVE_USER,MessageManager.getInstance().getValue(Message.ERROR_SAVE_OBJECT, Locale.getDefault()));
             model.addAttribute(MESSAGE_NULL_PARAM, e.getMessage());
         }
-        return PAGE_INDEX;
+        return REDIRECT_INDEX;
 
     }
 

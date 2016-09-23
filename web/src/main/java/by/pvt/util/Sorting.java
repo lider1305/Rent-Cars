@@ -36,37 +36,26 @@ public class Sorting {
     //the method gets the parameters for sorting
     public CarSortingDTO getSortingParam(HttpServletRequest request) {
         CarSortingDTO sortingDTO = new CarSortingDTO();
+        setCarSortingDTO(sortingDTO);
         if (request.getParameter(SORT_NAME) != null) {
             String param = request.getParameter(SORT_NAME);
             if (param.equals(AUTO_BRAND)) {
                 sortingDTO.setBrand(param);
-            } else {
-                sortingDTO.setBrand("");
             }
             if (param.equals(AUTO_BODY_TYPE)) {
                 sortingDTO.setBodyType(param);
-            } else {
-                sortingDTO.setBodyType("");
             }
             if (param.equals(AUTO_ENGINE_TYPE)) {
                 sortingDTO.setEngineType(param);
-            } else {
-                sortingDTO.setEngineType("");
             }
             if (param.equals(AUTO_TRANSMISSION_TYPE)) {
                 sortingDTO.setTransmissionType(param);
-            } else {
-                sortingDTO.setTransmissionType("");
             }
             if (param.equals(AUTO_AMOUNT_PER_DAY)) {
                 sortingDTO.setAmount(param);
-            } else {
-                sortingDTO.setAmount("");
             }
             if (param.equals(YEAR_OF_MANUFACTURE)) {
                 sortingDTO.setYear(param);
-            } else {
-                sortingDTO.setYear("");
             }
             request.setAttribute(SORT_NAME, param);
         } else {
@@ -74,6 +63,15 @@ public class Sorting {
             request.setAttribute(SORT_NAME, AUTO_BRAND);
         }
         return sortingDTO;
+    }
+//sets default params
+    private void setCarSortingDTO(CarSortingDTO sortingDTO) {
+        sortingDTO.setBrand("");
+        sortingDTO.setBodyType("");
+        sortingDTO.setEngineType("");
+        sortingDTO.setTransmissionType("");
+        sortingDTO.setAmount("");
+        sortingDTO.setYear("");
     }
 
     //the method gets the parameters for sorting

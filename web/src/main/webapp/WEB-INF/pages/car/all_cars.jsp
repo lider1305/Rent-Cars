@@ -38,7 +38,7 @@
 <inbody>
     <h2>Фильтр</h2>
     <div>
-        <form method="POST" action="get_cars_by_filter">
+        <form method="GET" action="get_cars_by_filter">
             <jsp:include page="/WEB-INF/pages/modules/filters/cars_filter.jsp"/>
             <input type="submit" value="Применить"/>
 

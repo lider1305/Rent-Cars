@@ -45,7 +45,7 @@
             <h3>${car_is_rent_on_this_date}</h3>
             <h3>${exception_wrong_date}</h3>
             <h3>${exception_wrong_date_end}</h3>
-            <form method="POST" action="get_cars_by_filter">
+            <form method="GET" action="get_cars_by_filter">
                 <jsp:include page="/WEB-INF/pages/modules/filters/cars_filter.jsp"/>
                 <input type="submit" value="Применить"/>
             </form>
