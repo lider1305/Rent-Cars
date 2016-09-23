@@ -5,4 +5,5 @@ out
 service/target/
 dao/target/
 web/target/
+entities/target/
 
