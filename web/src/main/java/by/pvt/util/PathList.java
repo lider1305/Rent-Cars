@@ -36,6 +36,7 @@ public class PathList {
         list.add("/add_car");
         list.add("/get_all_users");
         list.add("/get_all_orders");
+        list.add("/process_order");
         return list;
     }
 }

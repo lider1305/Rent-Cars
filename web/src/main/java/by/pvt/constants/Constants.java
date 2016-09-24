@@ -19,6 +19,7 @@ public class Constants {
     public static final String ORDER_EDIT = "orderEdit";
     public static final String FILTER_PARAM = "filter_param";
     public static final String LOGIN = "login";
+    public static final String STATUS_OF_ORDER = "statusOfOrder";
     // client params
     public static final String CLIENT_EMAIL = "mail";
     public static final String CLIENT_PASSWORD = "password";
@@ -54,7 +55,7 @@ public class Constants {
     public static final String AUTO_YEAR_MANUFACTURE = "year";
     public static final String AUTO_AMOUNT_PER_DAY = "amount";
     public static final String YEAR_OF_MANUFACTURE = "yearOfManufacture";
-    public static final String ALL_CAR = "carAll";
+    public static final String ALL_CARS = "carAll";
     //page params
     public static final String PAGES = "pages";
     public static final String PER_PAGES = "perPages";

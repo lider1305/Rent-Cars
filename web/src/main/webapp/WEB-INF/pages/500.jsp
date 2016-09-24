@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          isErrorPage="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <%@ include file="/WEB-INF/pages/modules/work.jsp" %>
-    <title><fmt:message key="title_error"/></title>
+    <title><spring:message code="title_error"/></title>
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/modules/slogan.jsp" %>

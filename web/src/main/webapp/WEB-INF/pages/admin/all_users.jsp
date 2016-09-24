@@ -58,12 +58,7 @@
             </c:forEach>
             <input type="submit" value="<spring:message code="button_show"/>" />
             <jsp:include page="/WEB-INF/pages/modules/pagination/pagination_all_order.jsp"/>
-            <select name="perPages">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option></select>
+            <jsp:include page="/WEB-INF/pages/modules/pagination/per_page.jsp"/>
         </form>
     </div>
 </inbody>

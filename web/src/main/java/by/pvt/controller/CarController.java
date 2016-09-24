@@ -83,12 +83,12 @@ public class CarController {
     @RequestMapping(value = VALUE_ADD_CAR, method = RequestMethod.GET)
     public String addCarGet(HttpServletRequest request, Model model, ModelMap modelMap) {
         databaseData.setToSessionCarParams(request, model);
-        modelMap.put(ALL_CAR, new CarAddDTO());
+        modelMap.put(ALL_CARS, new CarAddDTO());
         return PAGE_ADD_CAR;
     }
 
     @RequestMapping(value = VALUE_ADD_CAR, method = RequestMethod.POST)
-    public String addCarPost(HttpServletRequest request, Model model, @Valid @ModelAttribute(ALL_CAR) CarAddDTO car, BindingResult result) {
+    public String addCarPost(HttpServletRequest request, Model model, @Valid @ModelAttribute(ALL_CARS) CarAddDTO car, BindingResult result) {
         if (result.hasErrors()) {
             request.setAttribute(REQUEST_EXCEPTION_NULL_MODEL, Message.PARAM_NULL_MODEL);
             return PAGE_ADD_CAR;

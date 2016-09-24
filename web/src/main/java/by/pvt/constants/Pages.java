@@ -10,6 +10,7 @@ public class Pages {
     public static final String PAGE_ALL_CARS = "car/all_cars";
     public static final String PAGE_RENT_CAR = "car/rent_car";
     public static final String PAGE_ALL_CLIENT_ORDERS = "client/orders";
+    public static final String PAGE_PROCESS_ORDER = "admin/process_order";
     public static final String PAGE_EDIT_CLIENT = "client/edit_client_data";
     public static final String PAGE_SUCCESS_REDIRECT = "redirect:success";
     public static final String PAGE_ADMIN = "admin/main";
@@ -25,6 +26,7 @@ public class Pages {
     public static final String REDIRECT_PAGE_CLIENT = "redirect:client/client";
     public static final String REDIRECT_INDEX = "redirect:index";
     public static final String REDIRECT_ALL_CLIENT_ORDERS = "redirect:client_orders";
+    public static final String REDIRECT_ALL_ORDERS = "redirect:get_all_orders";
     //error pages
     public static final String PAGE_404 = "404";
     public static final String PAGE_500 = "500";
@@ -55,5 +57,5 @@ public class Pages {
     public static final String VALUE_GET_CARS_BY_FILTER = "get_cars_by_filter";
     public static final String VALUE_ADD_CAR = "add_car";
     public static final String VALUE_CHECK_CAR = "check_car";
-    public static final String PAGE_SUCCESS = "success";
+    public static final String PROCESS_ORDER = "process_order";
 }

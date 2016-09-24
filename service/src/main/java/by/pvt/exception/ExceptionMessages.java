@@ -27,4 +27,6 @@ public class ExceptionMessages {
     public static final String UNABLE_TO_GET_COUNT_OF_ORDERS = "Unable to get count of orders";
     //TransmissionTypeService
     public static final String ERROR_GET_LIST_OF_TRANSMISSION_TYPES = "Error get list of transmission types";
+    //Order status
+    public static final String ERROR_GET_LIST_OF_ORDER_STATUSES = "Error get list of order statuses";
 }

@@ -44,13 +44,7 @@
                     <td width="15%"><input type="radio" name="sort_type" value="true" checked></td>
                     <td width="10%">Убыванию</td>
                     <td width="15%"><input type="radio" name="sort_type" value="false"></td>
-                    <td width="15"><select name="perPages" id="perPages">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select></td>
+                    <td width="15"><jsp:include page="/WEB-INF/pages/modules/pagination/per_page.jsp"/></td>
                     <td colspan="2" width="10%"></td>
                 </tr>
                 <tr>
