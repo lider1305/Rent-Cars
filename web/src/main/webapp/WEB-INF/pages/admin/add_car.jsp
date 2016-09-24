@@ -49,8 +49,9 @@
                             <s:option value="${brands.id}"><c:out value="${brands.brandName}"/></s:option>
                             </c:forEach>
                         </s:select></td>
-                        <td width="20%"><s:input type="text" name="model" path="model" value="" size="10"/><br/>
-                            <s:errors path="model" cssClass="error-validation"/></td>
+                        <td width="20%"> <s:errors path="model" cssClass="error-validation"/><br/>
+                            <s:input type="text" name="model" path="model" value="" size="10"/>
+                           </td>
                         <td width="10%"><s:select name="body_type" path="bodyType" class="input">
                             <c:forEach var="body" items="${all_body_types}" >
                                 <option value="<c:out value="${body.id}"/>"><c:out value="${body.bodyType}"/></option>

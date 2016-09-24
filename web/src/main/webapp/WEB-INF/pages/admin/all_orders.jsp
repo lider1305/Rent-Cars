@@ -27,6 +27,12 @@
     <h2><spring:message code="all_orders"/></h2>
     <div>
         ${message_error_get_orders}
+        <left> <select name="perPages">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option></select></left>
         <form  method="GET" action="get_all_orders" >
             <table>
                 <tr>
@@ -61,12 +67,6 @@
             </c:forEach>
             <input type="submit" value="<spring:message code="button_show"/>" />
             <jsp:include page="/WEB-INF/pages/modules/pagination/pagination_all_order.jsp"/>
-            <select name="perPages">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option></select>
         </form>
     </div>
 </inbody>

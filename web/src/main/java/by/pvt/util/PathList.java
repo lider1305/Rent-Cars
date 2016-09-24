@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathList {
-    private List<String> list = new ArrayList<>();
+    private  List<String> list = new ArrayList<>();
 
-    public List<String> setListURL(){
+    public  List<String> setListURLGuest(){
         list.add("/go_to_registration");
         list.add("/main");
         list.add("/index");
@@ -28,6 +28,14 @@ public class PathList {
         list.add("/resources/js/bootstrap.js");
         list.add("/resources/images/fone.jpg");
         list.add("/resources/images/arrow.png");
+        return list;
+    }
+
+    public  List<String> setListURLAdmin(){
+        list.add("/admin/main");
+        list.add("/add_car");
+        list.add("/get_all_users");
+        list.add("/get_all_orders");
         return list;
     }
 }

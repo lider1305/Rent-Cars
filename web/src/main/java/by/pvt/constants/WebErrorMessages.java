@@ -12,6 +12,7 @@ public class WebErrorMessages {
     public static final String ERROR_SQL = "Ошибка подключения к базе";
     public static final String ERROR_SQL_CONNECT = "Ошибка соединения с базой данных";
     public static final String SESSION_CLOSE = " Ваша сессия закончилась, пожалуйста войдите в систему заново!";
+    public static final String NOT_ACCESS = " У Вас не достаточно прав доступа!";
     public static final String EXCEPTION = "Произошла ошибка, попробуйте еще раз";
     public static final String ERROR_POST_REQUEST = "Request cannot be completed";
 }

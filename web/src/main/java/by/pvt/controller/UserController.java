@@ -11,6 +11,7 @@ import by.pvt.service.impl.ClientService;
 import by.pvt.service.impl.RoleService;
 import by.pvt.service.impl.StatusOfClientService;
 import by.pvt.util.MessageManager;
+import by.pvt.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
@@ -44,6 +45,8 @@ public class UserController {
     StatusOfClientService statusOfClientService;
     @Autowired
     RoleService roleService;
+    @Autowired
+    Pagination pagination;
 
     @ExceptionHandler(NullPointerException.class)
     public String handleIOException(HttpServletRequest request) {
@@ -170,11 +173,11 @@ public class UserController {
 
     @RequestMapping(value = VALUE_GET_ALL_USERS, method = RequestMethod.GET)
     public String getAllUsersPost(HttpServletRequest request, Model model) {
-        int perPages = Integer.valueOf(request.getParameter(PER_PAGES));
-        int page = Integer.valueOf(request.getParameter(PAGES));
+        pagination.getStartRow(request);
+        request.getSession().setAttribute(REQUEST_PAGE, PAGE_ALL_USERS);
         List users = null;
         try {
-            users = clientServices.getAll(page, perPages);
+            users = clientServices.getAll(pagination.getStartRow(request) - 1, pagination.getItemPerPage(request));
         } catch (ServiceException e) {
             model.addAttribute(MESSAGE_ERROR_GET_USERS, MessageManager.getInstance().getValue(Message.ERROR_GET_USERS, Locale.getDefault()));
         }

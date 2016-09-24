@@ -1,8 +1,6 @@
 package by.pvt.filters;
 
 import by.pvt.constants.Pages;
-import by.pvt.constants.UIParams;
-import by.pvt.constants.WebErrorMessages;
 import by.pvt.pojo.Client;
 import by.pvt.util.PathList;
 
@@ -18,6 +16,8 @@ import static by.pvt.constants.Constants.CLIENT;
 public class AuthenticationFilter implements Filter {
     private static final String ADMIN = "ADMIN";
     private static final String USER = "USER";
+    private List<String> guestURL = new PathList().setListURLGuest();
+    private List<String> adminURL = new PathList().setListURLAdmin();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -31,22 +31,28 @@ public class AuthenticationFilter implements Filter {
 
         Client sessionClient = (Client) httpRequest.getSession().getAttribute(CLIENT);
         //check url without login
-        if (requestURI.equals(checkIn(httpRequest))) {
+        if (requestURI.equals(checkIn(httpRequest, guestURL))) {
             chain.doFilter(httpRequest, httpResponse);
             //check user Role and redirect to the page according to the role
         } else if (sessionClient != null & requestURI.equals(httpRequest.getContextPath() + Pages.PAGE_USER)) {
             getRole(request, response, sessionClient);
+            //check authorization
         } else if (sessionClient != null) {
-            chain.doFilter(request, response);
+            //if user has role user, only user URLs
+            if (sessionClient.getRole().getName().equals(USER) & requestURI.equals(checkIn(httpRequest, adminURL))) {
+                httpResponse.sendRedirect(httpRequest.getContextPath() +Pages.VALUE_INDEX);
+                //if user has admin access, all URLs
+            } else {
+                chain.doFilter(request, response);
+            }
             //if session is over or user want to get page without login
         } else {
             httpRequest.getSession().invalidate();
-            request.setAttribute(UIParams.REQUEST_SESSION_CLOSE, WebErrorMessages.SESSION_CLOSE);
-            request.getRequestDispatcher(Pages.PAGE_INDEX)
-                    .forward(request, response);
+            httpResponse.sendRedirect(httpRequest.getContextPath() +Pages.VALUE_INDEX);
         }
     }
-//check the role
+
+    //check the role
     private void getRole(ServletRequest request, ServletResponse response, Client sessionClient) throws ServletException, IOException {
         switch (sessionClient.getRole().getName()) {
             case ADMIN:
@@ -63,11 +69,11 @@ public class AuthenticationFilter implements Filter {
                 break;
         }
     }
-//check the url
-    private String checkIn(HttpServletRequest httpRequest) throws IOException, ServletException {
-        List<String> lines = new PathList().setListURL();
+
+    //check the url
+    private String checkIn(HttpServletRequest httpRequest, List<String> list) throws IOException, ServletException {
         String path = "";
-        for (String line : lines) {
+        for (String line : list) {
             path = httpRequest.getContextPath() + line;
             if (path.equals(httpRequest.getRequestURI())) {
                 path = httpRequest.getRequestURI();

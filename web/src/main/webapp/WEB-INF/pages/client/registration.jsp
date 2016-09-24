@@ -28,7 +28,7 @@
 <inbody>
     <div>
         <h2>${message_error_save_user}</h2>
-        <s:form method="POST" action="new_user" modelAttribute="client" onclick="validateRegistration()">
+        <s:form method="POST" action="new_user" modelAttribute="client" onsubmit="validateRegistration()">
             Введите ваши данные:<br/><br/>
             <spring:message code="client_name"/>: *<br/>
             <s:input type="text" name="name" path="name" value="" size="20"/>
