@@ -20,6 +20,7 @@ public class Constants {
     public static final String FILTER_PARAM = "filter_param";
     public static final String LOGIN = "login";
     public static final String STATUS_OF_ORDER = "statusOfOrder";
+    public static final String ORDER_DTO = "orderDTO";
     // client params
     public static final String CLIENT_EMAIL = "mail";
     public static final String CLIENT_PASSWORD = "password";

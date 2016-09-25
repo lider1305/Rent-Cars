@@ -86,9 +86,8 @@ public class CarService extends BaseService<Car> {
             newCar.setStatus(statusOfCarService.get(StatusOfCar.class, 2));
             super.save(newCar);
         } catch (ServiceException e) {
-            message = ERROR_SAVE;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_SAVE_OBJECT);
         }
 
     }

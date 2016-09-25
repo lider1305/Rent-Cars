@@ -11,6 +11,10 @@ public class ServiceException extends Exception {
         this.message = message;
     }
 
+    public ServiceException(String message) {
+        this.message = message;
+    }
+
     public String getMessage() {
         return message;
     }

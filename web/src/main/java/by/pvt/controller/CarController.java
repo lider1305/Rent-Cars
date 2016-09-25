@@ -1,24 +1,32 @@
 package by.pvt.controller;
 
 import by.pvt.VO.CarAddDTO;
+import by.pvt.VO.OrderDTO;
+import by.pvt.constants.ConstantsValues;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Car;
-import by.pvt.service.impl.*;
+import by.pvt.service.impl.CarService;
+import by.pvt.service.impl.OrderService;
 import by.pvt.util.DatabaseData;
-import by.pvt.util.DateFormatUtil;
+import by.pvt.util.DateAndAmount;
 import by.pvt.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static by.pvt.constants.Constants.*;
@@ -28,13 +36,13 @@ import static by.pvt.constants.UIParams.*;
 @org.springframework.stereotype.Controller
 public class CarController {
     @Autowired
-    OrderController orderController;
+    private OrderService orderService;
     @Autowired
-    DatabaseData databaseData;
+    private DatabaseData databaseData;
     @Autowired
     private CarService carService;
     @Autowired
-    Pagination pagination;
+    private Pagination pagination;
 
     @RequestMapping(value = VALUE_RENT_CAR, method = RequestMethod.GET)
     public String rentCar(HttpServletRequest request, Model model) {
@@ -49,34 +57,43 @@ public class CarController {
     }
 
     @RequestMapping(value = VALUE_CHECK_CAR, method = RequestMethod.GET)
-    public String checkCarForReserve(HttpServletRequest request, Model model) throws ServiceException {
-        Car car;
-        setFilterParams(request, model, PAGE_ALL_CARS);
-        if (request.getParameter(CAR_ID_FOR_ORDER) == null) {
-            model.addAttribute(REQUEST_WRONG_PARAM, Message.PARAM_NO_CHOSEN);
-        } else {
-            car = carService.get(Car.class, Integer.valueOf(request.getParameter(CAR_ID_FOR_ORDER)));
-            // checks dates for null
-            if (orderController.dateValidation(request, ISSUE_DATE)) return PAGE_ALL_CARS;
-            if (orderController.dateValidation(request, END_DATE)) return PAGE_RENT_CAR;
-            //get dates
-            Date start = DateFormatUtil.dateFormatterFromStringToDate(request.getParameter(ISSUE_DATE));
-            Date end = DateFormatUtil.dateFormatterFromStringToDate(request.getParameter(END_DATE));
-            //checks dates for relevance
-            if (orderController.checkDateOnActual(request, start)) return PAGE_ALL_CARS;
-            if (orderController.checkEndDateOnActual(request, start, end)) return PAGE_ALL_CARS;
-            if (orderController.checkCarForBooking(car, start, end, model)) {
-                model.addAttribute(CAR_STATUS, car.getBrand().getBrandName() + " " + car.getModel());
-            } else {
-                model.addAttribute(CAR_STATUS_FREE, car.getBrand().getBrandName() + " " + car.getModel());
-            }
+    public String checkCarForReserve(@Valid @ModelAttribute(ORDER_DTO) OrderDTO orderDTO,BindingResult result,HttpServletRequest request, Model model){
+        if (result.hasErrors()) {
+            return PAGE_ALL_CARS;
         }
+       try{
+           getCarsByDefaultFilter(request, model);
+           if(orderDTO.getCarId()==0){
+               model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_NO_CHOSEN);
+               return PAGE_ALL_CARS;
+           }
+           Car car= carService.get(Car.class,orderDTO.getCarId());
+           //checks dates for relevance
+           if(DateAndAmount.checkDateOnActual(orderDTO.getStartDate())){
+               model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE);
+               return PAGE_ALL_CARS;
+           }
+           if(DateAndAmount.checkEndDateOnActual(orderDTO.getStartDate(),orderDTO.getEndDate())){
+               model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE_END);
+               return PAGE_ALL_CARS;
+           }
+          if(orderService.checkCarForBooking(car, orderDTO.getStartDate(),orderDTO.getEndDate())){
+               model.addAttribute(CAR_STATUS, car.getBrand().getBrandName() + " " + car.getModel());
+           } else {
+               model.addAttribute(CAR_STATUS_FREE, car.getBrand().getBrandName() + " " + car.getModel());
+              return PAGE_ALL_CARS;
+           }
+       }catch (ServiceException e){
+           model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
+           return PAGE_ALL_CARS;
+       }
         return PAGE_ALL_CARS;
     }
 
     @RequestMapping(value = VALUE_GET_CARS_BY_FILTER, method = RequestMethod.GET)
     public String getCarsByFilterPost(HttpServletRequest request, Model model) {
         getCarsByDefaultFilter(request, model);
+        model.addAttribute(ORDER_DTO,new OrderDTO());
         return (String) request.getSession().getAttribute(REQUEST_PAGE);
     }
 
@@ -106,11 +123,19 @@ public class CarController {
         databaseData.setToSessionCarParams(request, model);
         pagination.getStartRow(request);
         request.getSession().setAttribute(REQUEST_PAGE, path);
+        model.addAttribute(ORDER_DTO,new OrderDTO());
         getCarsByDefaultFilter(request, model);
     }
 
     private void getCarsByDefaultFilter(HttpServletRequest request, Model model) {
         databaseData.getCarsListByFilter(request, model);
         request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) throws Exception {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(ConstantsValues.DATE_PATTERN);
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }

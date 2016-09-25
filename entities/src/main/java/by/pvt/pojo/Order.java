@@ -4,7 +4,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -27,12 +26,10 @@ public class Order extends Entity {
     private Client client;
 
     @Column(name = "START_DATE")
-    @NotNull
     @Temporal(TemporalType.DATE)
     private Date startDate;
 
     @Column(name = "END_DATE", nullable = false)
-    @NotNull
     @Temporal(TemporalType.DATE)
     private Date endDate;
 

@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
-        %>
+         errorPage="/WEB-INF/pages/error.jsp" %>
 <html>
 <head>
     <%@ include file="/WEB-INF/pages/modules/work.jsp" %>

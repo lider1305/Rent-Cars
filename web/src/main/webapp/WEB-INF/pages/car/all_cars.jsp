@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          errorPage="/WEB-INF/pages/error.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <%@ include file="/WEB-INF/pages/modules/work.jsp" %>
@@ -37,17 +37,14 @@
 </section>
 <inbody>
     <h2>Фильтр</h2>
-    <h3><c:if test="${message_wrong_param ne null}"><spring:message code="message_no_chosen"/></c:if></h3>
-    <h3>${exception_null_date}</h3>
-    <h3>${exception_wrong_date}</h3>
-    <h3>${exception_wrong_date_end}</h3>
+    <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
     <div>
         <form method="GET" action="get_cars_by_filter">
             <jsp:include page="/WEB-INF/pages/modules/filters/cars_filter.jsp"/>
             <input type="submit" value="Применить"/>
         </form>
 
-        <form method="get" action="check_car">
+        <s:form method="GET" action="check_car" modelAttribute="orderDTO">
             <table>
                 <h2><spring:message code="list_of_all_cars"/></h2>
                 <tr>
@@ -72,7 +69,7 @@
                         <td width="15%"><c:out value="${car.transmissionType.transmissionType}"/></td>
                         <td width="10%"><c:out value="${car.yearOfManufacture}"/></td>
                         <td width="10%"><c:out value="${car.amount} y.e."/></td>
-                        <td width="10%"><input type="radio" name="carId" value="${car.id}"/></td>
+                        <td width="10%"><s:radiobutton path="carId" name="carId" value="${car.id}"/></td>
                     </tr>
                 </c:forEach>
                 <tr>
@@ -80,22 +77,24 @@
                 </tr>
             </table>
             <br/>
-            <table align="center" border="0">
+           <table align="center" border="0">
                 <tr>
                     <td width="20%"><spring:message code="date_start_of_rent"/>:</td>
                     <td width="20%"><spring:message code="date_end_of_rent"/>:</td>
                     <td> Сообщение о статусе автомобиля</td>
                 </tr>
                 <tr>
-                    <td width="20%"><input type="text" readonly="readonly" name="startDate" class="tcal" value=""/></td>
-                    <td width="20%"><input type="text" readonly="readonly" name="endDate" class="tcal" value=""/></td>
+                    <td><s:input type="text" readonly="readonly" path="startDate" name="startDate" class="tcal" value=""/>
+                        <s:errors path="startDate" cssClass="error-validation"/> </td>
+                    <td><s:input type="text" readonly="readonly" path="endDate" name="endDate" class="tcal" value=""/>
+                        <s:errors path="endDate" cssClass="error-validation"/></td>
                     <td><c:if test="${car_status ne null}">${car_status} <spring:message code="reserved"/></c:if>
                         <c:if test="${car_status_free ne null}">${car_status_free} <spring:message code="free"/></c:if></td>
                 </tr>
             </table>
             <input type="submit" value="Проверить"/>
-            <jsp:include page="/WEB-INF/pages/modules/pagination/pagination.jsp"/>
-        </form>
+        </s:form>
+        <jsp:include page="/WEB-INF/pages/modules/pagination/pagination.jsp"/>
     </div>
 </inbody>
 </body>

@@ -19,7 +19,6 @@ import static by.pvt.exception.ExceptionMessages.*;
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class BaseService<T extends Entity> implements IServices<T> {
-    private String message;
     @Autowired
     private DAO<T> baseDAO;
 
@@ -28,9 +27,8 @@ public class BaseService<T extends Entity> implements IServices<T> {
         try {
             baseDAO.save(t);
         } catch (HibernateException e) {
-            message = ERROR_SAVE + t.getClass();
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_SAVE_OBJECT);
         }
     }
 
@@ -40,9 +38,8 @@ public class BaseService<T extends Entity> implements IServices<T> {
         try {
             t = baseDAO.get(clazz, id);
         } catch (HibernateException e) {
-            message = ERROR_GETTING + clazz.getClass();
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_OBJECT);
         }
         return t;
     }
@@ -52,9 +49,8 @@ public class BaseService<T extends Entity> implements IServices<T> {
         try {
             baseDAO.update(t);
         } catch (HibernateException e) {
-            message = ERROR_UPDATE + t.getClass();
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_UPDATE_OBJECT);
         }
     }
 
@@ -63,9 +59,8 @@ public class BaseService<T extends Entity> implements IServices<T> {
         try {
             baseDAO.delete(t);
         } catch (HibernateException e) {
-            message = ERROR_DELETE + t.getClass();
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_DELETE_OBJECT);
         }
     }
 

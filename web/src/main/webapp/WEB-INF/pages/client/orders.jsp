@@ -26,7 +26,7 @@
 <inbody>
     <h2><spring:message code="all_orders"/></h2>
     <div>
-<h2>${message_error_delete}</h2>
+        <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
         <form method="GET" action="client_orders">
             <table>
                 <tr>

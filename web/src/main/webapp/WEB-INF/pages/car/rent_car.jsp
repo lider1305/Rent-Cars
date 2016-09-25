@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <%@ include file="/WEB-INF/pages/modules/work.jsp" %>
@@ -40,19 +41,20 @@
         <c:when test="${client.id > 0}">
     <h2><spring:message code="get_car_to_rent"/></h2>
     <h2><spring:message code="choose_car"/>:<br/></h2>
-            <h3>${message_wrong_param}</h3>
+            <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
             <h3>${exception_null_date}</h3>
             <h3>${car_is_rent_on_this_date}</h3>
             <h3>${exception_wrong_date}</h3>
             <h3>${exception_wrong_date_end}</h3>
-            <form method="GET" action="get_cars_by_filter">
+           <form method="GET" action="get_cars_by_filter">
                 <jsp:include page="/WEB-INF/pages/modules/filters/cars_filter.jsp"/>
                 <input type="submit" value="Применить"/>
             </form>
 
-            <form method="POST" action="make_order">
+            <s:form method="POST" action="make_order" modelAttribute="orderDTO">
+                <s:input path="clientId" type="hidden" value="${sessionScope.client.id}"/>
+                <h2><spring:message code="choose_car"/></h2>
                 <table>
-                    <h2><spring:message code="choose_car"/></h2>
                     <tr>
                         <td width="15%"><spring:message code="auto_brand"/></td>
                         <td width="15%"><spring:message code="auto_model"/></td>
@@ -65,7 +67,7 @@
                     </tr>
                     <c:forEach var="car" items="${cars}">
                         <tr>
-                            <td colspan="7"></td>
+                            <td colspan="8"></td>
                         </tr>
                         <tr>
                             <td width="15%"><c:out value="${car.brand.brandName}"/></td>
@@ -75,7 +77,8 @@
                             <td width="15%"><c:out value="${car.transmissionType.transmissionType}"/></td>
                             <td width="10%"><c:out value="${car.yearOfManufacture}"/></td>
                             <td width="10%"><c:out value="${car.amount} y.e."/></td>
-                            <td width="10%"><input type="radio" name="carId" value="${car.id}"/></td>
+                            <td width="10%"><s:radiobutton  path="carId" name="carId" value="${car.id}"/>
+                            </td>
                         </tr>
                     </c:forEach>
                     <tr>
@@ -89,14 +92,16 @@
                         <td><spring:message code="other_info"/>:</td>
                     </tr>
                     <tr>
-                        <td><input type="text" readonly="readonly" name="startDate" class="tcal" value=""/></td>
-                        <td><input type="text" readonly="readonly" name="endDate" class="tcal" value=""/></td>
-                        <td><input type="text" name="message_for_order" value="Необходим навигатор" size="20"/></td>
+                        <td><s:input type="text" readonly="readonly" path="startDate" name="startDate" class="tcal" value=""/>
+                        <s:errors path="startDate" cssClass="error-validation"/> </td>
+                        <td><s:input type="text" readonly="readonly" path="endDate" name="endDate" class="tcal" value=""/>
+                            <s:errors path="endDate" cssClass="error-validation"/></td>
+                        <td><input type="text" name="message" value="" size="20"/></td>
                     </tr>
                 </table>
                 <input type="submit" value="<fmt:message key="make_order"/>"/>
                 <jsp:include page="/WEB-INF/pages/modules/pagination/pagination.jsp"/>
-            </form>
+            </s:form>
         </c:when>
         <c:when test="${client == null}">
             <h2><fmt:message key="message_for_make_order"/></h2>

@@ -2,11 +2,15 @@ package by.pvt.util;
 
 import by.pvt.VO.CarDTO;
 import by.pvt.VO.CarSortingDTO;
+import by.pvt.VO.OrderSortingDTO;
 import by.pvt.constants.Constants;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.BodyType;
+import by.pvt.pojo.Client;
+import by.pvt.pojo.Order;
+import by.pvt.pojo.StatusOfOrder;
 import by.pvt.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +18,7 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,6 +45,10 @@ public class DatabaseData {
     private TransmissionTypeService transmissionTypeService;
     @Autowired
     private CarService carService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private StatusOfOrderService statusOfOrderService;
 
     //the method get params for cars and put it to session
     public void setToSessionCarParams(HttpServletRequest request, Model model) {
@@ -86,6 +95,33 @@ public class DatabaseData {
         request.setAttribute(Constants.TOTAL_PAGE, pagesCount);
 
     }
-
+    public int getPagesCountForOrders(HttpServletRequest request, Model model, Client sessionClient) {
+        //get pagination params
+        int pagesCount = 0;
+        try {
+            pagesCount = (int) (orderService.getCountOrder(sessionClient) / pagination.getItemPerPage(request));
+        } catch (ServiceException e) {
+            model.addAttribute(UIParams.MESSAGE_GET_COUNT, MessageManager.getInstance().getValue(Message.ERROR_GET_COUNT, Locale.getDefault()));
+        }
+        pagesCount = pagination.getPagesCount(pagesCount);
+        //put sorting params
+        OrderSortingDTO sortingDTO = sorting.getSortingParamOrder(request);
+        sortingDTO.setASC(sorting.getSorting(request));
+        //get the resulting list after filtering and sorting
+        try {
+            List<Order> allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request), sortingDTO);
+            Date today = new Date();
+            for (Order allOrder : allOrders) {
+                if (allOrder.getEndDate().getTime() < today.getTime()) {
+                    allOrder.setOrderStatus(statusOfOrderService.get(StatusOfOrder.class, 5));
+                    orderService.update(allOrder);
+                }
+            }
+            request.setAttribute(UIParams.REQUEST_ORDERS, allOrders);
+        } catch (ServiceException e) {
+            model.addAttribute(UIParams.MESSAGE_GET_LIST_CARS, MessageManager.getInstance().getValue(Message.ERROR_GET_ALL_ORDERS, Locale.getDefault()));
+        }
+        return pagesCount;
+    }
 
 }
