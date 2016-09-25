@@ -21,7 +21,6 @@ import static by.pvt.exception.ExceptionMessages.*;
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
 public class CarService extends BaseService<Car> {
-    private String message;
     @Autowired
     private ICarDAO carDAO;
     @Autowired
@@ -40,9 +39,8 @@ public class CarService extends BaseService<Car> {
         try {
             result = carDAO.getCarByFilter(carDTO, page, perPage, sort);
         } catch (HibernateException e) {
-            message = UNABLE_TO_GET_LIST_OF_CARS;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_LIST_CARS);
         }
         return result;
     }
@@ -52,9 +50,8 @@ public class CarService extends BaseService<Car> {
         try {
             count = carDAO.getCountCars(carDTO);
         } catch (HibernateException e) {
-            message = UNABLE_TO_GET_COUNT_OF_CARS;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_COUNT);
         }
         return count;
     }
@@ -64,9 +61,8 @@ public class CarService extends BaseService<Car> {
         try {
             all = carDAO.getAll(page, perPage);
         } catch (HibernateException e) {
-            String message = ERROR_GET_LIST_OF_CARS;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_LIST_CARS);
         }
         return all;
     }

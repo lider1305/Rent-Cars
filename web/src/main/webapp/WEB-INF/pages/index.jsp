@@ -29,8 +29,8 @@
     <h2><spring:message code="hello"/></h2>
     <h1>${greeting}</h1>
     <h2>${error}</h2>
-    <h2>${wrong_login}</h2>
-    <h2>${reg}</h2>
+    <h3><c:if test="${wrong_login ne null}"><spring:message code="message_error_login"/></c:if></h3>
+    <h2><c:if test="${reg ne null}"><spring:message code="message_success_registry"/></c:if></h2>
     <h2>${session_close}</h2>
 </inbody>
 </body>

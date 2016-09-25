@@ -18,7 +18,6 @@ import static by.pvt.exception.ExceptionMessages.*;
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
 public class ClientService extends BaseService<Client> {
-    private String message;
     @Autowired
     private IClientDAO clientDAO;
 
@@ -28,9 +27,8 @@ public class ClientService extends BaseService<Client> {
         try {
             client = clientDAO.login(email, password);
         } catch (HibernateException e) {
-            message = UNABLE_TO_GET_CLIENT_BY_LOGIN_AND_PASSWORD;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_OBJECT);
         }
         return client;
     }
@@ -40,9 +38,8 @@ public class ClientService extends BaseService<Client> {
         try {
             password = clientDAO.forgotPassword(email);
         } catch (HibernateException e) {
-            message = UNABLE_TO_GET_CLIENT_PASSWORD;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_OBJECT);
         }
         return password;
     }
@@ -52,9 +49,8 @@ public class ClientService extends BaseService<Client> {
         try {
             all = clientDAO.getAll(page, perPage);
         } catch (HibernateException e) {
-            message = ERROR_GET_LIST_OF_CLIENT;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_USERS);
         }
         return all;
     }

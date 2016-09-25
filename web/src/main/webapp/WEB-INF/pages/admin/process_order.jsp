@@ -24,9 +24,10 @@
     </div>
 </section>
 <inbody>
-    <h2>Обработать заказ</h2>
+    <h2><spring:message code="process_order"/></h2>
     <div>
        <h2><c:if test="${message_error_get_orders ne null}"><spring:message code="error_get_orders"/></c:if></h2>
+       <h2><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h2>
         <form  method="POST" action="process_order" >
             <input type="hidden" name="orderId" value="${order.id}"/>
             <table>
@@ -40,7 +41,7 @@
                     <td width="10%"><spring:message code="order_end_date"/></td>
                     <td width="15%"><spring:message code="other_info"/></td>
                     <td width="10%"><spring:message code="order_status"/></td>
-                    <td width="10%">Обработать</td>
+                    <td width="10%"><spring:message code="process_order"/></td>
                 </tr>
             </table>
                 <table>
@@ -62,7 +63,7 @@
                     </select></td>
                     </tr>
                 </table>
-            <input type="submit" value="Обработать" />
+            <input type="submit" value="<spring:message code="processing"/>" />
         </form>
     </div>
 </inbody>

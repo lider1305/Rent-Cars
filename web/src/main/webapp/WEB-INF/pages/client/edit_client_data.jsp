@@ -27,6 +27,7 @@
     </div>
 </section>
 <inbody>
+    <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
     <div>
         <s:form method="POST" action="change_data" modelAttribute="client" onsubmit="validateEdit">
             <spring:message code="context_edit_data"/><br/><br/>

@@ -7,31 +7,25 @@ public class ExceptionMessages {
     public static final String ERROR_UPDATE_OBJECT = "message_error_update";
     public static final String ERROR_DELETE_OBJECT = "error_delete_object";
     //BodyTypeService
-    public static final String ERROR_GET_LIST_OF_BODY_TYPES = "Error get list of body types";
+    public static final String ERROR_GET_LIST_OF_BODY_TYPES = "error_get _list_bodies";
     //BrandsService
-    public static final String ERROR_GET_LIST_OF_BRANDS = "Error get list of brands";
+    public static final String ERROR_GET_LIST_OF_BRANDS = "error_get_list_brands";
     //CarService
-    public static final String UNABLE_TO_GET_LIST_OF_CARS = "Unable to get list of cars";
-    public static final String ERROR_GET_LIST_OF_CARS = "Error get list of cars";
-    public static final String UNABLE_TO_GET_COUNT_OF_CARS = "Unable to get count of cars";
+    public static final String ERROR_GET_LIST_CARS = "message_get_list_cars";
+    public static final String ERROR_GET_COUNT = "message_get_count";
     public static final String PARAM_CAR_IS_RENT = "car_is_rent";
     public static final String PARAM_NO_CHOSEN = "message_no_chosen";
     //ClientService
-    public static final String UNABLE_TO_GET_CLIENT_BY_LOGIN_AND_PASSWORD = "Unable to get client by login and password";
-    public static final String UNABLE_TO_GET_CLIENT_PASSWORD = "Unable to get client password";
-    public static final String ERROR_GET_LIST_OF_CLIENT = "Error get list of client";
-    public static final String ONE_PARAM_IS_NULL = "One param is null";
+    public static final String ERROR_GET_USERS = "message_error_get_users";
     //EngineService
-    public static final String ERROR_GET_LIST_OF_ENGINE = "Error get list of engine";
+    public static final String ERROR_GET_LIST_OF_ENGINE = "error_get_list_engine";
     //OrderService
-    public static final String UNABLE_TO_GET_CLIENT_ORDERS = "Unable to get client orders";
-    public static final String ERROR_GET_LIST_OF_ORDERS = "Error get list of orders";
-    public static final String UNABLE_TO_GET_COUNT_OF_ORDERS = "Unable to get count of orders";
+    public static final String ERROR_GET_LIST_OF_ORDERS = "error_get_list_orders";
     public static final String ERROR_GET_ALL_ORDERS = "error_get_orders";
-    //TransmissionTypeService
-    public static final String ERROR_GET_LIST_OF_TRANSMISSION_TYPES = "Error get list of transmission types";
+    //Transmission
+    public static final String ERROR_LIST_TRANSMISSIONS = "error_get_transmissions";
     //Order status
-    public static final String ERROR_GET_LIST_OF_ORDER_STATUSES = "Error get list of order statuses";
+    public static final String ERROR_GET_LIST_OF_ORDER_STATUSES = "error_get_list_statuses";
     public static final String PARAM_WRONG_DATE = "message_wrong_date";
     public static final String PARAM_WRONG_DATE_END = "message_wrong_date_end";
 }

@@ -25,9 +25,8 @@ public class StatusOfOrderService extends BaseService<StatusOfOrder> {
         try {
             all = statusOfOrderDAO.getAll();
         } catch (HibernateException e) {
-            String message = ExceptionMessages.ERROR_GET_LIST_OF_ORDER_STATUSES;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ExceptionMessages.ERROR_GET_LIST_OF_ORDER_STATUSES);
         }
         return all;
     }

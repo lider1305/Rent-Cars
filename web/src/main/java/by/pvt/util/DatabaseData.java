@@ -20,9 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import static by.pvt.constants.UIParams.MESSAGE_NULL_LIST;
 
 @Component("dataBase")
 public class DatabaseData {
@@ -67,7 +64,7 @@ public class DatabaseData {
             transmissionType = transmissionTypeService.getAll(START_ROW, ROWS_PER_PAGE);
             session.setAttribute(UIParams.REQUEST_ALL_TRANSMISSION_TYPES, transmissionType);
         } catch (ServiceException e) {
-            model.addAttribute(MESSAGE_NULL_LIST, MessageManager.getInstance().getValue(Message.ERROR_NULL_LIST, Locale.getDefault()));
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, Message.ERROR_NULL_LIST);
         }
     }
 
@@ -79,7 +76,7 @@ public class DatabaseData {
         try {
             pagesCount = (int) (carService.getCountCars(carDTO) / pagination.getItemPerPage(request));
         } catch (ServiceException e) {
-            model.addAttribute(UIParams.MESSAGE_GET_COUNT,MessageManager.getInstance().getValue(Message.ERROR_GET_COUNT, Locale.getDefault()));
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, Message.ERROR_GET_COUNT);
         }
         pagesCount = pagination.getPagesCount(pagesCount);
         //put sorting params
@@ -90,18 +87,19 @@ public class DatabaseData {
             List allCar = carService.getCarByFilter(carDTO, pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request), sortingDTO);
             model.addAttribute(UIParams.REQUEST_GET_CARS, allCar);
         } catch (ServiceException e) {
-            model.addAttribute(UIParams.MESSAGE_GET_LIST_CARS,MessageManager.getInstance().getValue(Message.ERROR_GET_ALL_ORDERS, Locale.getDefault()));
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, Message.ERROR_GET_ALL_ORDERS);
         }
         request.setAttribute(Constants.TOTAL_PAGE, pagesCount);
 
     }
+
     public int getPagesCountForOrders(HttpServletRequest request, Model model, Client sessionClient) {
         //get pagination params
         int pagesCount = 0;
         try {
             pagesCount = (int) (orderService.getCountOrder(sessionClient) / pagination.getItemPerPage(request));
         } catch (ServiceException e) {
-            model.addAttribute(UIParams.MESSAGE_GET_COUNT, MessageManager.getInstance().getValue(Message.ERROR_GET_COUNT, Locale.getDefault()));
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, Message.ERROR_GET_COUNT);
         }
         pagesCount = pagination.getPagesCount(pagesCount);
         //put sorting params
@@ -119,7 +117,7 @@ public class DatabaseData {
             }
             request.setAttribute(UIParams.REQUEST_ORDERS, allOrders);
         } catch (ServiceException e) {
-            model.addAttribute(UIParams.MESSAGE_GET_LIST_CARS, MessageManager.getInstance().getValue(Message.ERROR_GET_ALL_ORDERS, Locale.getDefault()));
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, Message.ERROR_GET_ALL_ORDERS);
         }
         return pagesCount;
     }

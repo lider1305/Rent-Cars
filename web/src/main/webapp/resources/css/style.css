@@ -39,7 +39,8 @@ inbody {
 }
 /* Стиль логотипа */
 hgroup {
-    position: fixed;
+    width: 350px;
+    position: absolute;
     z-index: 3;
     left: 10px;
     top: 10px;
@@ -54,11 +55,13 @@ hgroup {
 }
 
 hgroup h1 {
+    width: 550px;
     margin: 0px;
     text-shadow: rgba(0, 0, 0, 1) 3px 2px 0;
 }
 
 hgroup h4 {
+    width: 350px;
     font-family: 'Century Gothic', arial, serif;
     font-size: 22px;
     font-weight: normal;

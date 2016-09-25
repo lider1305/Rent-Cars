@@ -36,12 +36,12 @@
     </c:choose>
 </section>
 <inbody>
-    <h2>Фильтр</h2>
+    <h2><spring:message code="filter"/></h2>
     <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
     <div>
         <form method="GET" action="get_cars_by_filter">
             <jsp:include page="/WEB-INF/pages/modules/filters/cars_filter.jsp"/>
-            <input type="submit" value="Применить"/>
+            <input type="submit" value="<spring:message code="apply"/>"/>
         </form>
 
         <s:form method="GET" action="check_car" modelAttribute="orderDTO">
@@ -55,7 +55,7 @@
                     <td width="15%"><spring:message code="auto_transmission"/></td>
                     <td width="10%"><spring:message code="auto_year"/></td>
                     <td width="10%"><spring:message code="auto_amount"/></td>
-                    <td width="10%">Выбрать</td>
+                    <td width="10%"><spring:message code="choose"/></td>
                 </tr>
                 <c:forEach var="car" items="${cars}">
                     <tr>
@@ -81,7 +81,7 @@
                 <tr>
                     <td width="20%"><spring:message code="date_start_of_rent"/>:</td>
                     <td width="20%"><spring:message code="date_end_of_rent"/>:</td>
-                    <td> Сообщение о статусе автомобиля</td>
+                    <td> <spring:message code="message_status_car"/></td>
                 </tr>
                 <tr>
                     <td><s:input type="text" readonly="readonly" path="startDate" name="startDate" class="tcal" value=""/>
@@ -92,7 +92,7 @@
                         <c:if test="${car_status_free ne null}">${car_status_free} <spring:message code="free"/></c:if></td>
                 </tr>
             </table>
-            <input type="submit" value="Проверить"/>
+            <input type="submit" value="<spring:message code="check"/>"/>
         </s:form>
         <jsp:include page="/WEB-INF/pages/modules/pagination/pagination.jsp"/>
     </div>

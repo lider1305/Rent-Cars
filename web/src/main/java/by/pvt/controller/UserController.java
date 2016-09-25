@@ -2,6 +2,7 @@ package by.pvt.controller;
 
 import by.pvt.VO.LoginDTO;
 import by.pvt.constants.Message;
+import by.pvt.constants.UIParams;
 import by.pvt.constants.WebErrorMessages;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Client;
@@ -50,7 +51,7 @@ public class UserController {
 
     @ExceptionHandler(NullPointerException.class)
     public String handleIOException(HttpServletRequest request) {
-        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, MessageManager.getInstance().getValue(EXCEPTION_MESSAGE_I18N, Locale.getDefault()));
+        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, EXCEPTION_MESSAGE_I18N);
         return PAGE_ERROR;
     }
 
@@ -82,8 +83,8 @@ public class UserController {
             if (login.getPassword().length() >= 4) {
                 //get client with entered params
                 Client clientUI = clientServices.login(login.getEmail(), login.getPassword());
-               if(clientUI == null){
-                    model.addAttribute(WRONG_USER_LOGIN, MessageManager.getInstance().getValue(ERROR_LOGIN, Locale.getDefault()));
+                if (clientUI == null) {
+                    model.addAttribute(WRONG_USER_LOGIN, ERROR_LOGIN);
                     return PAGE_INDEX;
                 }
                 model.addAttribute(CLIENT, clientUI);
@@ -91,10 +92,10 @@ public class UserController {
                 session.setAttribute(CLIENT, clientUI);
                 return REDIRECT_PAGE_USER;
             }
-            model.addAttribute(PASSWORD_ERROR, MessageManager.getInstance().getValue(PASSWORD_ERROR_I18N, Locale.getDefault()));
+            model.addAttribute(PASSWORD_ERROR, PASSWORD_ERROR_I18N);
             return PAGE_INDEX;
         }
-        model.addAttribute(EMAIL_ERROR, MessageManager.getInstance().getValue(EMAIL_ERROR_I18N, Locale.getDefault()));
+        model.addAttribute(EMAIL_ERROR, EMAIL_ERROR_I18N);
         return PAGE_INDEX;
     }
 
@@ -139,7 +140,7 @@ public class UserController {
         try {
             password = clientServices.forgotPassword(email);
         } catch (ServiceException e) {
-            model.addAttribute(MESSAGE_ERROR_GET_PASSWORD,MessageManager.getInstance().getValue(ERROR_GET_PASSWORD, Locale.getDefault()));
+            model.addAttribute(UIParams.MESSAGE_ERROR_GET_PASSWORD, Message.ERROR_GET_PASSWORD);
         }
         request.setAttribute(REQUEST_PASSWORD, password);
         return PAGE_FORGOT_PASSWORD;
@@ -161,11 +162,9 @@ public class UserController {
             client.setRole(roleService.get(Roles.class, 1));
             clientServices.save(client);
             model.addAttribute(CLIENT, client);
-            model.addAttribute(REQUEST_SUCCESS_REGISTRY,
-                    MessageManager.getInstance().getValue(Message.SUCCESS_REGISTRY, Locale.getDefault()));
+            model.addAttribute(UIParams.REQUEST_SUCCESS_REGISTRY, Message.SUCCESS_REGISTRY);
         } catch (ServiceException e) {
-            model.addAttribute(MESSAGE_ERROR_SAVE_USER,MessageManager.getInstance().getValue(Message.ERROR_SAVE_OBJECT, Locale.getDefault()));
-            model.addAttribute(MESSAGE_NULL_PARAM, e.getMessage());
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
         }
         return REDIRECT_INDEX;
 
@@ -179,7 +178,7 @@ public class UserController {
         try {
             users = clientServices.getAll(pagination.getStartRow(request) - 1, pagination.getItemPerPage(request));
         } catch (ServiceException e) {
-            model.addAttribute(MESSAGE_ERROR_GET_USERS, MessageManager.getInstance().getValue(Message.ERROR_GET_USERS, Locale.getDefault()));
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
         }
         model.addAttribute(REQUEST_GET_ALL_USERS, users);
         return PAGE_ALL_USERS;

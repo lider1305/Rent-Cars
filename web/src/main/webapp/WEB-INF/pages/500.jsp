@@ -26,7 +26,7 @@
     </c:choose>
 </section>
 <inbody>
-    <h2>  Ошибка соединения с базой данных, пожалуйста попробуйте позже!</h2>
+    <h2>  <spring:message code="500"/></h2>
 </inbody>
 </body>
 </html>

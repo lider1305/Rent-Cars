@@ -26,9 +26,8 @@ public class EngineTypeService extends BaseService<EngineType> {
         try {
             all = engineTypeDAO.getAll(page, perPage);
         } catch (HibernateException e) {
-            String message = ExceptionMessages.ERROR_GET_LIST_OF_ENGINE;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ExceptionMessages.ERROR_GET_LIST_OF_ENGINE);
         }
         return all;
     }

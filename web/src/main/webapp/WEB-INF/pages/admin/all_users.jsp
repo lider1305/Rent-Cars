@@ -24,7 +24,7 @@
 </section>
 <inbody>
     <h2><spring:message code="all_users"/></h2>
-    <h2>${message_error_get_users}</h2>
+    <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
     <div>
         <form  method="GET" action="get_all_users" >
             <table>

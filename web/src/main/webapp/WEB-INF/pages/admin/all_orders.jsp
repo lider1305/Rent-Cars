@@ -26,7 +26,7 @@
 <inbody>
     <h2><spring:message code="all_orders"/></h2>
     <div>
-        ${message_error_get_orders}
+        <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
         <form  method="GET" action="get_all_orders" >
             <jsp:include page="/WEB-INF/pages/modules/pagination/per_page.jsp"/>
             <table>
@@ -40,7 +40,7 @@
                     <td width="10%"><spring:message code="order_end_date"/></td>
                     <td width="15%"><spring:message code="other_info"/></td>
                     <td width="10%"><spring:message code="order_status"/></td>
-                    <td width="10%">Обработать Заказ</td>
+                    <td width="10%"><spring:message code="process_order"/></td>
                 </tr>
             </table>
             <c:forEach var="order" items="${ordersAdmin}" >

@@ -1,28 +1,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <table width="100%" border="1">
     <tr>
-        <td>Сортировать по</td>
-        <td>возрастанию</td>
-        <td>убыванию</td>
-        <td>типу</td>
-        <td>Колличество записей</td>
-        <td>Сбросить настройки</td>
+        <td><spring:message code="sort_by"/></td>
+        <td><spring:message code="ascending"/></td>
+        <td><spring:message code="decending"/></td>
+        <td><spring:message code="by_type"/></td>
+        <td><spring:message code="records_number"/></td>
+        <td><spring:message code="reset"/></td>
     </tr>
     <tr>
         <td></td>
         <td><input type="radio" name="sort_type"  value="true" checked></td>
         <td> <input type="radio" name="sort_type" value="false"></td>
         <td><select name="sort_name">
-            <option value="brand">производитель</option>
-            <option value="bodyType">кузов</option>
-            <option value="engineType">топливо</option>
-            <option value="transmissionType">трансмиссии</option>
-            <option value="amount">стоимости</option>
-            <option value="yearOfManufacture">году выпуска</option>
+            <option value="brand"><spring:message code="brand"/></option>
+            <option value="bodyType"><spring:message code="auto_body_type"/></option>
+            <option value="engineType"><spring:message code="auto_engine_type"/></option>
+            <option value="transmissionType"><spring:message code="auto_transmission"/></option>
+            <option value="amount"><spring:message code="amount"/></option>
+            <option value="yearOfManufacture"><spring:message code="year"/></option>
         </select></td>
         <td><jsp:include page="/WEB-INF/pages/modules/pagination/per_page.jsp"/></td>
-        <td><a href="${pageContext.servletContext.contextPath}/${command}?perPages=5&start=1&brand=&body_type=&engine_type=&transmission_type=&amountFrom=&amountTo=&yearFrom=&yearTo=&sort_type=true&sort_name=brand "><h3 class="button">Очистить</h3></a></td>
+        <td><a href="${pageContext.servletContext.contextPath}/${command}?perPages=5&start=1&brand=&body_type=&engine_type=&transmission_type=&amountFrom=&amountTo=&yearFrom=&yearTo=&sort_type=true&sort_name=brand "><h3 class="button"><spring:message code="clean"/></h3></a></td>
     </tr>
     <tr>
         <td colspan="6"></td>
@@ -30,14 +31,14 @@
 </table>
 <table>
     <tr>
-        <td width="15%">Производитель</td>
-        <td width="15%">Тип кузова</td>
-        <td width="15%">Вид топлива</td>
-        <td width="15%">Тип трансмиссии</td>
-        <td width="10%">Год от</td>
-        <td width="10%">Год до</td>
-        <td width="10%">Стоимость от</td>
-        <td width="10%">Стоимость до</td>
+        <td width="15%"><spring:message code="manufacturer"/></td>
+        <td width="15%"><spring:message code="body_type"/></td>
+        <td width="15%"><spring:message code="fuel"/></td>
+        <td width="15%"><spring:message code="transmission_type"/></td>
+        <td width="10%"><spring:message code="year_from"/></td>
+        <td width="10%"><spring:message code="year_to"/></td>
+        <td width="10%"><spring:message code="amount_from"/></td>
+        <td width="10%"><spring:message code="amount_to"/></td>
     </tr>
     <tr>
         <td colspan="8"></td>

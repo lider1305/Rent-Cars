@@ -26,6 +26,7 @@
     <h2><spring:message code="hello_user"/> ${client.name} ${client.surname} (ADMIN)</h2>
     <p></p>
     <h2><c:if test="${new_car ne null}"><spring:message code="message_success_car"/></c:if></h2>
+    <h2><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h2>
     <div>
         <table width="100%" border="1" class="table">
             <tr>

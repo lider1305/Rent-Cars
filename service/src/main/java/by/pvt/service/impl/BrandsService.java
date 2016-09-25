@@ -25,9 +25,8 @@ public class BrandsService extends BaseService<Brands> {
         try {
             all = brandsDAO.getAll(page, perPage);
         } catch (HibernateException e) {
-            String message = ExceptionMessages.ERROR_GET_LIST_OF_BRANDS;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ExceptionMessages.ERROR_GET_LIST_OF_BRANDS);
         }
         return all;
     }

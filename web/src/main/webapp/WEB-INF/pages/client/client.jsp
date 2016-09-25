@@ -24,7 +24,8 @@
 </section>
 <inbody>
    <h2><spring:message code="hello_user"/> ${client.name}  ${client.surname}</h2>
-    <h2>${success}</h2>
+    <h3><c:if test="${success ne null}"><spring:message code="message_success_order"/></c:if></h3>
+    <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
     <p></p>
    <div> <table width="100%" border="1" class="table">
         <tr>

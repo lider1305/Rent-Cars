@@ -27,8 +27,9 @@
     <h2><spring:message code="menu_add_car"/></h2>
     <h2><c:if test="${exception_null_model ne null}"><spring:message code="message_null_model"/></c:if></h2>
     <h2><c:if test="${message_error_save_order ne null}"><spring:message code="error_save_object"/></c:if></h2>
+    <h2><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h2>
     <div>
-        <s:form method="POST" action="add_car" modelAttribute="carAll">
+        <s:form method="POST" action="add_car" modelAttribute="carAll" onsubmit="validateAddCAr()">
 
             <table>
                 <tr>
@@ -44,13 +45,13 @@
             <table>
                     <tr><td colspan="7"> </td></tr>
                     <tr>
-                        <td width="15%"><s:select name="brand" path="brand" class="input" >
+                        <td width="15%"><s:select name="brand" path="brand" class="input">
                             <c:forEach var="brands" items="${all_brands}" >
                             <s:option value="${brands.id}"><c:out value="${brands.brandName}"/></s:option>
                             </c:forEach>
                         </s:select></td>
-                        <td width="20%"> <s:errors path="model" cssClass="error-validation"/><br/>
-                            <s:input type="text" name="model" path="model" value="" size="10"/>
+                        <td width="20%"> <s:errors path="model"  cssClass="error-validation"/><br/>
+                            <s:input type="text" name="model" id="model" path="model" value="" size="10"/>
                            </td>
                         <td width="10%"><s:select name="body_type" path="bodyType" class="input">
                             <c:forEach var="body" items="${all_body_types}" >
@@ -73,6 +74,17 @@
                 </table>
             <input type="submit" value="<spring:message code="button_add_car"/>" />
         </s:form>
+        <script>
+            function validateAddCAr() {
+                var model = document.getElementById("model");
+
+                if(!model.value) {
+                    model.style.border = "2px solid red";
+                    alert("<spring:message code="message_null_model"/>");
+                    return false;
+                }
+            }
+        </script>
     </div>
 </inbody>
 </body>

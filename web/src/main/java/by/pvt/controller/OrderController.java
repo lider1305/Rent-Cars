@@ -9,7 +9,6 @@ import by.pvt.pojo.Client;
 import by.pvt.pojo.Order;
 import by.pvt.service.impl.OrderService;
 import by.pvt.util.DatabaseData;
-import by.pvt.util.MessageManager;
 import by.pvt.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -23,7 +22,6 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import static by.pvt.constants.Constants.*;
 import static by.pvt.constants.Pages.*;
@@ -70,7 +68,7 @@ public class OrderController {
         try {
             pagesCount = (int) (orderService.getCountOfAllOrders() / pagination.getItemPerPage(request));
         } catch (ServiceException e) {
-            model.addAttribute(UIParams.MESSAGE_GET_COUNT, MessageManager.getInstance().getValue(Message.ERROR_GET_COUNT, Locale.getDefault()));
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
             return PAGE_ALL_ORDERS;
         }
         pagesCount = pagination.getPagesCount(pagesCount);
@@ -81,7 +79,7 @@ public class OrderController {
             List<Order> orders = orderService.getAll(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request));
             request.setAttribute(UIParams.REQUEST_ALL_ORDERS_ADMIN, orders);
         } catch (ServiceException e) {
-            model.addAttribute(UIParams.MESSAGE_ERROR_GET_ORDERS, MessageManager.getInstance().getValue(Message.ERROR_GET_ALL_ORDERS, Locale.getDefault()));
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
             return PAGE_ALL_ORDERS;
         }
         return PAGE_ALL_ORDERS;
@@ -94,7 +92,7 @@ public class OrderController {
         }
         try {
             orderService.save(order);
-            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, MessageManager.getInstance().getValue(Message.SUCCESS_ORDER, Locale.getDefault()));
+            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER);
         } catch (ServiceException e) {
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
             return PAGE_RENT_CAR;
@@ -142,7 +140,7 @@ public class OrderController {
         model.addAttribute(ORDER_DTO, new OrderDTO());
         try {
             orderService.update(order);
-            request.setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, MessageManager.getInstance().getValue(Message.SUCCESS_ORDER, Locale.getDefault()));
+            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER_UPDATE);
             return REDIRECT_ALL_CLIENT_ORDERS;
         } catch (ServiceException e) {
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());

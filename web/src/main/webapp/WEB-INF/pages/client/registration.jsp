@@ -27,7 +27,7 @@
 </section>
 <inbody>
     <div>
-        <h2>${message_error_save_user}</h2>
+        <h2><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h2>
         <s:form method="POST" action="new_user" modelAttribute="client" onsubmit="validateRegistration()">
             Введите ваши данные:<br/><br/>
             <spring:message code="client_name"/>: *<br/>

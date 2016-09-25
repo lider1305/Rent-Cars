@@ -27,8 +27,6 @@ import static by.pvt.exception.ExceptionMessages.*;
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
 public class OrderService extends BaseService<Order> {
-
-    private String message;
     @Autowired
     private IOrderDAO orderDAO;
     @Autowired
@@ -45,9 +43,8 @@ public class OrderService extends BaseService<Order> {
             int perPages = pagination.getPerPages();
             orders = orderDAO.getClientOrders(id, page, perPages);
         } catch (HibernateException e) {
-            message = UNABLE_TO_GET_CLIENT_ORDERS;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_LIST_OF_ORDERS);
         }
         return orders;
     }
@@ -68,9 +65,8 @@ public class OrderService extends BaseService<Order> {
         try {
             all = orderDAO.getAll(page, perPage);
         } catch (HibernateException e) {
-            message = ERROR_GET_LIST_OF_ORDERS;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_LIST_OF_ORDERS);
         }
         return all;
     }
@@ -80,9 +76,8 @@ public class OrderService extends BaseService<Order> {
         try {
             result = orderDAO.getOrderByFilter(page, perPage, sort);
         } catch (HibernateException e) {
-            message = ERROR_GET_LIST_OF_ORDERS;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_LIST_OF_ORDERS);
         }
         return result;
     }
@@ -92,9 +87,8 @@ public class OrderService extends BaseService<Order> {
         try {
             count = orderDAO.getCountOrders(client);
         } catch (HibernateException e) {
-            message = UNABLE_TO_GET_COUNT_OF_ORDERS;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_COUNT);
         }
         return count;
     }
@@ -104,9 +98,8 @@ public class OrderService extends BaseService<Order> {
         try {
             count = orderDAO.getCountOfAllOrders();
         } catch (HibernateException e) {
-            message = UNABLE_TO_GET_COUNT_OF_ORDERS;
             SystemLogger.getInstance().setLogger(getClass(), e);
-            throw new ServiceException(message, e);
+            throw new ServiceException(ERROR_GET_COUNT);
         }
         return count;
 

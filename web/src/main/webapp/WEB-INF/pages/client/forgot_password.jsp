@@ -28,7 +28,7 @@
 <div>
     <form action="get_password" method="POST">
             <h3><spring:message code="enter_forgot_password"/></h3>
-        <h3>${message_error_get_password}</h3>
+        <h3><c:if test="${message_error_get_password ne null}"><spring:message code="message_error_get_password"/></c:if></h3>
             <input type="text" name="email"  value="name@gmail.com">
             <br/>
         ${password}

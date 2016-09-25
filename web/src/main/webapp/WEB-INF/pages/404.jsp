@@ -27,7 +27,7 @@
     </c:choose>
 </section>
 <inbody>
-    <h2> 404 Данная страница не найдена!</h2>
+    <h2> <spring:message code="404"/></h2>
 </inbody>
 </body>
 </html>

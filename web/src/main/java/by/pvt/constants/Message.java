@@ -10,6 +10,7 @@ public class Message {
     public static final String PASSPORT_ERROR_I18N = "message_wrong_passport";
 
     public static final String SUCCESS_ORDER = "message_success_order";
+    public static final String SUCCESS_ORDER_UPDATE = "message_success_order_update";
     public static final String SUCCESS_REGISTRY = "message_success_registry";
     public static final String SUCCESS_ADD_NEW_CAR = "message_success_car";
     public static final String PARAM_NULL_BRAND = "message_null_brand";
@@ -41,4 +42,10 @@ public class Message {
     public static final String ERROR_NULL_LIST = "message_null_list";
     public static final String RESERVED = "reserved";
     public static final String FREE = "free";
+    public static final String ERROR_GET_LIST_OF_BODY_TYPES = "error_get _list_bodies";
+    public static final String ERROR_GET_LIST_OF_BRANDS = "error_get_list_brands";
+    public static final String ERROR_GET_LIST_OF_ENGINE = "error_get_list_engine";
+    public static final String ERROR_GET_LIST_OF_ORDERS = "error_get_list_orders";
+    public static final String ERROR_GET_LIST_OF_ORDER_STATUSES = "error_get_list_statuses";
+    public static final String ERROR_LIST_TRANSMISSIONS = "error_get_transmissions";
 }

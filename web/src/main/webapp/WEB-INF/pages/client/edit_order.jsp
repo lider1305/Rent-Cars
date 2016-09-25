@@ -50,7 +50,7 @@
                         <td width="15%"><spring:message code="auto_transmission"/></td>
                         <td width="10%"><spring:message code="auto_year"/></td>
                         <td width="10%"><spring:message code="auto_amount"/></td>
-                        <td width="10%">Отметить</td>
+                        <td width="10%"><spring:message code="note"/></td>
                     </tr>
                     <c:forEach var="car" items="${cars}">
                         <tr>
@@ -102,7 +102,7 @@
                         <td><input type="text" name="message" value="${orderEdit.message}" size="20"/></td>
                     </tr>
                 </table>
-                <input type="submit" value="Изменить заказ"/>
+                <input type="submit" value="<spring:message code="change_order"/>"/>
             </s:form>
             </div>
         </c:when>

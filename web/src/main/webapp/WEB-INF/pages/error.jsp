@@ -30,9 +30,8 @@
     <h2>${exception_database}</h2>
     <h2>${error}</h2>
     <h2>${errorDatabase}</h2>
-    <h2>${exception_404}</h2>
+    <h2><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h2>
     <h2>${exception}</h2>
-    <h2>${service_exception}</h2>
     <h2>${exceptionMessage}</h2>
 </inbody>
 </body>
