@@ -108,18 +108,22 @@ public class DatabaseData {
         //get the resulting list after filtering and sorting
         try {
             List<Order> allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request), sortingDTO);
-            Date today = new Date();
-            for (Order allOrder : allOrders) {
-                if (allOrder.getEndDate().getTime() < today.getTime()) {
-                    allOrder.setOrderStatus(statusOfOrderService.get(StatusOfOrder.class, 5));
-                    orderService.update(allOrder);
-                }
-            }
+            checkOrdersForActual(allOrders);
             request.setAttribute(UIParams.REQUEST_ORDERS, allOrders);
         } catch (ServiceException e) {
             model.addAttribute(UIParams.SERVICE_EXCEPTION, Message.ERROR_GET_ALL_ORDERS);
         }
         return pagesCount;
+    }
+
+    public void checkOrdersForActual(List<Order> allOrders) throws ServiceException {
+        Date today = new Date();
+        for (Order allOrder : allOrders) {
+            if (allOrder.getEndDate().getTime() < today.getTime()) {
+                allOrder.setOrderStatus(statusOfOrderService.get(StatusOfOrder.class, 5));
+                orderService.update(allOrder);
+            }
+        }
     }
 
 }

@@ -79,6 +79,7 @@ public class OrderController {
         //get client orders for UI
         try {
             List<Order> orders = orderService.getAll(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request));
+            databaseData.checkOrdersForActual(orders);
             request.setAttribute(UIParams.REQUEST_ALL_ORDERS_ADMIN, orders);
         } catch (ServiceException e) {
             SystemLogger.getInstance().setLogger(getClass(),e);
