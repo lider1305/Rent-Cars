@@ -31,7 +31,6 @@
         <h3><c:if test="${message_error_get_password ne null}"><spring:message code="message_error_get_password"/></c:if></h3>
             <input type="text" name="email"  value="name@gmail.com">
             <br/>
-        ${password}
         <input type="submit" value="<spring:message code="get_password"/>" />
     </form>
 </div>

@@ -4,7 +4,6 @@ import by.pvt.pojo.Car;
 import by.pvt.pojo.Client;
 import by.pvt.pojo.Order;
 import by.pvt.pojo.StatusOfOrder;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -41,13 +40,7 @@ public class OrderDAOTest {
 
     @Transactional(propagation = Propagation.NEVER)
     protected Session getSession() {
-        Session session;
-        try {
-            session = sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
-            session = sessionFactory.openSession();
-        }
-        return session;
+        return sessionFactory.getCurrentSession();
     }
 
     @Before

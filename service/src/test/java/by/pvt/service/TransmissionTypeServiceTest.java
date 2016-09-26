@@ -1,8 +1,7 @@
-package by.pvt.dao;
+package by.pvt.service;
 
 import by.pvt.pojo.TransmissionType;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import by.pvt.service.impl.TransmissionTypeService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,23 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/dao-config-test.xml"})
+@ContextConfiguration(locations = {"/service-config-test.xml"})
 @Transactional(propagation = Propagation.SUPPORTS)
-public class TransmissionTypeDAOTest {
+public class TransmissionTypeServiceTest {
     private TransmissionType transmissionType;
     @Autowired
-    private ITransmissionTypeDAO transmissionTypeDAO;
-    @Autowired
-    private SessionFactory sessionFactory;
-
-
-    @Transactional(propagation = Propagation.NEVER)
-    protected Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
+    private TransmissionTypeService transmissionTypeService;
 
     @Before
-    @Transactional(propagation = Propagation.NEVER)
     public void setUp() throws Exception {
         //create transmission type
         transmissionType = new TransmissionType();
@@ -41,44 +31,42 @@ public class TransmissionTypeDAOTest {
     }
 
     @After
-    @Transactional(propagation = Propagation.NEVER)
     public void tearDown() throws Exception {
         transmissionType = null;
-        getSession().flush();
     }
 
     @Test
     public void save() throws Exception {
-        transmissionTypeDAO.save(transmissionType);
-        TransmissionType actual = (TransmissionType) transmissionTypeDAO.get(TransmissionType.class, 4);
+        transmissionTypeService.save(transmissionType);
+        TransmissionType actual = transmissionTypeService.get(TransmissionType.class, 4);
         Assert.assertEquals(transmissionType, actual);
     }
 
     @Test
     public void get() throws Exception {
-        transmissionTypeDAO.save(transmissionType);
-        TransmissionType actual = (TransmissionType) transmissionTypeDAO.get(TransmissionType.class, 3);
+        transmissionTypeService.save(transmissionType);
+        TransmissionType actual = transmissionTypeService.get(TransmissionType.class, 3);
         Assert.assertEquals(transmissionType, actual);
     }
 
     @Test
     public void testUpdate() throws Exception {
-        TransmissionType actual = (TransmissionType) transmissionTypeDAO.get(TransmissionType.class, 4);
+        TransmissionType actual = transmissionTypeService.get(TransmissionType.class, 4);
         actual.setTransmissionType("Manual");
         Assert.assertNotSame(actual, transmissionType);
-        transmissionTypeDAO.delete(transmissionTypeDAO.get(TransmissionType.class, 4));
+        transmissionTypeService.delete(transmissionTypeService.get(TransmissionType.class, 4));
     }
 
     @Test
     public void testDelete() throws Exception {
-        TransmissionType actual = (TransmissionType) transmissionTypeDAO.get(TransmissionType.class, 3);
-        transmissionTypeDAO.delete(actual);
-        Assert.assertNull(transmissionTypeDAO.get(TransmissionType.class, 3));
+        TransmissionType actual = transmissionTypeService.get(TransmissionType.class, 3);
+        transmissionTypeService.delete(actual);
+        Assert.assertNull(transmissionTypeService.get(TransmissionType.class, 3));
     }
 
     @Test
     public void testGetAll() throws Exception {
-        List list = transmissionTypeDAO.getAll(0, 3);
+        List list = transmissionTypeService.getAll(0, 3);
         Assert.assertEquals(list.size(), 3);
     }
 }

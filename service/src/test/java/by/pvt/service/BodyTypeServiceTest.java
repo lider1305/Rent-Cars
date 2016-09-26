@@ -1,8 +1,7 @@
-package by.pvt.dao;
+package by.pvt.service;
 
 import by.pvt.pojo.BodyType;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import by.pvt.service.impl.BodyTypeService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,68 +16,56 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/dao-config-test.xml"})
+@ContextConfiguration(locations = {"/service-config-test.xml"})
 @Transactional(propagation = Propagation.SUPPORTS)
-public class BodyTypeDAOTest {
+public class BodyTypeServiceTest {
+    BodyType bodyType;
     @Autowired
-    private IBodyTypeDAO bodyTypeDAO;
-    private BodyType bodyType;
-    @Autowired
-    private SessionFactory sessionFactory;
-
-
-
-    protected Session getSession() {
-        Session session = sessionFactory.getCurrentSession();
-        return session;
-    }
-
+    BodyTypeService bodyTypeService;
     @Before
     public void setUp() throws Exception {
         //create body type
         bodyType = new BodyType();
         bodyType.setBodyType("SEDAN");
-
-
     }
 
     @After
     public void tearDown() throws Exception {
         bodyType = null;
-        getSession().flush();
     }
 
     @Test
     public void save() throws Exception {
-        bodyTypeDAO.save(bodyType);
-        BodyType actual = (BodyType) bodyTypeDAO.get(BodyType.class, 2);
+       bodyTypeService.save(bodyType);
+        BodyType actual = bodyTypeService.get(BodyType.class, 2);
         Assert.assertEquals(bodyType, actual);
     }
 
+
     @Test
     public void get() throws Exception {
-        bodyTypeDAO.save(bodyType);
-        BodyType actual = (BodyType) bodyTypeDAO.get(BodyType.class, 1);
+        bodyTypeService.save(bodyType);
+        BodyType actual = bodyTypeService.get(BodyType.class, 1);
         Assert.assertEquals(bodyType, actual);
     }
 
     @Test
     public void testUpdate() throws Exception {
-        BodyType actual = (BodyType) bodyTypeDAO.get(BodyType.class, 2);
+        BodyType actual = bodyTypeService.get(BodyType.class, 2);
         actual.setBodyType("REFRIGERATOR");
         Assert.assertNotSame(actual, bodyType);
     }
 
     @Test
     public void testDelete() throws Exception {
-        BodyType actual = (BodyType) bodyTypeDAO.get(BodyType.class, 1);
-        bodyTypeDAO.delete(actual);
-        Assert.assertNull(bodyTypeDAO.get(BodyType.class, 1));
+        BodyType actual = bodyTypeService.get(BodyType.class, 1);
+       bodyTypeService.delete(actual);
+        Assert.assertNull(bodyTypeService.get(BodyType.class, 1));
     }
 
     @Test
     public void testGetAll() throws Exception {
-        List list = bodyTypeDAO.getAll(0, 3);
+        List list = bodyTypeService.getAll(0, 3);
         Assert.assertEquals(list.size(), 1);
     }
 }

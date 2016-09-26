@@ -3,6 +3,7 @@ package by.pvt.filters;
 import by.pvt.constants.Pages;
 import by.pvt.constants.UIParams;
 import by.pvt.constants.WebErrorMessages;
+import by.pvt.util.SystemLogger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +21,14 @@ public class ExceptionFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
         try {
-            httpRequest.getRequestURI();
+
+            httpRequest.getAttribute(
+                    "javax.servlet.error.message");
+            httpRequest.getAttribute(
+                    "javax.servlet.error.exception_type");
             filterChain.doFilter(servletRequest,servletResponse);
         } catch (Exception e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             servletRequest.setAttribute(UIParams.EXCEPTION, WebErrorMessages.EXCEPTION);
             RequestDispatcher dispatcher = servletRequest.getRequestDispatcher(Pages.PAGE_ERROR);
             dispatcher.forward(httpRequest, httpResponse);

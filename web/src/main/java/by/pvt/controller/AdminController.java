@@ -7,6 +7,7 @@ import by.pvt.pojo.Order;
 import by.pvt.pojo.StatusOfOrder;
 import by.pvt.service.impl.OrderService;
 import by.pvt.service.impl.StatusOfOrderService;
+import by.pvt.util.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class AdminController {
             model.addAttribute(STATUS_OF_ORDER, statusOfOrderService.getAll());
             model.addAttribute(ORDER, orderService.get(Order.class, orderId));
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.MESSAGE_ERROR_GET_ORDERS, Message.ERROR_GET_ALL_ORDERS);
             return PAGE_PROCESS_ORDER;
         }
@@ -43,6 +45,7 @@ public class AdminController {
             order.setOrderStatus(statusOfOrderService.get(StatusOfOrder.class, statusId));
             orderService.update(order);
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.MESSAGE_ERROR_GET_ORDERS, Message.ERROR_GET_ALL_ORDERS);
             return PAGE_PROCESS_ORDER;
         }

@@ -1,10 +1,9 @@
-package by.pvt.dao;
+package by.pvt.service;
 
 import by.pvt.VO.CarDTO;
 import by.pvt.VO.CarSortingDTO;
 import by.pvt.pojo.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import by.pvt.service.impl.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,13 +18,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/dao-config-test.xml"})
+@ContextConfiguration(locations = {"/service-config-test.xml"})
 @Transactional(propagation = Propagation.SUPPORTS)
-public class CarDAOTest {
+public class CarServiceTest {
     @Autowired
-    private DAO baseDAO;
+    private BrandsService brandsService;
     @Autowired
-    private ICarDAO carDAO;
+    private BodyTypeService bodyTypeService;
+    @Autowired
+    private EngineTypeService engineTypeService;
+    @Autowired
+    private TransmissionTypeService transmissionTypeService;
+    @Autowired
+    private StatusOfCarService statusOfCarService;
+    @Autowired
+    private CarService carService;
     private Car car;
     private Brands brands;
     private BodyType bodyType;
@@ -34,16 +41,9 @@ public class CarDAOTest {
     private StatusOfCar statusOfCar;
     private CarDTO carDTO;
     private CarSortingDTO carSortingDTO;
-    @Autowired
-    private SessionFactory sessionFactory;
 
-    @Transactional(propagation = Propagation.NEVER)
-    protected Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
 
     @Before
-    @Transactional(propagation = Propagation.NEVER)
     public void setUp() throws Exception {
         //create brand
         brands = new Brands();
@@ -84,7 +84,6 @@ public class CarDAOTest {
     }
 
     @After
-    @Transactional(propagation = Propagation.NEVER)
     public void tearDown() throws Exception {
         brands = null;
         bodyType = null;
@@ -92,36 +91,35 @@ public class CarDAOTest {
         transmissionType = null;
         statusOfCar = null;
         car = null;
-        getSession().flush();
     }
 
     @Test
     public void save() throws Exception {
-        baseDAO.save(brands);
-        baseDAO.save(bodyType);
-        baseDAO.save(engineType);
-        baseDAO.save(transmissionType);
-        baseDAO.save(statusOfCar);
-        carDAO.save(car);
-        Car actual = (Car) carDAO.get(Car.class, 2);
+       brandsService.save(brands);
+        bodyTypeService.save(bodyType);
+        engineTypeService.save(engineType);
+        transmissionTypeService.save(transmissionType);
+        statusOfCarService.save(statusOfCar);
+        carService.save(car);
+        Car actual =carService.get(Car.class, 2);
         Assert.assertEquals(car, actual);
     }
 
     @Test
     public void testGet() throws Exception {
-        baseDAO.save(brands);
-        baseDAO.save(bodyType);
-        baseDAO.save(engineType);
-        baseDAO.save(transmissionType);
-        baseDAO.save(statusOfCar);
-        carDAO.save(car);
-        Car actual = (Car) carDAO.get(Car.class, 1);
+        brandsService.save(brands);
+        bodyTypeService.save(bodyType);
+        engineTypeService.save(engineType);
+        transmissionTypeService.save(transmissionType);
+        statusOfCarService.save(statusOfCar);
+        carService.save(car);
+        Car actual = carService.get(Car.class, 1);
         Assert.assertEquals(car, actual);
     }
 
     @Test
     public void testUpdate() throws Exception {
-        Car actual = (Car) carDAO.get(Car.class, 2);
+        Car actual = carService.get(Car.class, 2);
         actual.setYearOfManufacture(2015);
         Assert.assertNotSame(actual, car);
 
@@ -129,27 +127,27 @@ public class CarDAOTest {
 
     @Test
     public void testDelete() throws Exception {
-        Car actual = (Car) carDAO.get(Car.class, 1);
-        carDAO.delete(actual);
-        Assert.assertNull(carDAO.get(Car.class, 1));
+        Car actual = carService.get(Car.class, 1);
+        carService.delete(actual);
+        Assert.assertNull(carService.get(Car.class, 1));
     }
 
     @Test
     public void testGetAll() throws Exception {
-        List list = carDAO.getAll(0, 4);
+        List list = carService.getAll(0, 4);
         Assert.assertEquals(list.size(), 1);
     }
 
     @Test
     public void getCarByFilter() throws Exception {
-        carDTO.setEngineType((EngineType) baseDAO.get(EngineType.class,1));
-         List list = carDAO.getCarByFilter(carDTO, 0, 10, carSortingDTO);
+        carDTO.setEngineType(engineTypeService.get(EngineType.class, 1));
+        List list = carService.getCarByFilter(carDTO, 0, 10, carSortingDTO);
         Assert.assertEquals(list.size(), 1);
     }
 
     @Test
     public void getCountCars() throws Exception {
-        long count=carDAO.getCountCars(carDTO);
-        Assert.assertEquals(count,1);
+        long count = carService.getCountCars(carDTO);
+        Assert.assertEquals(count, 1);
     }
 }

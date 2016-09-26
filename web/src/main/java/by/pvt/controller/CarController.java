@@ -12,6 +12,7 @@ import by.pvt.service.impl.OrderService;
 import by.pvt.util.DatabaseData;
 import by.pvt.util.DateAndAmount;
 import by.pvt.util.Pagination;
+import by.pvt.util.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
@@ -84,6 +85,7 @@ public class CarController {
               return PAGE_ALL_CARS;
            }
        }catch (ServiceException e){
+           SystemLogger.getInstance().setLogger(getClass(),e);
            model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
            return PAGE_ALL_CARS;
        }
@@ -114,7 +116,9 @@ public class CarController {
             carService.save(car);
             request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_ADD_NEW_CAR, Message.SUCCESS_ADD_NEW_CAR);
         } catch (ServiceException e) {
-            model.addAttribute(MESSAGE_ERROR_SAVE_CAR, Message.ERROR_SAVE_OBJECT);
+            SystemLogger.getInstance().setLogger(getClass(),e);
+            model.addAttribute(SERVICE_EXCEPTION, Message.ERROR_SAVE_OBJECT);
+            return PAGE_ADD_CAR;
         }
         return REDIRECT_PAGE_ADD_CAR;
     }

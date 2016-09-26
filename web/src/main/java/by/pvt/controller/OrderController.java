@@ -10,6 +10,7 @@ import by.pvt.pojo.Order;
 import by.pvt.service.impl.OrderService;
 import by.pvt.util.DatabaseData;
 import by.pvt.util.Pagination;
+import by.pvt.util.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
@@ -68,6 +69,7 @@ public class OrderController {
         try {
             pagesCount = (int) (orderService.getCountOfAllOrders() / pagination.getItemPerPage(request));
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
             return PAGE_ALL_ORDERS;
         }
@@ -79,6 +81,7 @@ public class OrderController {
             List<Order> orders = orderService.getAll(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request));
             request.setAttribute(UIParams.REQUEST_ALL_ORDERS_ADMIN, orders);
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
             return PAGE_ALL_ORDERS;
         }
@@ -94,6 +97,7 @@ public class OrderController {
             orderService.save(order);
             request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER);
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
             return PAGE_RENT_CAR;
         }
@@ -108,6 +112,7 @@ public class OrderController {
             order = orderService.get(Order.class, orderId);
             orderService.delete(order);
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
         }
         return REDIRECT_ALL_CLIENT_ORDERS;
@@ -115,13 +120,15 @@ public class OrderController {
 
     @RequestMapping(value = VALUE_EDIT_ORDER, method = RequestMethod.GET)
     public String editOrderGet(@RequestParam int orderId, HttpServletRequest request, Model model) {
-        Order order = null;
+        Order order;
         model.addAttribute(ORDER_DTO,new OrderDTO());
         try {
             databaseData.setToSessionCarParams(request,model);
             order = orderService.get(Order.class, orderId);
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
+            return PAGE_EDIT_ORDER;
         }
         request.getSession().setAttribute(REQUEST_PAGE, PAGE_EDIT_ORDER);
         request.getSession().setAttribute(ORDER_EDIT, order);
@@ -143,6 +150,7 @@ public class OrderController {
             request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER_UPDATE);
             return REDIRECT_ALL_CLIENT_ORDERS;
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
             return PAGE_EDIT_ORDER;
         }

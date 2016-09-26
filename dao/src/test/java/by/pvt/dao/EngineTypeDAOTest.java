@@ -2,7 +2,6 @@ package by.pvt.dao;
 
 import by.pvt.pojo.EngineType;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -32,13 +31,7 @@ public class EngineTypeDAOTest {
 
     @Transactional(propagation = Propagation.NEVER)
     protected Session getSession() {
-        Session session;
-        try {
-            session = sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
-            session = sessionFactory.openSession();
-        }
-        return session;
+        return sessionFactory.getCurrentSession();
     }
 
     @Before

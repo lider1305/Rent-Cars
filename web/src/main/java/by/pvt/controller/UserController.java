@@ -13,6 +13,7 @@ import by.pvt.service.impl.RoleService;
 import by.pvt.service.impl.StatusOfClientService;
 import by.pvt.util.MessageManager;
 import by.pvt.util.Pagination;
+import by.pvt.util.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
@@ -140,6 +141,7 @@ public class UserController {
         try {
             password = clientServices.forgotPassword(email);
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.MESSAGE_ERROR_GET_PASSWORD, Message.ERROR_GET_PASSWORD);
         }
         request.setAttribute(REQUEST_PASSWORD, password);
@@ -147,7 +149,7 @@ public class UserController {
     }
 
     @RequestMapping(value = VALUE_NEW_USER, method = RequestMethod.POST)
-    public String createUser(@Valid @ModelAttribute(CLIENT) Client client, BindingResult result, Model model) {
+    public String createUser(@Valid @ModelAttribute(CLIENT) Client client, BindingResult result, Model model,HttpServletRequest request) {
         if (result.hasErrors()) {
             model.addAttribute(DATE_ERROR, MessageManager.getInstance().getValue(DATE_ERROR_I18N, Locale.getDefault()));
             return PAGE_REGISTRATION;
@@ -162,8 +164,9 @@ public class UserController {
             client.setRole(roleService.get(Roles.class, 1));
             clientServices.save(client);
             model.addAttribute(CLIENT, client);
-            model.addAttribute(UIParams.REQUEST_SUCCESS_REGISTRY, Message.SUCCESS_REGISTRY);
+            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_REGISTRY, Message.SUCCESS_REGISTRY);
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
         }
         return REDIRECT_INDEX;
@@ -178,6 +181,7 @@ public class UserController {
         try {
             users = clientServices.getAll(pagination.getStartRow(request) - 1, pagination.getItemPerPage(request));
         } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
         }
         model.addAttribute(REQUEST_GET_ALL_USERS, users);
@@ -188,6 +192,6 @@ public class UserController {
     protected void initBinder(WebDataBinder binder) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
         dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }

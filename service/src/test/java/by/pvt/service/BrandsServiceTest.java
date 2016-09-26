@@ -1,8 +1,7 @@
-package by.pvt.dao;
+package by.pvt.service;
 
 import by.pvt.pojo.Brands;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import by.pvt.service.impl.BrandsService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,18 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/dao-config-test.xml"})
+@ContextConfiguration(locations = {"/service-config-test.xml"})
 @Transactional(propagation = Propagation.SUPPORTS)
-public class BrandsDAOTest {
+public class BrandsServiceTest {
     @Autowired
-    private IBrandsDAO brandsDAO;
+    private BrandsService brandsService;
     private Brands brands;
-    @Autowired
-    private SessionFactory sessionFactory;
-
 
     @Before
-    @Transactional(propagation = Propagation.NEVER)
     public void setUp() throws Exception {
         //create brand
         brands = new Brands();
@@ -36,49 +31,42 @@ public class BrandsDAOTest {
 
     }
 
-    @Transactional(propagation = Propagation.NEVER)
-    protected Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
     @After
-    @Transactional(propagation = Propagation.NEVER)
     public void tearDown() throws Exception {
         brands = null;
-        getSession().flush();
     }
 
     @Test
     public void save() throws Exception {
-        brandsDAO.save(brands);
-        Brands actual = (Brands) brandsDAO.get(Brands.class, 2);
+        brandsService.save(brands);
+        Brands actual = brandsService.get(Brands.class, 2);
         Assert.assertEquals(brands, actual);
     }
 
     @Test
     public void get() throws Exception {
-        brandsDAO.save(brands);
-        Brands actual = (Brands) brandsDAO.get(Brands.class, 1);
+        brandsService.save(brands);
+        Brands actual = brandsService.get(Brands.class, 1);
         Assert.assertEquals(brands, actual);
     }
 
     @Test
     public void testUpdate() throws Exception {
-        Brands actual = (Brands) brandsDAO.get(Brands.class, 2);
+        Brands actual = brandsService.get(Brands.class, 2);
         actual.setBrandName("MAN");
         Assert.assertNotSame(actual, brands);
     }
 
     @Test
     public void testDelete() throws Exception {
-        Brands actual = (Brands) brandsDAO.get(Brands.class, 1);
-        brandsDAO.delete(actual);
-        Assert.assertNull(brandsDAO.get(Brands.class, 1));
+        Brands actual = brandsService.get(Brands.class, 1);
+        brandsService.delete(actual);
+        Assert.assertNull(brandsService.get(Brands.class, 1));
     }
 
     @Test
     public void testGetAll() throws Exception {
-        List list = brandsDAO.getAll(0, 2);
+        List list = brandsService.getAll(0, 2);
         Assert.assertEquals(list.size(), 1);
     }
 
