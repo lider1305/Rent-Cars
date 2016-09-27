@@ -46,7 +46,8 @@ jdbc.password="password"
 Dump of database is in the root /dump_work_database.sql
 
 Database settings for TESTS you can find on the way /dao/src/test/resources/config-test.properties
-You also need to change the settings as for main database
+                                                   /service/src/test/resources/config-test.properties
+You also need to change the settings for main database
 Dump of database is in the root /dump_test_database.sql
 
 2.MAVEN http://maven.apache.org/
