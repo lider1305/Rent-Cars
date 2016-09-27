@@ -146,7 +146,7 @@ public class CarController {
     @ExceptionHandler(Exception.class)
     public String handleException(HttpServletRequest request) {
         SystemLogger.getInstance().setLogger(getClass(), (Throwable) request.getAttribute(ERROR));
-        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
+        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, WebErrorMessages.ERROR_SQL_CONNECT);
         return PAGE_ERROR;
     }
 }
