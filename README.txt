@@ -1,7 +1,28 @@
 Project web app for renting cars.
 --------------------------------------------------------------------------------------------
-The project was developed using the  technologies MAVEN, HIBERNATE, SPRING, MYSQL, APACHE TOMCAT
-
+This application is developed using frameworks MAVEN, HIBERNATE, SPRING, MYSQL, APACHE TOMCAT
+--------------------------------------------------------------------------------------------
+The application consists of 4 modules entities, dao, service, web
+All the dependencies spelled out in the main pom.xml
+--------------------------------------------------------------------------------------------
+The functional part of the application is divided into three access levels
+----------------------------
+1) the access level - guest
+Any user may view the information available in the database cars and test them for the
+possibility of reservation for the selected period of time of time.There is a possibility
+of selection of auto according to the following parameters such as Manufacturer, Car model,
+Body Type, Fuel Type, transmission Type, Value, Year of issue. It is also possible to sort the
+received parameters.
+----------------------------
+2) the access level - registered user
+After registering and logging in, the user can change their credentials. May make an order for
+the rental of the chosen car. It is possible to view your orders, edit and delete them until
+the administrator will not process the order and its status corresponds to ”ACCEPTED”. After
+changing the status, the order becomes inactive to change or removal.
+----------------------------
+3) the access level - administrator
+At this access level is accessible only to the system administrator. It is possible to add
+new cars to process orders, access to registered users, and orders
 --------------------------------------------------------------------------------------------
 USED VERSIONS
 --------------------------------------------------------------------------------------------
