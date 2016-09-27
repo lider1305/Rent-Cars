@@ -21,11 +21,8 @@ public class ExceptionFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
         try {
-
-            httpRequest.getAttribute(
-                    "javax.servlet.error.message");
-            httpRequest.getAttribute(
-                    "javax.servlet.error.exception_type");
+            httpRequest.getAttribute("javax.servlet.error.message");
+            httpRequest.getAttribute("javax.servlet.error.exception_type");
             filterChain.doFilter(servletRequest,servletResponse);
         } catch (Exception e) {
             SystemLogger.getInstance().setLogger(getClass(),e);

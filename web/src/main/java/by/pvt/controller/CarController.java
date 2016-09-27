@@ -5,6 +5,7 @@ import by.pvt.VO.OrderDTO;
 import by.pvt.constants.ConstantsValues;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
+import by.pvt.constants.WebErrorMessages;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Car;
 import by.pvt.service.impl.CarService;
@@ -19,10 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -31,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static by.pvt.constants.Constants.*;
+import static by.pvt.constants.Message.ERROR;
+import static by.pvt.constants.Message.ERROR_500;
 import static by.pvt.constants.Pages.*;
 import static by.pvt.constants.UIParams.*;
 
@@ -141,5 +141,12 @@ public class CarController {
         SimpleDateFormat dateFormat = new SimpleDateFormat(ConstantsValues.DATE_PATTERN);
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(HttpServletRequest request) {
+        SystemLogger.getInstance().setLogger(getClass(), (Throwable) request.getAttribute(ERROR));
+        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
+        return PAGE_ERROR;
     }
 }

@@ -105,6 +105,7 @@ public class ClientServiceTest {
     public void testUpdate() throws Exception {
         Client cv = clientService.get(Client.class, 1);
         cv.setPhone("+375291234567");
+        clientService.update(cv);
         assertNotSame(cv, client);
     }
 

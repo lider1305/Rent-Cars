@@ -1,9 +1,12 @@
 package by.pvt.service;
 
+import by.pvt.VO.CarAddDTO;
 import by.pvt.VO.CarDTO;
 import by.pvt.VO.CarSortingDTO;
+import by.pvt.exception.ServiceException;
 import by.pvt.pojo.*;
 import by.pvt.service.impl.*;
+import by.pvt.util.SystemLogger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -95,14 +98,22 @@ public class CarServiceTest {
 
     @Test
     public void save() throws Exception {
-       brandsService.save(brands);
+        CarAddDTO carDTO = new CarAddDTO();
+        carDTO.setBrand(2);
+        carDTO.setEngineType(1);
+        carDTO.setBodyType(2);
+        carDTO.setModel("A4");
+        carDTO.setTransmissionType(2);
+        carDTO.setYearOfManufacture(2014);
+        carDTO.setAmount(30);
+        brandsService.save(brands);
         bodyTypeService.save(bodyType);
         engineTypeService.save(engineType);
         transmissionTypeService.save(transmissionType);
         statusOfCarService.save(statusOfCar);
-        carService.save(car);
-        Car actual =carService.get(Car.class, 2);
-        Assert.assertEquals(car, actual);
+        carService.save(carDTO);
+        Car actual = carService.get(Car.class, 2);
+        Assert.assertNotSame(car, actual);
     }
 
     @Test
@@ -139,15 +150,19 @@ public class CarServiceTest {
     }
 
     @Test
-    public void getCarByFilter() throws Exception {
-        carDTO.setEngineType(engineTypeService.get(EngineType.class, 1));
-        List list = carService.getCarByFilter(carDTO, 0, 10, carSortingDTO);
-        Assert.assertEquals(list.size(), 1);
-    }
+    public void getCarByFilter(){
+        try {
+            carDTO.setEngineType(engineTypeService.get(EngineType.class, 1));
+            List list = carService.getCarByFilter(carDTO, 0, 10, carSortingDTO);
+            Assert.assertEquals(list.size(), 2);
+        } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(), e);
+        }
+        }
 
-    @Test
-    public void getCountCars() throws Exception {
-        long count = carService.getCountCars(carDTO);
-        Assert.assertEquals(count, 1);
+        @Test
+        public void getCountCars ()throws Exception {
+            long count = carService.getCountCars(carDTO);
+            Assert.assertEquals(count, 1);
+        }
     }
-}

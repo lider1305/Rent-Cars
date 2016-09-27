@@ -50,9 +50,10 @@ public class UserController {
     @Autowired
     Pagination pagination;
 
-    @ExceptionHandler(NullPointerException.class)
-    public String handleIOException(HttpServletRequest request) {
-        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, EXCEPTION_MESSAGE_I18N);
+    @ExceptionHandler(Exception.class)
+    public String handleException(HttpServletRequest request) {
+        SystemLogger.getInstance().setLogger(getClass(), (Throwable) request.getAttribute(ERROR));
+        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
         return PAGE_ERROR;
     }
 

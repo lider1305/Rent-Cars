@@ -4,6 +4,7 @@ import by.pvt.VO.OrderDTO;
 import by.pvt.constants.ConstantsValues;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
+import by.pvt.constants.WebErrorMessages;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Client;
 import by.pvt.pojo.Order;
@@ -25,6 +26,8 @@ import java.util.Date;
 import java.util.List;
 
 import static by.pvt.constants.Constants.*;
+import static by.pvt.constants.Message.ERROR;
+import static by.pvt.constants.Message.ERROR_500;
 import static by.pvt.constants.Pages.*;
 
 @org.springframework.stereotype.Controller
@@ -162,5 +165,12 @@ public class OrderController {
         SimpleDateFormat dateFormat = new SimpleDateFormat(ConstantsValues.DATE_PATTERN);
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(HttpServletRequest request) {
+        SystemLogger.getInstance().setLogger(getClass(), (Throwable) request.getAttribute(ERROR));
+        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
+        return PAGE_ERROR;
     }
 }

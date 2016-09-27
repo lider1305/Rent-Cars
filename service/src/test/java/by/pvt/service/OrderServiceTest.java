@@ -1,6 +1,8 @@
 package by.pvt.service;
 
+import by.pvt.VO.OrderDTO;
 import by.pvt.VO.PaginationDTO;
+import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Car;
 import by.pvt.pojo.Client;
 import by.pvt.pojo.Order;
@@ -32,6 +34,7 @@ public class OrderServiceTest {
     private Client client;
     private StatusOfOrder statusOfOrder;
     PaginationDTO paginationDTO;
+    Date date;
     @Autowired
     private StatusOfOrderService statusOfOrderService;
     @Autowired
@@ -51,12 +54,12 @@ public class OrderServiceTest {
         statusOfOrder.setStatus("ПРИНЯТ");
         order.setOrderStatus(statusOfOrder);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = formatter.parse("2322-02-05");
+        date = formatter.parse("2322-02-05");
         order.setStartDate(date);
         order.setEndDate(date);
         order.setAmount(60);
         order.setMessage("HELLO");
-        paginationDTO =new PaginationDTO();
+        paginationDTO = new PaginationDTO();
         paginationDTO.setPages(0);
         paginationDTO.setPerPage(10);
     }
@@ -70,37 +73,46 @@ public class OrderServiceTest {
     public void testGetAllRentCarForDate() throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = formatter.parse("2322-02-05");
-       List list = orderService.getAllRentCarForDate(date, date);
-        Assert.assertEquals(list.size(),2);
+        List list = orderService.getAllRentCarForDate(date, date);
+        Assert.assertEquals(list.size(), 1);
     }
 
     @Test
     public void testGetAll() throws Exception {
         List all = orderService.getAll(0, 10);
-        Assert.assertEquals(all.size(), 2);
+        Assert.assertEquals(all.size(), 1);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void save() throws Exception {
-       statusOfOrderService.save(statusOfOrder);
-       orderService.save(order);
-        Order actual = orderService.get(Order.class, 2);
-        Assert.assertEquals(actual, order);
+        OrderDTO orderDTO= new OrderDTO();
+        orderDTO.setCarId(2);
+        orderDTO.setClientId(1);
+        orderDTO.setEndDate(date);
+        orderDTO.setStartDate(date);
+        orderDTO.setMessage("HELLO");
+        statusOfOrderService.save(statusOfOrder);
+        orderService.save(orderDTO);
     }
 
     @Test
     public void get() throws Exception {
-       statusOfOrderService.save(statusOfOrder);
+        statusOfOrderService.save(statusOfOrder);
         orderService.save(order);
         Order actual = orderService.get(Order.class, 1);
         Assert.assertEquals(actual, order);
     }
 
-    @Test
-    public void testUpdate() throws Exception {
-        Order actual = orderService.get(Order.class, 2);
-        actual.setMessage("GOODBYE");
-        Assert.assertNotSame(actual, order);
+    @Test(expected = ServiceException.class)
+    public void testUpdate() throws ServiceException {
+        OrderDTO orderDTO= new OrderDTO();
+        orderDTO.setCarId(2);
+        orderDTO.setClientId(1);
+        orderDTO.setEndDate(date);
+        orderDTO.setStartDate(date);
+        orderDTO.setMessage("HELLO");
+        orderService.update(orderDTO);
+
     }
 
     @Test
@@ -115,8 +127,24 @@ public class OrderServiceTest {
         statusOfOrderService.save(statusOfOrder);
         orderService.save(order);
         Client client = clientService.get(Client.class, 1);
-        List list = orderService.getClientOrders(client.getId(),paginationDTO);
-        Assert.assertEquals(list.size(), 3);
+        List list = orderService.getClientOrders(client.getId(), paginationDTO);
+        Assert.assertEquals(list.size(), 2);
     }
 
+    @Test
+    public void testGetCountOrder() throws ServiceException {
+        long count = orderService.getCountOfAllOrders();
+        Assert.assertEquals(count, 2);
+    }
+    @Test
+    public  void checkCarForBooking() throws ServiceException {
+        List<Car> rentCar = orderService.getAllRentCarForDate(order.getStartDate(), order.getEndDate());
+
+        for (Car aRentCar : rentCar) {
+            if (carService.get(Car.class, 2).getId() == aRentCar.getId()) {
+                Assert.assertEquals(rentCar.size(),1);
+            }
+        }
+
+    }
 }
