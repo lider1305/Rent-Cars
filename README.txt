@@ -3,7 +3,7 @@ Project web app for renting cars.
 This application is developed using frameworks MAVEN, HIBERNATE, SPRING, MYSQL, APACHE TOMCAT
 --------------------------------------------------------------------------------------------
 The application consists of 4 modules entities, dao, service, web
-All the dependencies spelled out in the main pom.xml
+All the dependencies spelled out in the main pom.xml in root folder.
 --------------------------------------------------------------------------------------------
 The functional part of the application is divided into three access levels
 ----------------------------
@@ -22,7 +22,7 @@ changing the status, the order becomes inactive to change or removal.
 ----------------------------
 3) the access level - administrator
 At this access level is accessible only to the system administrator. It is possible to add
-new cars to process orders, access to registered users, and orders
+new cars to process orders, access to registered users, and orders.
 --------------------------------------------------------------------------------------------
 USED VERSIONS
 --------------------------------------------------------------------------------------------
