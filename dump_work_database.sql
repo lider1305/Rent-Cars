@@ -128,7 +128,7 @@ CREATE TABLE `clients` (
   CONSTRAINT `PASSPORT_NUMBER_ID` FOREIGN KEY (`PASSPORT_NUMBER_ID`) REFERENCES `passports` (`PASSPORT_NUMBER_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ROLE_ID` FOREIGN KEY (`ROLE_ID`) REFERENCES `roles` (`ROLE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `STATUS_ID` FOREIGN KEY (`STATUS_ID`) REFERENCES `status_of_client` (`STATUS_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,7 +197,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (12,1,16,'2016-09-08','2016-09-12','',2,20),(14,1,11,'2016-09-08','2016-09-20','Необходим навигатор',1,30),(15,1,12,'2016-09-09','2016-09-10','Необходим навигатор',1,40),(16,1,23,'2016-09-19','2016-09-20','Необходим навигатор',1,50),(17,1,20,'2016-09-19','2016-09-20','Необходим навигатор',1,50),(18,1,18,'2016-09-21','2016-09-22','Необходим навигатор',1,40),(19,1,15,'2016-09-19','2016-09-21','Необходим навигатор',1,120),(20,1,14,'2016-09-22','2016-09-23','Необходим навигатор',1,35),(21,1,13,'2016-09-20','2016-09-23','Необходим навигатор',1,90);
+INSERT INTO `orders` VALUES (12,1,16,'2016-09-08','2016-09-12','',5,20),(14,1,11,'2016-09-08','2016-09-20','Необходим навигатор',5,30),(15,1,12,'2016-09-09','2016-09-10','Необходим навигатор',5,40),(16,1,23,'2016-09-19','2016-09-20','Необходим навигатор',5,50),(17,1,20,'2016-09-19','2016-09-20','Необходим навигатор',5,50),(18,1,18,'2016-09-21','2016-09-22','Необходим навигатор',5,40),(19,1,15,'2016-09-19','2016-09-21','Необходим навигатор',5,120),(20,1,14,'2016-09-22','2016-09-23','Необходим навигатор',5,35),(21,1,13,'2016-09-20','2016-09-23','Необходим навигатор',5,90);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,4 +360,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-22 15:06:33
+-- Dump completed on 2016-09-28 13:40:43

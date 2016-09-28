@@ -32,7 +32,7 @@
     <h2>${errorDatabase}</h2>
     <h2><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h2>
     <h2>${exception}</h2>
-    <h2>${exceptionMessage}</h2>
+    <h2><c:if test="${exceptionMessage ne null}"><spring:message code="error_500"/></c:if></h2>
 </inbody>
 </body>
 </html>

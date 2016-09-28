@@ -53,7 +53,7 @@ public class UserController {
     @ExceptionHandler(Exception.class)
     public String handleException(HttpServletRequest request) {
         SystemLogger.getInstance().setLogger(getClass(), (Throwable) request.getAttribute(ERROR));
-        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, WebErrorMessages.ERROR_SQL_CONNECT);
+        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
         return PAGE_ERROR;
     }
 
@@ -117,12 +117,15 @@ public class UserController {
     @RequestMapping(value = VALUE_CHANGE_DATA, method = RequestMethod.POST)
     public String changeClientData(@Valid @ModelAttribute(CLIENT) Client client, BindingResult result, Model model, HttpServletRequest request) throws ServiceException {
         if (result.hasErrors()) {
-            model.addAttribute(DATE_ERROR, MessageManager.getInstance().getValue(DATE_ERROR_I18N, Locale.getDefault()));
             return PAGE_EDIT_CLIENT;
         }
         if (client.getPassports().getPassport() == null || client.getPassports().getPassport().length() < MIN_PASSWORD) {
             model.addAttribute(PASSPORT_ERROR, MessageManager.getInstance().getValue(PASSPORT_ERROR_I18N, Locale.getDefault()));
             return PAGE_EDIT_CLIENT;
+        }
+        if (client.getPassports().getPassportIssueDate() == null | client.getPassports().getPassportEndDate() == null) {
+            model.addAttribute(DATE_ERROR, MessageManager.getInstance().getValue(DATE_ERROR_I18N, Locale.getDefault()));
+            return PAGE_REGISTRATION;
         }
         Client clientUI = (Client) request.getSession().getAttribute(CLIENT);
         client.setId(clientUI.getId());
@@ -142,7 +145,7 @@ public class UserController {
         try {
             password = clientServices.forgotPassword(email);
         } catch (ServiceException e) {
-            SystemLogger.getInstance().setLogger(getClass(),e);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             model.addAttribute(UIParams.MESSAGE_ERROR_GET_PASSWORD, Message.ERROR_GET_PASSWORD);
         }
         request.setAttribute(REQUEST_PASSWORD, password);
@@ -150,7 +153,7 @@ public class UserController {
     }
 
     @RequestMapping(value = VALUE_NEW_USER, method = RequestMethod.POST)
-    public String createUser(@Valid @ModelAttribute(CLIENT) Client client, BindingResult result, Model model,HttpServletRequest request) {
+    public String createUser(@Valid @ModelAttribute(CLIENT) Client client, BindingResult result, Model model, HttpServletRequest request) {
         if (result.hasErrors()) {
             return PAGE_REGISTRATION;
         }
@@ -158,7 +161,7 @@ public class UserController {
             model.addAttribute(PASSPORT_ERROR, MessageManager.getInstance().getValue(PASSPORT_ERROR_I18N, Locale.getDefault()));
             return PAGE_REGISTRATION;
         }
-        if(client.getPassports().getPassportIssueDate()==null |client.getPassports().getPassportEndDate()==null){
+        if (client.getPassports().getPassportIssueDate() == null | client.getPassports().getPassportEndDate() == null) {
             model.addAttribute(DATE_ERROR, MessageManager.getInstance().getValue(DATE_ERROR_I18N, Locale.getDefault()));
             return PAGE_REGISTRATION;
         }
@@ -170,7 +173,7 @@ public class UserController {
             model.addAttribute(CLIENT, client);
             request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_REGISTRY, Message.SUCCESS_REGISTRY);
         } catch (ServiceException e) {
-            SystemLogger.getInstance().setLogger(getClass(),e);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
         }
         return REDIRECT_INDEX;
@@ -185,7 +188,7 @@ public class UserController {
         try {
             users = clientServices.getAll(pagination.getStartRow(request) - 1, pagination.getItemPerPage(request));
         } catch (ServiceException e) {
-            SystemLogger.getInstance().setLogger(getClass(),e);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
         }
         model.addAttribute(REQUEST_GET_ALL_USERS, users);

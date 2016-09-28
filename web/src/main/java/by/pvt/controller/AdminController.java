@@ -61,7 +61,7 @@ public class AdminController {
     @ExceptionHandler(Exception.class)
     public String handleException(HttpServletRequest request) {
         SystemLogger.getInstance().setLogger(getClass(), (Throwable) request.getAttribute(ERROR));
-        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, WebErrorMessages.ERROR_SQL_CONNECT);
+        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
         return PAGE_ERROR;
     }
 }
