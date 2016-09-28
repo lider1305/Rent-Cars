@@ -53,7 +53,7 @@ public class UserController {
     @ExceptionHandler(Exception.class)
     public String handleException(HttpServletRequest request) {
         SystemLogger.getInstance().setLogger(getClass(), (Throwable) request.getAttribute(ERROR));
-        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, ERROR_500);
+        request.setAttribute(WebErrorMessages.EXCEPTION_MESSAGE, WebErrorMessages.ERROR_SQL_CONNECT);
         return PAGE_ERROR;
     }
 
@@ -152,11 +152,14 @@ public class UserController {
     @RequestMapping(value = VALUE_NEW_USER, method = RequestMethod.POST)
     public String createUser(@Valid @ModelAttribute(CLIENT) Client client, BindingResult result, Model model,HttpServletRequest request) {
         if (result.hasErrors()) {
-            model.addAttribute(DATE_ERROR, MessageManager.getInstance().getValue(DATE_ERROR_I18N, Locale.getDefault()));
             return PAGE_REGISTRATION;
         }
         if (client.getPassports().getPassport() == null || client.getPassports().getPassport().length() < MIN_PASSWORD) {
             model.addAttribute(PASSPORT_ERROR, MessageManager.getInstance().getValue(PASSPORT_ERROR_I18N, Locale.getDefault()));
+            return PAGE_REGISTRATION;
+        }
+        if(client.getPassports().getPassportIssueDate()==null |client.getPassports().getPassportEndDate()==null){
+            model.addAttribute(DATE_ERROR, MessageManager.getInstance().getValue(DATE_ERROR_I18N, Locale.getDefault()));
             return PAGE_REGISTRATION;
         }
 
@@ -192,7 +195,6 @@ public class UserController {
     @InitBinder
     protected void initBinder(WebDataBinder binder) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
-        dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }

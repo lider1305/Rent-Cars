@@ -26,7 +26,7 @@
     </c:choose>
 </section>
 <inbody>
-    <h2>  <spring:message code="500"/></h2>
+    <h2>  <spring:message code="error_500"/></h2>
 </inbody>
 </body>
 </html>

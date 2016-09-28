@@ -59,7 +59,7 @@
                         <td width="15%"><c:out value="${order.message}"/></td>
                         <td width="10%"><c:out value="${order.orderStatus.status}"/></td>
                         <c:choose>
-                            <c:when test="${order.orderStatus.id == 1}">
+                            <c:when test="${order.orderStatus.id >= 1 and order.orderStatus.id <= 3}">
                                 <td width="10%"><a href="${pageContext.servletContext.contextPath}/process_order?orderId=${order.id}"><img
                                         src="${pageContext.servletContext.contextPath}/resources/images/status_order.png"></a></td>
                             </c:when>
