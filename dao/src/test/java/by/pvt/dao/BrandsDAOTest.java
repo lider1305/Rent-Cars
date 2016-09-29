@@ -28,7 +28,6 @@ public class BrandsDAOTest {
 
 
     @Before
-    @Transactional(propagation = Propagation.NEVER)
     public void setUp() throws Exception {
         //create brand
         brands = new Brands();
@@ -36,13 +35,11 @@ public class BrandsDAOTest {
 
     }
 
-    @Transactional(propagation = Propagation.NEVER)
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @After
-    @Transactional(propagation = Propagation.NEVER)
     public void tearDown() throws Exception {
         brands = null;
         getSession().flush();

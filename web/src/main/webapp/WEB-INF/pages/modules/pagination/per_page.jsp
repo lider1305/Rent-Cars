@@ -1,4 +1,4 @@
-<select name="perPages">
+<select name="perPages" class="input">
     <option value="${perCount}">${perCount}</option>
     <option value="5">5</option>
     <option value="10">10</option>

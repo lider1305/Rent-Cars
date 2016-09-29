@@ -45,7 +45,7 @@
         </form>
 
         <s:form method="GET" action="check_car" modelAttribute="orderDTO">
-            <table>
+            <table class="table">
                 <h2><spring:message code="list_of_all_cars"/></h2>
                 <tr>
                     <td width="15%"><spring:message code="auto_brand"/></td>

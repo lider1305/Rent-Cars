@@ -38,13 +38,11 @@ public class OrderDAOTest {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Transactional(propagation = Propagation.NEVER)
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Before
-    @Transactional(propagation = Propagation.NEVER)
     public void setUp() throws Exception {
 //create order
         order = new Order();
@@ -62,7 +60,6 @@ public class OrderDAOTest {
     }
 
     @After
-    @Transactional(propagation = Propagation.NEVER)
     public void tearDown() throws Exception {
         order = null;
         getSession().flush();

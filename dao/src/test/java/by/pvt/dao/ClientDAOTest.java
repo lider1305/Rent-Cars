@@ -41,7 +41,6 @@ public class ClientDAOTest {
     }
 
     @Before
-    @Transactional(propagation = Propagation.NEVER)
     public void setUp() throws Exception {
         // create passport data
         passports = new Passports();
@@ -67,7 +66,6 @@ public class ClientDAOTest {
     }
 
     @After
-    @Transactional(propagation = Propagation.NEVER)
     public void tearDown() throws Exception {
         passports = null;
         client = null;

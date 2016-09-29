@@ -27,13 +27,11 @@ public class TransmissionTypeDAOTest {
     private SessionFactory sessionFactory;
 
 
-    @Transactional(propagation = Propagation.NEVER)
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Before
-    @Transactional(propagation = Propagation.NEVER)
     public void setUp() throws Exception {
         //create transmission type
         transmissionType = new TransmissionType();
@@ -41,7 +39,6 @@ public class TransmissionTypeDAOTest {
     }
 
     @After
-    @Transactional(propagation = Propagation.NEVER)
     public void tearDown() throws Exception {
         transmissionType = null;
         getSession().flush();

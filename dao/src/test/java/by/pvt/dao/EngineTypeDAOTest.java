@@ -29,13 +29,11 @@ public class EngineTypeDAOTest {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Transactional(propagation = Propagation.NEVER)
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Before
-    @Transactional(propagation = Propagation.NEVER)
     public void setUp() throws Exception {
         //create engine type
         engineType = new EngineType();
@@ -43,7 +41,6 @@ public class EngineTypeDAOTest {
     }
 
     @After
-    @Transactional(propagation = Propagation.NEVER)
     public void tearDown() throws Exception {
         engineType = null;
         getSession().flush();
