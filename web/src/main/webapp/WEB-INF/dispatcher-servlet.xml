@@ -30,7 +30,7 @@
           class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
         <property name="defaultLocale" value="ru"/>
     </bean>
-    
+
     <!-- show path to resource bundle messages-->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:I18N/message"/>

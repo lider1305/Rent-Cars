@@ -152,12 +152,12 @@ public class OrderService extends BaseService<Order> {
         super.update(order);
     }
     //the method checks whether the machine is reserved on this date
-    public  boolean checkCarForBooking(Car car, Date start, Date end) throws ServiceException {
+    private boolean checkCarForBooking(Car car, Date start, Date end) throws ServiceException {
         List<Car> rentCar = null;
         try {
             rentCar = getAllRentCarForDate(start, end);
         } catch (ServiceException e) {
-            throw new ServiceException(ERROR_GET_ALL_ORDERS);
+            throw new ServiceException(ERROR_GET_LIST_CARS);
         }
         for (Car aRentCar : rentCar) {
             if (car.getId() == aRentCar.getId()) {
