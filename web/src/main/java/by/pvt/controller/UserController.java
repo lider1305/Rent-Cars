@@ -81,6 +81,8 @@ public class UserController {
     @RequestMapping(value = VALUE_LOGIN, method = RequestMethod.POST)
     public String login(LoginDTO login, Model model, HttpServletRequest request) throws ServiceException {
         //check email and password for regexp
+        //conider refactoring using guard clauses
+        //http://refactoring.com/catalog/replaceNestedConditionalWithGuardClauses.html
         if (login.getEmail().matches(REGEX_EMAIL)) {
             if (login.getPassword().length() >= 4) {
                 //get client with entered params

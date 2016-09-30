@@ -34,6 +34,7 @@ import static by.pvt.constants.Message.ERROR_500;
 import static by.pvt.constants.Pages.*;
 import static by.pvt.constants.UIParams.*;
 
+//
 @org.springframework.stereotype.Controller
 public class CarController {
     @Autowired
@@ -59,11 +60,16 @@ public class CarController {
 
     @RequestMapping(value = VALUE_CHECK_CAR, method = RequestMethod.GET)
     public String checkCarForReserve(@Valid @ModelAttribute(ORDER_DTO) OrderDTO orderDTO,BindingResult result,HttpServletRequest request, Model model){
+        //please refactor this method
+        //here it was hard for me to understand where we are processing valid order and where not
+        //and if the only place where you could be taken from here is PAGE_ALL_CARS - could the number of returns be decreased
         if (result.hasErrors()) {
             return PAGE_ALL_CARS;
         }
        try{
            getCarsByDefaultFilter(request, model);
+           //bad formatting, please add spaces
+           //you can extract these validations to separate method
            if(orderDTO.getCarId()==0){
                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_NO_CHOSEN);
                return PAGE_ALL_CARS;
@@ -81,6 +87,7 @@ public class CarController {
           if(orderService.checkCarForBooking(car, orderDTO.getStartDate(),orderDTO.getEndDate())){
                model.addAttribute(CAR_STATUS, car.getBrand().getBrandName() + " " + car.getModel());
            } else {
+              //it is not clear that this is in fact the only option that allows to order the car
                model.addAttribute(CAR_STATUS_FREE, car.getBrand().getBrandName() + " " + car.getModel());
               return PAGE_ALL_CARS;
            }

@@ -24,6 +24,7 @@ import static by.pvt.constants.Message.ERROR;
 import static by.pvt.constants.Message.ERROR_500;
 import static by.pvt.constants.Pages.*;
 
+//you can add this class as an import and omit package here, i.e. just use @Controller
 @org.springframework.stereotype.Controller
 public class AdminController {
     @Autowired

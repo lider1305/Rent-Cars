@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.List;
 
 @Component("dataBase")
+//consider renaming to CarInformationService for instance
+//database data is too general name
 public class DatabaseData {
     private static final int PAGE_FOR_PAGINATION = 1;
     private static final int START_ROW = 0;

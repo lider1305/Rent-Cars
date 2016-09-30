@@ -140,6 +140,8 @@ public class OrderController {
     }
 
     @RequestMapping(value = VALUE_EDIT_ORDER, method = RequestMethod.POST)
+    //what does "Post" in this method name mean?
+    //I hope it's not HTTP POST method, right?
     public String editOrderPost(@Valid @ModelAttribute(ORDER_DTO) OrderDTO order, BindingResult result, HttpServletRequest request, Model model) {
         if (result.hasErrors()) {
             return PAGE_EDIT_ORDER;
