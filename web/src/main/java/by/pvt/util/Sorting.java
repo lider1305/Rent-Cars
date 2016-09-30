@@ -60,6 +60,11 @@ public class Sorting {
     }
 
     //sets default params
+    //you can initialise in the CarSortingDTO constructor
+    //moreover - as I understood "" is for not sorting on some criteria, right?
+    //why not just leaving it a null - in my opinion it would make more sense
+    //for instance sortingDTO.setBrand(null) = we don't care about brand, do not sort by brand
+    //sure, if to switch to nulls instead of empty strings we do not need to initialise it
     private void setCarSortingDTO(CarSortingDTO sortingDTO) {
         sortingDTO.setBrand("");
         sortingDTO.setBodyType("");
@@ -79,6 +84,8 @@ public class Sorting {
 
         if (request.getParameter(SORT_NAME) != null) {
             String param = request.getParameter(SORT_NAME);
+            //consider refactoring
+            //you can return from the method if parameter is processed
             if (param.equals(ISSUE_DATE)) {
                 sortingDTO.setStartDate(param);
             } else {

@@ -4,6 +4,7 @@ import javax.validation.constraints.Size;
 
 public class CarAddDTO{
     private int brand;
+    //error message is not about field length
     @Size(min=2, message = "Вы не ввели модель автомобиля!")
     private String model;
     private int engineType;

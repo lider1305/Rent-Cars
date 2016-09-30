@@ -13,6 +13,7 @@ public class DateAndAmount {
     private static final int MILLISECONDS = 1000;
     @Autowired
     private OrderService orderService;
+    //btw if you like to provide comments for methods you can do it in javadoc style
     //the method calculates the total cost of the order
    public static long countTotalCostOfOrder(Car car, Date start, Date end) {
         long times = end.getTime() - start.getTime();

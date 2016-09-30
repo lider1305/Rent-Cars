@@ -19,6 +19,7 @@ public class SortingUtil {
 
     public String carSorting(CarSortingDTO sort){
         String sorting = ConstantsValues.BRAND;
+        //is it really null safe?
         if(sort.getBrand().length() !=0){
             sorting =sort.getBrand();
         }
@@ -37,6 +38,8 @@ public class SortingUtil {
         if(sort.getYear().length() !=0){
             sorting =sort.getYear();
         }
+        //what will be result sorting if all of above sort options are not empty?
+        //will it take all of them into account or only the last one?
         return sorting;
     }
 
@@ -57,6 +60,7 @@ public class SortingUtil {
         if(sort.getStatus().length() !=0){
             sorting =sort.getStatus();
         }
+        //please see my comment in carSorting()
         return sorting;
     }
 }

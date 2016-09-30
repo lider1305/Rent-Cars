@@ -20,6 +20,7 @@ public class DateFormatUtil {
             Date d = format.parse(s);
             date = d.getTime();
         } catch (ParseException e) {
+            //TODO hiding exceptions is a bad practise
             e.printStackTrace();
         }
         return date;
@@ -50,6 +51,7 @@ public class DateFormatUtil {
         try {
             outDate = inputDate.parse(date);
         } catch (ParseException e) {
+            //TODO hiding exceptions is a bad practise
             e.printStackTrace();
         }
         return outDate;

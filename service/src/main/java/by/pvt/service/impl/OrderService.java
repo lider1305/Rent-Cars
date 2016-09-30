@@ -151,6 +151,9 @@ public class OrderService extends BaseService<Order> {
         }
         super.update(order);
     }
+
+    //please rename the method - something like isCarReserved()
+    //thus you can omit the method comment
     //the method checks whether the machine is reserved on this date
     public  boolean checkCarForBooking(Car car, Date start, Date end) throws ServiceException {
         List<Car> rentCar = null;

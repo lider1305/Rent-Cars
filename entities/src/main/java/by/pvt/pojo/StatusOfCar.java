@@ -12,6 +12,7 @@ import java.util.Set;
 @javax.persistence.Entity
 @AttributeOverride(name = "id", column = @Column(name = "STATUS_OF_CAR_ID"))
 @Table(name = "STATUS_OF_CAR")
+//Consider renaming as CarStatus
 public class StatusOfCar extends Entity {
     private  static  final long serialVersionUID= 1L;
 

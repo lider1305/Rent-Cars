@@ -30,6 +30,7 @@ public class AuthenticationFilter implements Filter {
         String requestURI = httpRequest.getRequestURI();
 
         Client sessionClient = (Client) httpRequest.getSession().getAttribute(CLIENT);
+        //consider refactoring using guard clauses
         //check url without login
         if (requestURI.equals(checkIn(httpRequest, guestURL))) {
             chain.doFilter(httpRequest, httpResponse);
@@ -58,6 +59,8 @@ public class AuthenticationFilter implements Filter {
             case ADMIN:
                 request.getRequestDispatcher(Pages.PAGE_ADMIN)
                         .forward(request, response);
+                //consider returning immediately instead of break
+                //thus it will more clear that we're done with this method
                 break;
             case USER:
                 request.getRequestDispatcher(Pages.PAGE_CLIENT)
@@ -77,6 +80,7 @@ public class AuthenticationFilter implements Filter {
             path = httpRequest.getContextPath() + line;
             if (path.equals(httpRequest.getRequestURI())) {
                 path = httpRequest.getRequestURI();
+                //better return path straighaway
                 break;
             }
         }
