@@ -84,6 +84,14 @@
                     <td> <spring:message code="message_status_car"/></td>
                 </tr>
                 <tr>
+                    <input type="hidden" name="brand" value="${filterBrand.id}"/>
+                    <input type="hidden" name="body_type" value="${filterBody.id}"/>
+                    <input type="hidden" name="engine_type" value="${filterEngine.id}"/>
+                    <input type="hidden" name="transmission_type" value="${filterTransmission.id}"/>
+                    <input type="hidden" name="yearFrom" value="${filterYearFrom}"/>
+                    <input type="hidden" name="yearTo" value="${filterYearTo}"/>
+                    <input type="hidden" name="amountFrom" value="${filterAmountFrom}"/>
+                    <input type="hidden" name="amountTo" value="${filterAmountTo}"/>
                     <td><s:input type="text" readonly="readonly" path="startDate" name="startDate" class="tcal" value=""/>
                         <s:errors path="startDate" cssClass="error-validation"/> </td>
                     <td><s:input type="text" readonly="readonly" path="endDate" name="endDate" class="tcal" value=""/>

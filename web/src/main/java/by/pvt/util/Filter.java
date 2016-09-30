@@ -74,7 +74,7 @@ public class Filter {
                     request.setAttribute(FILTER_YEAR_TO, carDTO.getYearTo());
                 }
             } catch (ServiceException e) {
-                request.setAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());//TODO
+                request.setAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
                 SystemLogger.getInstance().setLogger(getClass(), e);
             }
         }

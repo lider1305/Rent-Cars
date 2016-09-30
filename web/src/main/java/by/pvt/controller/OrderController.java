@@ -95,12 +95,16 @@ public class OrderController {
     @RequestMapping(value = VALUE_MAKE_ORDER, method = RequestMethod.POST)
     public String makeOrder(@Valid @ModelAttribute(ORDER_DTO) OrderDTO order, BindingResult result, HttpServletRequest request, Model model) {
         if (result.hasErrors()) {
+            databaseData.getCarsListByFilter(request, model);
+            request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
             return PAGE_RENT_CAR;
         }
         try {
             orderService.save(order);
             request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER);
         } catch (ServiceException e) {
+            databaseData.getCarsListByFilter(request, model);
+            request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
             SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
             return PAGE_RENT_CAR;

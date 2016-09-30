@@ -88,6 +88,14 @@
                 <br/>
                 <table align="center" border="0">
                     <tr>
+                        <input type="hidden" name="brand" value="${filterBrand.id}"/>
+                        <input type="hidden" name="body_type" value="${filterBody.id}"/>
+                        <input type="hidden" name="engine_type" value="${filterEngine.id}"/>
+                        <input type="hidden" name="transmission_type" value="${filterTransmission.id}"/>
+                        <input type="hidden" name="yearFrom" value="${filterYearFrom}"/>
+                        <input type="hidden" name="yearTo" value="${filterYearTo}"/>
+                        <input type="hidden" name="amountFrom" value="${filterAmountFrom}"/>
+                        <input type="hidden" name="amountTo" value="${filterAmountTo}"/>
                         <td><spring:message code="date_start_of_rent"/>:</td>
                         <td><spring:message code="date_end_of_rent"/>:</td>
                         <td><spring:message code="other_info"/>:</td>

@@ -60,21 +60,29 @@ public class CarController {
     @RequestMapping(value = VALUE_CHECK_CAR, method = RequestMethod.GET)
     public String checkCarForReserve(@Valid @ModelAttribute(ORDER_DTO) OrderDTO orderDTO,BindingResult result,HttpServletRequest request, Model model){
         if (result.hasErrors()) {
+            databaseData.getCarsListByFilter(request, model);
+            request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
             return PAGE_ALL_CARS;
         }
        try{
            getCarsByDefaultFilter(request, model);
            if(orderDTO.getCarId()==0){
+               databaseData.getCarsListByFilter(request, model);
+               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_NO_CHOSEN);
                return PAGE_ALL_CARS;
            }
            Car car= carService.get(Car.class,orderDTO.getCarId());
            //checks dates for relevance
            if(DateAndAmount.checkDateOnActual(orderDTO.getStartDate())){
+               databaseData.getCarsListByFilter(request, model);
+               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE);
                return PAGE_ALL_CARS;
            }
            if(DateAndAmount.checkEndDateOnActual(orderDTO.getStartDate(),orderDTO.getEndDate())){
+               databaseData.getCarsListByFilter(request, model);
+               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE_END);
                return PAGE_ALL_CARS;
            }
@@ -85,6 +93,8 @@ public class CarController {
               return PAGE_ALL_CARS;
            }
        }catch (ServiceException e){
+           databaseData.getCarsListByFilter(request, model);
+           request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
            SystemLogger.getInstance().setLogger(getClass(),e);
            model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
            return PAGE_ALL_CARS;
@@ -123,7 +133,7 @@ public class CarController {
         return REDIRECT_PAGE_ADD_CAR;
     }
 
-    private void setFilterParams(HttpServletRequest request, Model model, String path) {
+    public void setFilterParams(HttpServletRequest request, Model model, String path) {
         databaseData.setToSessionCarParams(request, model);
         pagination.getStartRow(request);
         request.getSession().setAttribute(REQUEST_PAGE, path);
