@@ -3,7 +3,7 @@ package by.pvt.service.impl;
 import by.pvt.dao.IStatusOfOrderDAO;
 import by.pvt.exception.ExceptionMessages;
 import by.pvt.exception.ServiceException;
-import by.pvt.pojo.StatusOfOrder;
+import by.pvt.pojo.OrderStatus;
 import by.pvt.util.SystemLogger;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,12 @@ import java.util.List;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.READ_UNCOMMITTED)
-public class StatusOfOrderService extends BaseService<StatusOfOrder> {
+public class StatusOfOrderService extends BaseService<OrderStatus> {
     @Autowired
     private IStatusOfOrderDAO statusOfOrderDAO;
 
-    public List<StatusOfOrder> getAll() throws ServiceException {
-        List<StatusOfOrder> all;
+    public List<OrderStatus> getAll() throws ServiceException {
+        List<OrderStatus> all;
         try {
             all = statusOfOrderDAO.getAll();
         } catch (HibernateException e) {

@@ -1,12 +1,12 @@
 package by.pvt.service;
 
-import by.pvt.VO.OrderDTO;
-import by.pvt.VO.PaginationDTO;
+import by.pvt.DTO.OrderDTO;
+import by.pvt.DTO.PaginationDTO;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Car;
 import by.pvt.pojo.Client;
 import by.pvt.pojo.Order;
-import by.pvt.pojo.StatusOfOrder;
+import by.pvt.pojo.OrderStatus;
 import by.pvt.service.impl.CarService;
 import by.pvt.service.impl.ClientService;
 import by.pvt.service.impl.OrderService;
@@ -32,7 +32,7 @@ import java.util.List;
 public class OrderServiceTest {
     private Order order;
     private Client client;
-    private StatusOfOrder statusOfOrder;
+    private OrderStatus statusOfOrder;
     PaginationDTO paginationDTO;
     Date date;
     @Autowired
@@ -50,7 +50,7 @@ public class OrderServiceTest {
         order = new Order();
         order.setClient(clientService.get(Client.class, 1));
         order.setCar(carService.get(Car.class, 2));
-        statusOfOrder = new StatusOfOrder();
+        statusOfOrder = new OrderStatus();
         statusOfOrder.setStatus("ПРИНЯТ");
         order.setOrderStatus(statusOfOrder);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

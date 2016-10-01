@@ -1,6 +1,6 @@
 package by.pvt.service;
 
-import by.pvt.pojo.StatusOfOrder;
+import by.pvt.pojo.OrderStatus;
 import by.pvt.service.impl.StatusOfOrderService;
 import org.junit.After;
 import org.junit.Assert;
@@ -18,15 +18,15 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/service-config-test.xml"})
 @Transactional(propagation = Propagation.SUPPORTS)
-public class StatusOfOrderServiceTest {
-    private StatusOfOrder statusOfOrder;
+public class OrderStatusServiceTest {
+    private OrderStatus statusOfOrder;
     @Autowired
     private StatusOfOrderService statusOfOrderService;
 
     @Before
     public void setUp() throws Exception {
         //create transmission type
-        statusOfOrder = new StatusOfOrder();
+        statusOfOrder = new OrderStatus();
         statusOfOrder.setStatus("GET");
     }
 

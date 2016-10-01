@@ -5,11 +5,12 @@ import by.pvt.constants.UIParams;
 import by.pvt.constants.WebErrorMessages;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Order;
-import by.pvt.pojo.StatusOfOrder;
+import by.pvt.pojo.OrderStatus;
 import by.pvt.service.impl.OrderService;
 import by.pvt.service.impl.StatusOfOrderService;
 import by.pvt.util.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ import static by.pvt.constants.Message.ERROR;
 import static by.pvt.constants.Message.ERROR_500;
 import static by.pvt.constants.Pages.*;
 
-@org.springframework.stereotype.Controller
+@Controller
 public class AdminController {
     @Autowired
     OrderService orderService;
@@ -48,7 +49,7 @@ public class AdminController {
     public String processOrderPost(Model model, @RequestParam int orderId, @RequestParam int statusId) {
         try {
             Order order = orderService.get(Order.class, orderId);
-            order.setOrderStatus(statusOfOrderService.get(StatusOfOrder.class, statusId));
+            order.setOrderStatus(statusOfOrderService.get(OrderStatus.class, statusId));
             orderService.update(order);
         } catch (ServiceException e) {
             SystemLogger.getInstance().setLogger(getClass(),e);

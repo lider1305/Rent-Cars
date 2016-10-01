@@ -3,7 +3,7 @@ package by.pvt.dao;
 import by.pvt.pojo.Client;
 import by.pvt.pojo.Passports;
 import by.pvt.pojo.Roles;
-import by.pvt.pojo.StatusOfClient;
+import by.pvt.pojo.ClientStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 public class ClientDAOTest {
     private Passports passports;
     private Client client;
-    private StatusOfClient statusOfClient;
+    private ClientStatus statusOfClient;
     private Roles role;
     @Autowired
     private DAO baseDAO;
@@ -48,7 +48,7 @@ public class ClientDAOTest {
         passports.setPassportEndDate(new java.util.Date(11111111111111L));
         passports.setPassportIssueDate(new java.util.Date(11111111111111L));
         //create status
-        statusOfClient = new StatusOfClient();
+        statusOfClient = new ClientStatus();
         statusOfClient.setStatus("CREATE");
         // create role
         role = new Roles();
@@ -92,7 +92,7 @@ public class ClientDAOTest {
         baseDAO.save(statusOfClient);
         Passports person = (Passports) baseDAO.get(Passports.class, 1);
         Client cv = (Client) clientDAO.get(Client.class, 1);
-        StatusOfClient st = (StatusOfClient) baseDAO.get(StatusOfClient.class, 1);
+        ClientStatus st = (ClientStatus) baseDAO.get(ClientStatus.class, 1);
         assertEquals(person, passports);
         assertEquals(cv, client);
         assertEquals(st, statusOfClient);

@@ -7,21 +7,22 @@ import javax.persistence.Table;
 import java.util.Set;
 
 /**
- * Describe POJO status for cars
+ * Describe POJO of Statuses of client
  */
-@javax.persistence.Entity
-@AttributeOverride(name = "id", column = @Column(name = "STATUS_OF_CAR_ID"))
-@Table(name = "STATUS_OF_CAR")
-public class StatusOfCar extends Entity {
-    private  static  final long serialVersionUID= 1L;
 
-    @Column(name = "STATUS_NAME", updatable = false,nullable = false)
+@javax.persistence.Entity
+@AttributeOverride(name = "id", column = @Column(name = "STATUS_ID"))
+@Table(name = "STATUS_OF_CLIENT")
+public class ClientStatus extends Entity {
+    private static final long serialVersionUID = 1L;
+
+    @Column (name = "NAME_OF_STATUS",updatable = false,nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "status")
-    private Set<Car> car;
+    @OneToMany (mappedBy = "statusOfClient")
+    private Set<Client> client;
 
-    public StatusOfCar() {
+    public ClientStatus() {
     }
 
     public String getStatus() {
@@ -32,22 +33,22 @@ public class StatusOfCar extends Entity {
         this.status = status;
     }
 
-    public Set<Car> getCar() {
-        return car;
+    public Set<Client> getClient() {
+        return client;
     }
 
-    public void setCar(Set<Car> car) {
-        this.car = car;
+    public void setClient(Set<Client> client) {
+        this.client = client;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof StatusOfCar)) return false;
-        if (!super.equals(o)) return false;
+        if (!(o instanceof ClientStatus)) return false;
 
-        StatusOfCar that = (StatusOfCar) o;
+        ClientStatus that = (ClientStatus) o;
 
+        if (id != that.id) return false;
         return status != null ? status.equals(that.status) : that.status == null;
 
     }
@@ -61,7 +62,7 @@ public class StatusOfCar extends Entity {
 
     @Override
     public String toString() {
-        return "StatusOfCar{" +
+        return "ClientStatus{" +
                 "status='" + status + '\'' +
                 '}';
     }

@@ -54,5 +54,4 @@ public class UIParams {
     public static final String MESSAGE_ERROR_GET_PASSWORD = "message_error_get_password";
     public static final String MESSAGE_NULL_LIST = "message_null_list";
     public static final String CAR_STATUS = "car_status";
-    public static final String CAR_STATUS_FREE = "car_status_free";
 }

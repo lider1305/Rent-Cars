@@ -47,7 +47,7 @@ public class Car extends Entity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "STATUS_ID")
     @Fetch(FetchMode.JOIN)
-    private StatusOfCar status;
+    private CarStatus status;
 
     @OneToMany(mappedBy = "car")
     private Set<Order> orders;
@@ -120,11 +120,11 @@ public class Car extends Entity {
         this.amount = amount;
     }
 
-    public StatusOfCar getStatus() {
+    public CarStatus getStatus() {
         return status;
     }
 
-    public void setStatus(StatusOfCar status) {
+    public void setStatus(CarStatus status) {
         this.status = status;
     }
 

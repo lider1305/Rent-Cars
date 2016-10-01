@@ -13,7 +13,7 @@ import java.util.Set;
 @javax.persistence.Entity
 @AttributeOverride(name = "id", column = @Column(name = "STATUS_ID"))
 @Table(name = "STATUS_OF_ORDER")
-public class StatusOfOrder extends Entity {
+public class OrderStatus extends Entity {
     private  static  final long serialVersionUID= 1L;
 
     @Column(name = "STATUS_NAME",updatable = false,nullable = false)
@@ -23,7 +23,7 @@ public class StatusOfOrder extends Entity {
     @OneToMany(mappedBy = "orderStatus")
     private Set<Order> orders;
 
-    public StatusOfOrder() {
+    public OrderStatus() {
     }
 
     public String getStatus() {
@@ -45,10 +45,10 @@ public class StatusOfOrder extends Entity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof StatusOfOrder)) return false;
+        if (!(o instanceof OrderStatus)) return false;
         if (!super.equals(o)) return false;
 
-        StatusOfOrder that = (StatusOfOrder) o;
+        OrderStatus that = (OrderStatus) o;
 
         return status != null ? status.equals(that.status) : that.status == null;
 

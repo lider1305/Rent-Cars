@@ -12,12 +12,13 @@ public class DateAndAmount {
 
     /**
      * the method calculates the total cost of the order
-     * @param car
-     * @param start
-     * @param end
-     * @return
+     *
+     * @param car- object of car
+     * @param start -date of start renting car
+     * @param end -date of end renting car
+     * @return total amount
      */
-   public static long countTotalCostOfOrder(Car car, Date start, Date end) {
+    public static long countTotalCostOfOrder(Car car, Date start, Date end) {
         long times = end.getTime() - start.getTime();
         int days = (int) times / (HOURS * MINUTES * SECONDS * MILLISECONDS);
         long amount = (long) (days * car.getAmount());
@@ -29,9 +30,10 @@ public class DateAndAmount {
 
     /**
      * the method checks that the end date less than start date
-     * @param start
-     * @param end
-     * @return
+     *
+     * @param start -date of start renting car
+     * @param end -date of end renting car
+     * @return flag
      */
     public static boolean checkEndDateOnActual(Date start, Date end) {
         return end.getTime() < start.getTime();
@@ -39,12 +41,13 @@ public class DateAndAmount {
 
     /**
      * the method checks the date on the relevance
-     * @param start
-     * @return
+     *
+     * @param start -date of start renting car
+     * @return flag
      */
     public static boolean checkDateOnActual(Date start) {
         Date today = new Date();
         int day = HOURS * MINUTES * SECONDS * MILLISECONDS;
-        return start.getTime()+day < today.getTime();
+        return start.getTime() + day < today.getTime();
     }
 }

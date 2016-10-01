@@ -1,4 +1,4 @@
-package by.pvt.VO;
+package by.pvt.DTO;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;

@@ -1,6 +1,6 @@
 package by.pvt.dao.impl;
 
-import by.pvt.VO.OrderSortingDTO;
+import by.pvt.DTO.OrderSortingDTO;
 import by.pvt.dao.IOrderDAO;
 import by.pvt.pojo.Client;
 import by.pvt.pojo.Order;

@@ -2228,7 +2228,7 @@ pre code {
   .col-lg-offset-0 {
     margin-left: 0%;
   }
-}
+}*/
 table {
   background-color: transparent;
 }
@@ -2256,6 +2256,7 @@ th {
   line-height: 1.42857143;
   vertical-align: top;
   border-top: 1px solid #dddddd;
+  color: #ffffff;
 }
 .table > thead > tr > th {
   vertical-align: bottom;
@@ -2469,7 +2470,7 @@ table th[class*="col-"] {
     border-bottom: 0;
   }
 }
-fieldset {
+/*fieldset {
   padding: 0;
   margin: 0;
   border: 0;
@@ -2980,7 +2981,7 @@ select[multiple].input-lg {
     padding-top: 6px;
     font-size: 12px;
   }
-}
+}*/
 .btn {
   display: inline-block;
   margin-bottom: 0;
@@ -3444,7 +3445,7 @@ input[type="submit"].btn-block,
 input[type="reset"].btn-block,
 input[type="button"].btn-block {
   width: 100%;
-}
+}/*
 .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;

@@ -1,6 +1,6 @@
 package by.pvt.util;
 
-import by.pvt.VO.CarDTO;
+import by.pvt.DTO.CarDTO;
 import by.pvt.constants.Constants;
 import by.pvt.constants.UIParams;
 import by.pvt.exception.ServiceException;

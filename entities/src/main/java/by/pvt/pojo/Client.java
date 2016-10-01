@@ -3,7 +3,6 @@ package by.pvt.pojo;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Parent;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -53,7 +52,7 @@ public class Client extends Entity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "STATUS_ID")
     @Fetch(FetchMode.JOIN)
-    private StatusOfClient statusOfClient;
+    private ClientStatus statusOfClient;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "ROLE_ID")
@@ -107,11 +106,11 @@ public class Client extends Entity {
         this.email = email;
     }
 
-    public StatusOfClient getStatusOfClient() {
+    public ClientStatus getStatusOfClient() {
         return statusOfClient;
     }
 
-    public void setStatusOfClient(StatusOfClient status) {
+    public void setStatusOfClient(ClientStatus status) {
         this.statusOfClient = status;
     }
 

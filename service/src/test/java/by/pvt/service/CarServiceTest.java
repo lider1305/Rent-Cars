@@ -1,8 +1,8 @@
 package by.pvt.service;
 
-import by.pvt.VO.CarAddDTO;
-import by.pvt.VO.CarDTO;
-import by.pvt.VO.CarSortingDTO;
+import by.pvt.DTO.CarAddDTO;
+import by.pvt.DTO.CarDTO;
+import by.pvt.DTO.CarSortingDTO;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.*;
 import by.pvt.service.impl.*;
@@ -41,7 +41,7 @@ public class CarServiceTest {
     private BodyType bodyType;
     private EngineType engineType;
     private TransmissionType transmissionType;
-    private StatusOfCar statusOfCar;
+    private CarStatus statusOfCar;
     private CarDTO carDTO;
     private CarSortingDTO carSortingDTO;
 
@@ -61,7 +61,7 @@ public class CarServiceTest {
         transmissionType = new TransmissionType();
         transmissionType.setTransmissionType("AUTOMATE");
         //create status for car
-        statusOfCar = new StatusOfCar();
+        statusOfCar = new CarStatus();
         statusOfCar.setStatus("RESERVED");
         //create car
         car = new Car();

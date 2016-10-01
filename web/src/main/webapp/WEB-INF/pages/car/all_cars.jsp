@@ -96,8 +96,7 @@
                         <s:errors path="startDate" cssClass="error-validation"/> </td>
                     <td><s:input type="text" readonly="readonly" path="endDate" name="endDate" class="tcal" value=""/>
                         <s:errors path="endDate" cssClass="error-validation"/></td>
-                    <td><c:if test="${car_status ne null}">${car_status} <spring:message code="reserved"/></c:if>
-                        <c:if test="${car_status_free ne null}">${car_status_free} <spring:message code="free"/></c:if></td>
+                    <td><c:if test="${car_status ne null}"><spring:message code="${car_status}"/></c:if></td>
                 </tr>
             </table>
             <input type="submit" value="<spring:message code="check"/>"/>

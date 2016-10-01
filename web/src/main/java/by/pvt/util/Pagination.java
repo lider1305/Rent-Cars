@@ -1,6 +1,6 @@
 package by.pvt.util;
 
-import by.pvt.VO.PaginationDTO;
+import by.pvt.DTO.PaginationDTO;
 import by.pvt.constants.Constants;
 import org.springframework.stereotype.Component;
 

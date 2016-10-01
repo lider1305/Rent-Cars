@@ -1,4 +1,4 @@
-package by.pvt.VO;
+package by.pvt.DTO;
 
 import by.pvt.pojo.BodyType;
 import by.pvt.pojo.Brands;

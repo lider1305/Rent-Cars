@@ -1,7 +1,7 @@
 package by.pvt.controller;
 
-import by.pvt.VO.CarAddDTO;
-import by.pvt.VO.OrderDTO;
+import by.pvt.DTO.CarAddDTO;
+import by.pvt.DTO.OrderDTO;
 import by.pvt.constants.ConstantsValues;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
@@ -16,6 +16,7 @@ import by.pvt.util.Pagination;
 import by.pvt.util.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -34,7 +34,7 @@ import static by.pvt.constants.Message.ERROR_500;
 import static by.pvt.constants.Pages.*;
 import static by.pvt.constants.UIParams.*;
 
-@org.springframework.stereotype.Controller
+@Controller
 public class CarController {
     @Autowired
     private OrderService orderService;
@@ -65,36 +65,29 @@ public class CarController {
             return PAGE_ALL_CARS;
         }
        try{
-           getCarsByDefaultFilter(request, model);
+           databaseData.getCarsListByFilter(request, model);
+           request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
            if(orderDTO.getCarId()==0){
-               databaseData.getCarsListByFilter(request, model);
-               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_NO_CHOSEN);
                return PAGE_ALL_CARS;
            }
            Car car= carService.get(Car.class,orderDTO.getCarId());
            //checks dates for relevance
            if(DateAndAmount.checkDateOnActual(orderDTO.getStartDate())){
-               databaseData.getCarsListByFilter(request, model);
-               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE);
                return PAGE_ALL_CARS;
            }
            if(DateAndAmount.checkEndDateOnActual(orderDTO.getStartDate(),orderDTO.getEndDate())){
-               databaseData.getCarsListByFilter(request, model);
-               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE_END);
                return PAGE_ALL_CARS;
            }
-          if(orderService.checkCarForBooking(car, orderDTO.getStartDate(),orderDTO.getEndDate())){
-               model.addAttribute(CAR_STATUS, car.getBrand().getBrandName() + " " + car.getModel());
+          if(orderService.isCarReserved(car, orderDTO.getStartDate(),orderDTO.getEndDate())){
+               model.addAttribute(CAR_STATUS,Message.RESERVED);
            } else {
-               model.addAttribute(CAR_STATUS_FREE, car.getBrand().getBrandName() + " " + car.getModel());
+               model.addAttribute(CAR_STATUS,Message.FREE);
               return PAGE_ALL_CARS;
            }
        }catch (ServiceException e){
-           databaseData.getCarsListByFilter(request, model);
-           request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
            SystemLogger.getInstance().setLogger(getClass(),e);
            model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
            return PAGE_ALL_CARS;
@@ -103,7 +96,7 @@ public class CarController {
     }
 
     @RequestMapping(value = VALUE_GET_CARS_BY_FILTER, method = RequestMethod.GET)
-    public String getCarsByFilterPost(HttpServletRequest request, Model model) {
+    public String getCarsByFilter(HttpServletRequest request, Model model) {
         getCarsByDefaultFilter(request, model);
         model.addAttribute(ORDER_DTO,new OrderDTO());
         return (String) request.getSession().getAttribute(REQUEST_PAGE);

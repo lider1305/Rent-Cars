@@ -49,5 +49,5 @@ public class Message {
     public static final String ERROR_GET_LIST_OF_ORDER_STATUSES = "error_get_list_statuses";
     public static final String ERROR_LIST_TRANSMISSIONS = "error_get_transmissions";
     public static final String ERROR_500 = "500";
-    public static final String ERROR = "\"javax.servlet.error.exception_type\"";
+    public static final String ERROR = "javax.servlet.error.exception_type";
 }

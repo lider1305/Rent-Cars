@@ -7,22 +7,21 @@ import javax.persistence.Table;
 import java.util.Set;
 
 /**
- * Describe POJO of Statuses of client
+ * Describe POJO status for cars
  */
-
 @javax.persistence.Entity
-@AttributeOverride(name = "id", column = @Column(name = "STATUS_ID"))
-@Table(name = "STATUS_OF_CLIENT")
-public class StatusOfClient extends Entity {
-    private static final long serialVersionUID = 1L;
+@AttributeOverride(name = "id", column = @Column(name = "STATUS_OF_CAR_ID"))
+@Table(name = "STATUS_OF_CAR")
+public class CarStatus extends Entity {
+    private  static  final long serialVersionUID= 1L;
 
-    @Column (name = "NAME_OF_STATUS",updatable = false,nullable = false)
+    @Column(name = "STATUS_NAME", updatable = false,nullable = false)
     private String status;
 
-    @OneToMany (mappedBy = "statusOfClient")
-    private Set<Client> client;
+    @OneToMany(mappedBy = "status")
+    private Set<Car> car;
 
-    public StatusOfClient() {
+    public CarStatus() {
     }
 
     public String getStatus() {
@@ -33,22 +32,22 @@ public class StatusOfClient extends Entity {
         this.status = status;
     }
 
-    public Set<Client> getClient() {
-        return client;
+    public Set<Car> getCar() {
+        return car;
     }
 
-    public void setClient(Set<Client> client) {
-        this.client = client;
+    public void setCar(Set<Car> car) {
+        this.car = car;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof StatusOfClient)) return false;
+        if (!(o instanceof CarStatus)) return false;
+        if (!super.equals(o)) return false;
 
-        StatusOfClient that = (StatusOfClient) o;
+        CarStatus that = (CarStatus) o;
 
-        if (id != that.id) return false;
         return status != null ? status.equals(that.status) : that.status == null;
 
     }
@@ -62,7 +61,7 @@ public class StatusOfClient extends Entity {
 
     @Override
     public String toString() {
-        return "StatusOfClient{" +
+        return "StatusOfCar{" +
                 "status='" + status + '\'' +
                 '}';
     }

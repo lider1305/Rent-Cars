@@ -1,8 +1,8 @@
 package by.pvt.service.impl;
 
-import by.pvt.VO.CarAddDTO;
-import by.pvt.VO.CarDTO;
-import by.pvt.VO.CarSortingDTO;
+import by.pvt.DTO.CarAddDTO;
+import by.pvt.DTO.CarDTO;
+import by.pvt.DTO.CarSortingDTO;
 import by.pvt.dao.ICarDAO;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.*;
@@ -19,7 +19,7 @@ import java.util.List;
 import static by.pvt.exception.ExceptionMessages.*;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class CarService extends BaseService<Car> {
     @Autowired
     private ICarDAO carDAO;
@@ -79,7 +79,7 @@ public class CarService extends BaseService<Car> {
             newCar.setTransmissionType(transmissionTypeService.get(TransmissionType.class, car.getTransmissionType()));
             newCar.setYearOfManufacture(car.getYearOfManufacture());
             newCar.setAmount(car.getAmount());
-            newCar.setStatus(statusOfCarService.get(StatusOfCar.class, 2));
+            newCar.setStatus(statusOfCarService.get(CarStatus.class, 2));
             super.save(newCar);
         } catch (ServiceException e) {
             SystemLogger.getInstance().setLogger(getClass(), e);

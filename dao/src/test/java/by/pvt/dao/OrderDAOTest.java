@@ -3,7 +3,7 @@ package by.pvt.dao;
 import by.pvt.pojo.Car;
 import by.pvt.pojo.Client;
 import by.pvt.pojo.Order;
-import by.pvt.pojo.StatusOfOrder;
+import by.pvt.pojo.OrderStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -26,7 +26,7 @@ import java.util.List;
 public class OrderDAOTest {
     private Order order;
     private Client client;
-    private StatusOfOrder statusOfOrder;
+    private OrderStatus statusOfOrder;
     @Autowired
     private DAO baseDAO;
     @Autowired
@@ -48,7 +48,7 @@ public class OrderDAOTest {
         order = new Order();
         order.setClient((Client) clientDAO.get(Client.class, 1));
         order.setCar((Car) carDAO.get(Car.class, 2));
-        statusOfOrder = new StatusOfOrder();
+        statusOfOrder = new OrderStatus();
         statusOfOrder.setStatus("ПРИНЯТ");
         order.setOrderStatus(statusOfOrder);
         order.setStartDate(new Date(1111111111L));

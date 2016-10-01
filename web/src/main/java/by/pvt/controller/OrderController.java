@@ -1,6 +1,6 @@
 package by.pvt.controller;
 
-import by.pvt.VO.OrderDTO;
+import by.pvt.DTO.OrderDTO;
 import by.pvt.constants.ConstantsValues;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
@@ -14,6 +14,7 @@ import by.pvt.util.Pagination;
 import by.pvt.util.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -30,7 +31,7 @@ import static by.pvt.constants.Message.ERROR;
 import static by.pvt.constants.Message.ERROR_500;
 import static by.pvt.constants.Pages.*;
 
-@org.springframework.stereotype.Controller
+@Controller
 public class OrderController {
     private static final int PAGE_FOR_PAGINATION = 1;
 
@@ -144,7 +145,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = VALUE_EDIT_ORDER, method = RequestMethod.POST)
-    public String editOrderPost(@Valid @ModelAttribute(ORDER_DTO) OrderDTO order, BindingResult result, HttpServletRequest request, Model model) {
+    public String editOrder(@Valid @ModelAttribute(ORDER_DTO) OrderDTO order, BindingResult result, HttpServletRequest request, Model model) {
         if (result.hasErrors()) {
             return PAGE_EDIT_ORDER;
         }

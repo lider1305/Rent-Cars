@@ -1,6 +1,6 @@
 package by.pvt.controller;
 
-import by.pvt.VO.LoginDTO;
+import by.pvt.DTO.LoginDTO;
 import by.pvt.constants.Constants;
 import by.pvt.constants.WebErrorMessages;
 import by.pvt.pojo.Client;

@@ -1,4 +1,4 @@
-package by.pvt.VO;
+package by.pvt.DTO;
 
 /**
  * Class for getting pagination params from user pages

@@ -1,13 +1,13 @@
 package by.pvt.controller;
 
-import by.pvt.VO.LoginDTO;
+import by.pvt.DTO.LoginDTO;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
 import by.pvt.constants.WebErrorMessages;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Client;
+import by.pvt.pojo.ClientStatus;
 import by.pvt.pojo.Roles;
-import by.pvt.pojo.StatusOfClient;
 import by.pvt.service.impl.ClientService;
 import by.pvt.service.impl.RoleService;
 import by.pvt.service.impl.StatusOfClientService;
@@ -16,6 +16,7 @@ import by.pvt.util.Pagination;
 import by.pvt.util.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -35,7 +36,7 @@ import static by.pvt.constants.Message.*;
 import static by.pvt.constants.Pages.*;
 import static by.pvt.constants.UIParams.*;
 
-@org.springframework.stereotype.Controller
+@Controller
 public class UserController {
     private static final String REGEX_EMAIL = "^[0-9a-zA-Zа-яА-я]*[@][a-z]*[.][a-z]{1,3}$";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
@@ -167,7 +168,7 @@ public class UserController {
         }
 
         try {
-            client.setStatusOfClient(statusOfClientService.get(StatusOfClient.class, 1));
+            client.setStatusOfClient(statusOfClientService.get(ClientStatus.class, 1));
             client.setRole(roleService.get(Roles.class, 1));
             clientServices.save(client);
             model.addAttribute(CLIENT, client);

@@ -1,4 +1,4 @@
-package by.pvt.VO;
+package by.pvt.DTO;
 
 public class CarSortingDTO {
     private String brand;

@@ -3,7 +3,7 @@ package by.pvt.service;
 import by.pvt.pojo.Client;
 import by.pvt.pojo.Passports;
 import by.pvt.pojo.Roles;
-import by.pvt.pojo.StatusOfClient;
+import by.pvt.pojo.ClientStatus;
 import by.pvt.service.impl.ClientService;
 import by.pvt.service.impl.PassportService;
 import by.pvt.service.impl.RoleService;
@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
 public class ClientServiceTest {
     private Passports passports;
     private Client client;
-    private StatusOfClient statusOfClient;
+    private ClientStatus statusOfClient;
     private Roles role;
     @Autowired
     private PassportService passportService;
@@ -51,7 +51,7 @@ public class ClientServiceTest {
         passports.setPassportEndDate(date);
         passports.setPassportIssueDate(date);
         //create status
-        statusOfClient = new StatusOfClient();
+        statusOfClient = new ClientStatus();
         statusOfClient.setStatus("CREATE");
         // create role
         role = new Roles();
@@ -96,7 +96,7 @@ public class ClientServiceTest {
 
         Passports person = passportService.get(Passports.class, 1);
         Client cv = clientService.get(Client.class, 1);
-        StatusOfClient st = statusOfClientService.get(StatusOfClient.class, 1);
+        ClientStatus st = statusOfClientService.get(ClientStatus.class, 1);
         assertEquals(cv, client);
         assertEquals(st, statusOfClient);
     }

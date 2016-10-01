@@ -1,7 +1,7 @@
 package by.pvt.dao;
 
-import by.pvt.VO.CarDTO;
-import by.pvt.VO.CarSortingDTO;
+import by.pvt.DTO.CarDTO;
+import by.pvt.DTO.CarSortingDTO;
 import by.pvt.pojo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -31,7 +31,7 @@ public class CarDAOTest {
     private BodyType bodyType;
     private EngineType engineType;
     private TransmissionType transmissionType;
-    private StatusOfCar statusOfCar;
+    private CarStatus statusOfCar;
     private CarDTO carDTO;
     private CarSortingDTO carSortingDTO;
     @Autowired
@@ -56,7 +56,7 @@ public class CarDAOTest {
         transmissionType = new TransmissionType();
         transmissionType.setTransmissionType("AUTOMATE");
         //create status for car
-        statusOfCar = new StatusOfCar();
+        statusOfCar = new CarStatus();
         statusOfCar.setStatus("RESERVED");
         //create car
         car = new Car();

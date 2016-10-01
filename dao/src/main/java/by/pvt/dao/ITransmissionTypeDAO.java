@@ -10,6 +10,12 @@ import java.util.List;
  * @param <T>
  */
 public interface ITransmissionTypeDAO<T> extends DAO<T> {
-    //return all transmission types from database
+    /**
+     * return all transmission types from database
+     *
+     * @param page    - number of row in database
+     * @param perPage - count of shown items
+     * @return list of transmission types
+     */
     List<TransmissionType> getAll(int page, int perPage);
 }

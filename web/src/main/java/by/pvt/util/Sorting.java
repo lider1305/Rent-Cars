@@ -1,7 +1,7 @@
 package by.pvt.util;
 
-import by.pvt.VO.CarSortingDTO;
-import by.pvt.VO.OrderSortingDTO;
+import by.pvt.DTO.CarSortingDTO;
+import by.pvt.DTO.OrderSortingDTO;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;

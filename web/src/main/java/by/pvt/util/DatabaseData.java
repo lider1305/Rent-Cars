@@ -1,8 +1,8 @@
 package by.pvt.util;
 
-import by.pvt.VO.CarDTO;
-import by.pvt.VO.CarSortingDTO;
-import by.pvt.VO.OrderSortingDTO;
+import by.pvt.DTO.CarDTO;
+import by.pvt.DTO.CarSortingDTO;
+import by.pvt.DTO.OrderSortingDTO;
 import by.pvt.constants.Constants;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
@@ -10,7 +10,7 @@ import by.pvt.exception.ServiceException;
 import by.pvt.pojo.BodyType;
 import by.pvt.pojo.Client;
 import by.pvt.pojo.Order;
-import by.pvt.pojo.StatusOfOrder;
+import by.pvt.pojo.OrderStatus;
 import by.pvt.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -120,7 +120,7 @@ public class DatabaseData {
         Date today = new Date();
         for (Order allOrder : allOrders) {
             if (allOrder.getEndDate().getTime() < today.getTime()) {
-                allOrder.setOrderStatus(statusOfOrderService.get(StatusOfOrder.class, 5));
+                allOrder.setOrderStatus(statusOfOrderService.get(OrderStatus.class, 5));
                 orderService.update(allOrder);
             }
         }

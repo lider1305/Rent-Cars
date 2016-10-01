@@ -1,10 +1,11 @@
-package by.pvt.VO;
+package by.pvt.DTO;
+
 
 import javax.validation.constraints.Size;
 
 public class CarAddDTO{
     private int brand;
-    @Size(min=2, message = "Вы не ввели модель автомобиля!")
+    @Size(min=2,message = "Модель автомобиля не может были менее 2-х символов")
     private String model;
     private int engineType;
     private int transmissionType;

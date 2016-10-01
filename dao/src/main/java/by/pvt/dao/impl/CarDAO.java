@@ -1,7 +1,7 @@
 package by.pvt.dao.impl;
 
-import by.pvt.VO.CarDTO;
-import by.pvt.VO.CarSortingDTO;
+import by.pvt.DTO.CarDTO;
+import by.pvt.DTO.CarSortingDTO;
 import by.pvt.dao.ICarDAO;
 import by.pvt.pojo.Car;
 import by.pvt.util.SortingUtil;

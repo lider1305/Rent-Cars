@@ -39,7 +39,7 @@ public class Order extends Entity {
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "STATUS_OF_ORDER")
     @Fetch(FetchMode.JOIN)
-    private StatusOfOrder orderStatus;
+    private OrderStatus orderStatus;
 
     private long amount;
 
@@ -86,11 +86,11 @@ public class Order extends Entity {
         this.message = message;
     }
 
-    public StatusOfOrder getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(StatusOfOrder orderStatus) {
+    public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
