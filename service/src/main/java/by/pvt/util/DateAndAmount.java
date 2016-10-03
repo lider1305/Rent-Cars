@@ -47,7 +47,6 @@ public class DateAndAmount {
      */
     public static boolean checkDateOnActual(Date start) {
         Date today = new Date();
-        int day = HOURS * MINUTES * SECONDS * MILLISECONDS;
-        return start.getTime() + day < today.getTime();
+        return start.getTime() < today.getTime();
     }
 }

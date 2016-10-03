@@ -56,7 +56,7 @@ public interface IOrderDAO<T> extends DAO<T> {
      * @param sort    - param for sorting
      * @return sorted list of orders
      */
-    List getOrderByFilter(int page, int perPage, OrderSortingDTO sort);
+    List getOrderByFilter(int page, int perPage, OrderSortingDTO sort,Client client);
 
     /**
      * returns count of orders

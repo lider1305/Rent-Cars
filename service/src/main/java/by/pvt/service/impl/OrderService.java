@@ -71,10 +71,10 @@ public class OrderService extends BaseService<Order> {
         return all;
     }
 
-    public List getOrdersByFilter(int page, int perPage, OrderSortingDTO sort) throws ServiceException {
+    public List getOrdersByFilter(int page, int perPage, OrderSortingDTO sort,Client client) throws ServiceException {
         List result;
         try {
-            result = orderDAO.getOrderByFilter(page, perPage, sort);
+            result = orderDAO.getOrderByFilter(page, perPage, sort, client);
         } catch (HibernateException e) {
             SystemLogger.getInstance().setLogger(getClass(), e);
             throw new ServiceException(ERROR_GET_LIST_OF_ORDERS);

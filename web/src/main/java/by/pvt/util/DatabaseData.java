@@ -107,7 +107,7 @@ public class DatabaseData {
         sortingDTO.setASC(sorting.getSorting(request));
         //get the resulting list after filtering and sorting
         try {
-            List<Order> allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request), sortingDTO);
+            List<Order> allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request), sortingDTO,sessionClient);
             checkOrdersForActual(allOrders);
             request.setAttribute(UIParams.REQUEST_ORDERS, allOrders);
         } catch (ServiceException e) {

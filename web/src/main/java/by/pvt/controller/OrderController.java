@@ -10,6 +10,7 @@ import by.pvt.pojo.Client;
 import by.pvt.pojo.Order;
 import by.pvt.service.impl.OrderService;
 import by.pvt.util.DatabaseData;
+import by.pvt.util.DateAndAmount;
 import by.pvt.util.Pagination;
 import by.pvt.util.SystemLogger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +102,16 @@ public class OrderController {
             return PAGE_RENT_CAR;
         }
         try {
+            databaseData.getCarsListByFilter(request, model);
+            request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
+            if(DateAndAmount.checkDateOnActual(order.getStartDate())){
+                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE);
+                return PAGE_RENT_CAR;
+            }
+            if(DateAndAmount.checkEndDateOnActual(order.getStartDate(),order.getEndDate())){
+                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE_END);
+                return PAGE_RENT_CAR;
+            }
             orderService.save(order);
             request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER);
         } catch (ServiceException e) {

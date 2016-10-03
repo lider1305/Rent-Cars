@@ -64,10 +64,11 @@ public class OrderDAO extends BaseDAO<Order> implements IOrderDAO<Order> {
     }
 
     @Override
-    public List getOrderByFilter(int page, int perPage, OrderSortingDTO sort) {
+    public List getOrderByFilter(int page, int perPage, OrderSortingDTO sort,Client client) {
         List result;
         SortingUtil sortingUtil = SortingUtil.getInstance();
         Criteria criteria = getSession().createCriteria(Order.class);
+        criteria.add(Restrictions.eq(CLIENT, client));
         if (sort.isASC()) {
             criteria.addOrder(org.hibernate.criterion.Order.asc(sortingUtil.orderSorting(sort)));
         } else {
