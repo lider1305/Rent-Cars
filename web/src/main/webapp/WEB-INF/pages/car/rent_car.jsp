@@ -96,6 +96,7 @@
                         <input type="hidden" name="yearTo" value="${filterYearTo}"/>
                         <input type="hidden" name="amountFrom" value="${filterAmountFrom}"/>
                         <input type="hidden" name="amountTo" value="${filterAmountTo}"/>
+                        <input type="hidden" name="start" value="${counter}"/>
                         <td><spring:message code="date_start_of_rent"/>:</td>
                         <td><spring:message code="date_end_of_rent"/>:</td>
                         <td><spring:message code="other_info"/>:</td>

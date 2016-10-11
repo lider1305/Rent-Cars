@@ -19,9 +19,15 @@ public class DateAndAmount {
      * @return total amount
      */
     public static long countTotalCostOfOrder(Car car, Date start, Date end) {
+        long amount;
         long times = end.getTime() - start.getTime();
         int days = (int) times / (HOURS * MINUTES * SECONDS * MILLISECONDS);
-        long amount = (long) (days * car.getAmount());
+        if(days==0){
+            amount = (long) (days * car.getAmount());
+        }else{
+           amount= (long) ((days+1) * car.getAmount());
+        }
+
         if (amount < car.getAmount()) {
             amount = (long) car.getAmount();
         }

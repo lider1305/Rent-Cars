@@ -92,6 +92,7 @@
                     <input type="hidden" name="yearTo" value="${filterYearTo}"/>
                     <input type="hidden" name="amountFrom" value="${filterAmountFrom}"/>
                     <input type="hidden" name="amountTo" value="${filterAmountTo}"/>
+                    <input type="hidden" name="start" value="${counter}"/>
                     <td><s:input type="text" readonly="readonly" path="startDate" name="startDate" class="tcal" value=""/>
                         <s:errors path="startDate" cssClass="error-validation"/> </td>
                     <td><s:input type="text" readonly="readonly" path="endDate" name="endDate" class="tcal" value=""/>

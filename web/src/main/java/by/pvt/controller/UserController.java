@@ -1,5 +1,6 @@
 package by.pvt.controller;
 
+import by.pvt.DTO.ClientDTO;
 import by.pvt.DTO.LoginDTO;
 import by.pvt.constants.Message;
 import by.pvt.constants.UIParams;
@@ -22,6 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -112,31 +114,28 @@ public class UserController {
     @RequestMapping(value = VALUE_GO_TO_EDIT_CLIENT, method = RequestMethod.GET)
     public String editClientData(HttpServletRequest request, ModelMap model) {
         model.put(CLIENT, request.getSession().getAttribute(CLIENT));
+        model.put(CLIENTDTO, new ClientDTO());
         return PAGE_EDIT_CLIENT;
     }
 
     @RequestMapping(value = VALUE_CHANGE_DATA, method = RequestMethod.POST)
-    public String changeClientData(@Valid @ModelAttribute(CLIENT) Client client, BindingResult result, Model model, HttpServletRequest request) throws ServiceException {
+    public String changeClientData(@Valid @ModelAttribute(CLIENTDTO) ClientDTO client, BindingResult result, Model model, HttpServletRequest request) throws ServiceException {
         if (result.hasErrors()) {
             return PAGE_EDIT_CLIENT;
         }
-        if (client.getPassports().getPassport() == null || client.getPassports().getPassport().length() < MIN_PASSWORD) {
+        if (client.getPassport() == null || client.getPassport().length() < MIN_PASSWORD) {
             model.addAttribute(PASSPORT_ERROR, MessageManager.getInstance().getValue(PASSPORT_ERROR_I18N, Locale.getDefault()));
             return PAGE_EDIT_CLIENT;
         }
-        if (client.getPassports().getPassportIssueDate() == null | client.getPassports().getPassportEndDate() == null) {
+        if (client.getPassportIssueDate() == null | client.getPassportEndDate() == null) {
             model.addAttribute(DATE_ERROR, MessageManager.getInstance().getValue(DATE_ERROR_I18N, Locale.getDefault()));
             return PAGE_REGISTRATION;
         }
         Client clientUI = (Client) request.getSession().getAttribute(CLIENT);
-        client.setId(clientUI.getId());
-        client.setRole(clientUI.getRole());
-        client.setStatusOfClient(clientUI.getStatusOfClient());
-        clientServices.update(client);
-        model.addAttribute(CLIENT, client);
-
+        clientServices.update(client, clientUI);
+        model.addAttribute(CLIENTDTO, client);
         HttpSession session = request.getSession();
-        session.setAttribute(CLIENT, client);
+        session.setAttribute(CLIENT, clientServices.get(Client.class,clientUI.getId()));
         return REDIRECT_PAGE_CLIENT;
     }
 
@@ -154,7 +153,7 @@ public class UserController {
     }
 
     @RequestMapping(value = VALUE_NEW_USER, method = RequestMethod.POST)
-    public String createUser(@Valid @ModelAttribute(CLIENT) Client client, BindingResult result, Model model, HttpServletRequest request) {
+    public String createUser(@Valid @ModelAttribute(CLIENT) Client client, BindingResult result, Model model, HttpServletRequest request,RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return PAGE_REGISTRATION;
         }
@@ -172,7 +171,7 @@ public class UserController {
             client.setRole(roleService.get(Roles.class, 1));
             clientServices.save(client);
             model.addAttribute(CLIENT, client);
-            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_REGISTRY, Message.SUCCESS_REGISTRY);
+            redirectAttributes.addFlashAttribute(UIParams.REQUEST_SUCCESS_REGISTRY, Message.SUCCESS_REGISTRY);
         } catch (ServiceException e) {
             SystemLogger.getInstance().setLogger(getClass(), e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());

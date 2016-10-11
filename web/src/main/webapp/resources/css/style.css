@@ -34,7 +34,7 @@ inbody {
     width: 90%;
     position: absolute;
     background: #000;
-    top: 40%;
+    top: 45%;
     left: 5%;
 }
 /* Стиль логотипа */
@@ -80,7 +80,7 @@ ul.menu {
     font-size: 14px;
     width: 100%;
     position: absolute;
-    top: 30%;
+    top: 35%;
     right: 0%
 }
 

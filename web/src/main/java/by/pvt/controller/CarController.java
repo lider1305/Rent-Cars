@@ -22,6 +22,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -74,10 +75,14 @@ public class CarController {
            Car car= carService.get(Car.class,orderDTO.getCarId());
            //checks dates for relevance
            if(DateAndAmount.checkDateOnActual(orderDTO.getStartDate())){
+               databaseData.getCarsListByFilter(request, model);
+               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE);
                return PAGE_ALL_CARS;
            }
            if(DateAndAmount.checkEndDateOnActual(orderDTO.getStartDate(),orderDTO.getEndDate())){
+               databaseData.getCarsListByFilter(request, model);
+               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
                model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE_END);
                return PAGE_ALL_CARS;
            }
@@ -110,14 +115,14 @@ public class CarController {
     }
 
     @RequestMapping(value = VALUE_ADD_CAR, method = RequestMethod.POST)
-    public String addCarPost(HttpServletRequest request, Model model, @Valid @ModelAttribute(ALL_CARS) CarAddDTO car, BindingResult result) {
+    public String addCarPost(HttpServletRequest request, Model model, @Valid @ModelAttribute(ALL_CARS) CarAddDTO car, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             request.setAttribute(REQUEST_EXCEPTION_NULL_MODEL, Message.PARAM_NULL_MODEL);
             return PAGE_ADD_CAR;
         }
         try {
             carService.save(car);
-            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_ADD_NEW_CAR, Message.SUCCESS_ADD_NEW_CAR);
+            redirectAttributes.addFlashAttribute(UIParams.REQUEST_SUCCESS_ADD_NEW_CAR, Message.SUCCESS_ADD_NEW_CAR);
         } catch (ServiceException e) {
             SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(SERVICE_EXCEPTION, Message.ERROR_SAVE_OBJECT);

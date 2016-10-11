@@ -29,7 +29,7 @@
 <inbody>
     <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
     <div>
-        <s:form method="POST" action="change_data" modelAttribute="client" onsubmit="validateEdit">
+        <s:form method="POST" action="change_data" modelAttribute="clientDTO" onsubmit="validateEdit">
             <spring:message code="context_edit_data"/><br/><br/>
 
             <spring:message code="client_name"/>:<br/>
@@ -52,24 +52,26 @@
             <s:input type="text" path="phone" name="phone" value="${client.phone}" size="20"/>
             <sf:errors path="phone" cssClass="error-validation"/><br/>
 
-            <s:input type="hidden" path="passports.id" value="${client.passports.id}"/>
 
             <spring:message code="client_passport"/>:<br/>
-            <s:input type="text" path="passports.passport" name="passport" value="${client.passports.passport}"
+            <s:input type="text" path="passport" name="passport" value="${client.passports.passport}"
                      size="20"/>
             ${passport_error}<br/>
+            <sf:errors path="passport" cssClass="error-validation"/><br/>
 
             <spring:message code="client_passport_start"/>:<br/>
             ${exception_null_date}
-            <s:input type="text" name="passportIssueDate" readonly="true" class="tcal" path="passports.passportIssueDate"
+            <s:input type="text" name="passportIssueDate" readonly="true" class="tcal" path="passportIssueDate"
                      value="${client.passports.passportIssueDate}"/>
             ${date_error}<br/>
+            <sf:errors path="passportIssueDate" cssClass="error-validation"/><br/>
 
             <spring:message code="client_passport_end"/>:<br/>
             ${exception_null_date}
-            <s:input type="text" name="passportEndDate" readonly="true" class="tcal" path="passports.passportEndDate"
+            <s:input type="text" name="passportEndDate" readonly="true" class="tcal" path="passportEndDate"
                      value="${client.passports.passportEndDate}"/>
             ${date_error}<br/>
+            <sf:errors path="passportEndDate" cssClass="error-validation"/><br/>
             <input type="submit" value="<spring:message code="change_data"/>"/>
         </s:form>
     </div>

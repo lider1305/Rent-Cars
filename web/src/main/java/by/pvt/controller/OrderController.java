@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -95,7 +96,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = VALUE_MAKE_ORDER, method = RequestMethod.POST)
-    public String makeOrder(@Valid @ModelAttribute(ORDER_DTO) OrderDTO order, BindingResult result, HttpServletRequest request, Model model) {
+    public String makeOrder(@Valid @ModelAttribute(ORDER_DTO) OrderDTO order, BindingResult result, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             databaseData.getCarsListByFilter(request, model);
             request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
@@ -113,7 +114,7 @@ public class OrderController {
                 return PAGE_RENT_CAR;
             }
             orderService.save(order);
-            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER);
+            redirectAttributes.addFlashAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER);
         } catch (ServiceException e) {
             databaseData.getCarsListByFilter(request, model);
             request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
@@ -156,7 +157,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = VALUE_EDIT_ORDER, method = RequestMethod.POST)
-    public String editOrder(@Valid @ModelAttribute(ORDER_DTO) OrderDTO order, BindingResult result, HttpServletRequest request, Model model) {
+    public String editOrder(@Valid @ModelAttribute(ORDER_DTO) OrderDTO order, BindingResult result, HttpServletRequest request, Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return PAGE_EDIT_ORDER;
         }
@@ -167,7 +168,7 @@ public class OrderController {
         model.addAttribute(ORDER_DTO, new OrderDTO());
         try {
             orderService.update(order);
-            request.getSession().setAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER_UPDATE);
+            redirectAttributes.addFlashAttribute(UIParams.REQUEST_SUCCESS_MESSAGE, Message.SUCCESS_ORDER_UPDATE);
             return REDIRECT_ALL_CLIENT_ORDERS;
         } catch (ServiceException e) {
             SystemLogger.getInstance().setLogger(getClass(),e);

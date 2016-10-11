@@ -1,8 +1,10 @@
 package by.pvt.service.impl;
 
+import by.pvt.DTO.ClientDTO;
 import by.pvt.dao.IClientDAO;
 import by.pvt.exception.ServiceException;
 import by.pvt.pojo.Client;
+import by.pvt.pojo.Passports;
 import by.pvt.util.SystemLogger;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +55,20 @@ public class ClientService extends BaseService<Client> {
             throw new ServiceException(ERROR_GET_USERS);
         }
         return all;
+    }
+
+
+    public void update(ClientDTO clientDTO,Client client) throws ServiceException {
+        client.setName(clientDTO.getName());
+        client.setSurname(clientDTO.getSurname());
+        client.setEmail(clientDTO.getEmail());
+        client.setPassword(clientDTO.getPassword());
+        client.setPhone(clientDTO.getPhone());
+        Passports passports = client.getPassports();
+        passports.setPassport(clientDTO.getPassport());
+        passports.setPassportIssueDate(clientDTO.getPassportIssueDate());
+        passports.setPassportEndDate(clientDTO.getPassportEndDate());
+        client.setPassports(passports);
+        super.update(client);
     }
 }
