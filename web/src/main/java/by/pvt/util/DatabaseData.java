@@ -47,7 +47,12 @@ public class DatabaseData {
     @Autowired
     private StatusOfOrderService statusOfOrderService;
 
-    //the method get params for cars and put it to session
+    /**
+     * the method get params for cars and put it to session
+     *
+     * @param request
+     * @param model
+     */
     public void setToSessionCarParams(HttpServletRequest request, Model model) {
         List brands;
         List<BodyType> bodyType;
@@ -68,7 +73,12 @@ public class DatabaseData {
         }
     }
 
-    //the method get cars by filter and sort params
+    /**
+     * the method get cars by filter and sort params
+     *
+     * @param request
+     * @param model
+     */
     public void getCarsListByFilter(HttpServletRequest request, Model model) {
         CarDTO carDTO = filter.getCarFilter(request);
         //get pagination params
@@ -107,7 +117,7 @@ public class DatabaseData {
         sortingDTO.setASC(sorting.getSorting(request));
         //get the resulting list after filtering and sorting
         try {
-            List<Order> allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request), sortingDTO,sessionClient);
+            List<Order> allOrders = orderService.getOrdersByFilter(pagination.getStartRow(request) - PAGE_FOR_PAGINATION, pagination.getItemPerPage(request), sortingDTO, sessionClient);
             checkOrdersForActual(allOrders);
             request.setAttribute(UIParams.REQUEST_ORDERS, allOrders);
         } catch (ServiceException e) {

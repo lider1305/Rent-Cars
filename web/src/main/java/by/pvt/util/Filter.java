@@ -34,12 +34,17 @@ public class Filter {
     @Autowired
     private TransmissionTypeService transmissionTypeService;
 
-    //the method checks the input parameters to the filter, to send a carDTO object
+    /**
+     * the method checks the input parameters to the filter, to send a carDTO object
+     *
+     * @param request
+     * @return
+     */
     public CarDTO getCarFilter(HttpServletRequest request) {
         CarDTO carDTO = new CarDTO();
-        if(request.getParameter(Constants.AUTO_BRAND) == null){
+        if (request.getParameter(Constants.AUTO_BRAND) == null) {
             setCarDTO(carDTO);
-        }else {
+        } else {
             try {
                 if (request.getParameter(Constants.AUTO_BRAND).length() != 0) {
                     carDTO.setBrand(brandsService.get(Brands.class, valueOf(request.getParameter(Constants.AUTO_BRAND))));
@@ -80,7 +85,12 @@ public class Filter {
         }
         return carDTO;
     }
-//sets default params
+
+    /**
+     * sets default params
+     *
+     * @param carDTO
+     */
     private void setCarDTO(CarDTO carDTO) {
         carDTO.setBrand(null);
         carDTO.setBodyType(null);

@@ -146,6 +146,10 @@ public class OrderController {
         try {
             databaseData.setToSessionCarParams(request,model);
             order = orderService.get(Order.class, orderId);
+            if(order.getOrderStatus().getId() > 2){
+                request.setAttribute(UIParams.ORDER_STATUS, Message.ORDER_CANT_UPDATE);
+                return PAGE_EDIT_ORDER;
+            }
         } catch (ServiceException e) {
             SystemLogger.getInstance().setLogger(getClass(),e);
             model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());

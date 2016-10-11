@@ -17,7 +17,12 @@ public class Sorting {
     public Sorting() {
     }
 
-    //the method gets the sort order
+    /**
+     * the method gets the sort order
+     *
+     * @param request
+     * @return
+     */
     public boolean getSorting(HttpServletRequest request) {
         boolean flag = true;
         if (request.getParameter(SORT_TYPE) != null) {
@@ -27,7 +32,12 @@ public class Sorting {
         return flag;
     }
 
-    //the method gets the parameters for sorting
+    /**
+     * the method gets the parameters for sorting
+     *
+     * @param request
+     * @return
+     */
     public CarSortingDTO getSortingParam(HttpServletRequest request) {
         CarSortingDTO sortingDTO = new CarSortingDTO();
         setCarSortingDTO(sortingDTO);
@@ -59,7 +69,11 @@ public class Sorting {
         return sortingDTO;
     }
 
-    //sets default params
+    /**
+     * sets default params
+     *
+     * @param sortingDTO
+     */
     private void setCarSortingDTO(CarSortingDTO sortingDTO) {
         sortingDTO.setBrand("");
         sortingDTO.setBodyType("");
@@ -69,7 +83,12 @@ public class Sorting {
         sortingDTO.setYear("");
     }
 
-    //the method gets the parameters for sorting
+    /**
+     * the method gets the parameters for sorting
+     *
+     * @param request
+     * @return
+     */
     public OrderSortingDTO getSortingParamOrder(HttpServletRequest request) {
         OrderSortingDTO sortingDTO = new OrderSortingDTO();
         sortingDTO.setStartDate("");

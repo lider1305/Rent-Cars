@@ -123,14 +123,6 @@ public class UserController {
         if (result.hasErrors()) {
             return PAGE_EDIT_CLIENT;
         }
-        if (client.getPassport() == null || client.getPassport().length() < MIN_PASSWORD) {
-            model.addAttribute(PASSPORT_ERROR, MessageManager.getInstance().getValue(PASSPORT_ERROR_I18N, Locale.getDefault()));
-            return PAGE_EDIT_CLIENT;
-        }
-        if (client.getPassportIssueDate() == null | client.getPassportEndDate() == null) {
-            model.addAttribute(DATE_ERROR, MessageManager.getInstance().getValue(DATE_ERROR_I18N, Locale.getDefault()));
-            return PAGE_REGISTRATION;
-        }
         Client clientUI = (Client) request.getSession().getAttribute(CLIENT);
         clientServices.update(client, clientUI);
         model.addAttribute(CLIENTDTO, client);

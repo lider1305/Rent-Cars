@@ -11,6 +11,7 @@ public class Message {
 
     public static final String SUCCESS_ORDER = "message_success_order";
     public static final String SUCCESS_ORDER_UPDATE = "message_success_order_update";
+    public static final String ORDER_CANT_UPDATE = "message_order_cant_update";
     public static final String SUCCESS_REGISTRY = "message_success_registry";
     public static final String SUCCESS_ADD_NEW_CAR = "message_success_car";
     public static final String PARAM_NULL_BRAND = "message_null_brand";

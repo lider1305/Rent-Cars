@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 import static by.pvt.constants.Constants.*;
+
 @Component("pagination")
 public class Pagination {
     private static final int MIN_ROWS_ON_PAGE = 5;
@@ -16,8 +17,12 @@ public class Pagination {
     public Pagination() {
     }
 
-
-    // the method receives a  number of records per page
+    /**
+     * the method receives a  number of records per page
+     *
+     * @param request
+     * @return
+     */
     public int getItemPerPage(HttpServletRequest request) {
         int perPage;
         //checks whether the  number of records to output to the page
@@ -30,7 +35,12 @@ public class Pagination {
         return perPage;
     }
 
-    //the method gets the record number from which to read the value from the database
+    /**
+     * the method gets the record number from which to read the value from the database
+     *
+     * @param request
+     * @return
+     */
     public int getStartRow(HttpServletRequest request) {
         //default params to read
         int perPage = getItemPerPage(request);
@@ -46,8 +56,13 @@ public class Pagination {
         return currentRowFromDatabase;
     }
 
-    //check the total number of records on the multiplicity of the minimum number of records per page,
-    // if the number is not a multiple, add another page
+    /**
+     * check the total number of records on the multiplicity of the minimum number of records per page,
+     * if the number is not a multiple, add another page
+     *
+     * @param pagesCount- number of pages
+     * @return
+     */
     public int getPagesCount(int pagesCount) {
         if (pagesCount % MIN_ROWS_ON_PAGE != 0) {
             pagesCount += PAGE_FOR_PAGINATION;
@@ -55,7 +70,12 @@ public class Pagination {
         return pagesCount;
     }
 
-    //the method get pagination params from user interface
+    /**
+     * the method get pagination params from user interface
+     *
+     * @param request
+     * @return
+     */
     public PaginationDTO getPaginationParams(HttpServletRequest request) {
         PaginationDTO pagination = new PaginationDTO();
         pagination.setPages((Integer) request.getAttribute("start"));

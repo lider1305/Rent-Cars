@@ -34,6 +34,7 @@
         <c:when test="${client.id > 0}">
             <h2>Изменить заказ</h2>
             <h3><c:if test="${service_exception ne null}"><spring:message code="${service_exception}"/></c:if></h3>
+            <h3><c:if test="${orderStatus ne null}"><spring:message code="message_order_cant_update"/></c:if></h3>
             <form method="GET" action="get_cars_by_filter">
                 <jsp:include page="/WEB-INF/pages/modules/filters/cars_filter.jsp"/>
                 <input type="submit" value="Выбрать автомобиль"/>

@@ -4,6 +4,7 @@ package by.pvt.constants;
 public class UIParams {
     //jsp expression
     public static final String REQUEST_SUCCESS_MESSAGE = "success";
+    public static final String ORDER_STATUS = "orderStatus";
     public static final String REQUEST_GET_CARS = "cars";
     public static final String REQUEST_GET_BRANDS = "brands";
     public static final String REQUEST_GET_ALL_USERS = "users";
