@@ -1,70 +1,37 @@
 package by.pvt.DTO;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
 public class CarSortingDTO {
+    
+    @Getter
+    @Setter
     private String brand;
+    
+    @Getter
+    @Setter
     private String bodyType;
+    
+    @Getter
+    @Setter
     private String engineType;
+    
+    @Getter
+    @Setter
     private String transmissionType;
+    
+    @Getter
+    @Setter
     private String year;
+    
+    @Getter
+    @Setter
     private String amount;
+    
+    @Getter
+    @Setter
     private boolean ASC;
-
-    public CarSortingDTO() {
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getBodyType() {
-        return bodyType;
-    }
-
-    public void setBodyType(String bodyType) {
-        this.bodyType = bodyType;
-    }
-
-    public String getEngineType() {
-        return engineType;
-    }
-
-    public void setEngineType(String engineType) {
-        this.engineType = engineType;
-    }
-
-    public String getTransmissionType() {
-        return transmissionType;
-    }
-
-    public void setTransmissionType(String transmissionType) {
-        this.transmissionType = transmissionType;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
-    public boolean isASC() {
-        return ASC;
-    }
-
-    public void setASC(boolean ASC) {
-        this.ASC = ASC;
-    }
 }

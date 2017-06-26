@@ -1,37 +1,24 @@
 package by.pvt.DTO;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Class for getting pagination params from user pages
  */
+@NoArgsConstructor
 public class PaginationDTO {
+    
+    @Getter
+    @Setter
     private int id;
+    
+    @Getter
+    @Setter
     private int pages;
+    
+    @Getter
+    @Setter
     private int perPages;
-
-    public PaginationDTO() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPages() {
-        return pages;
-    }
-
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
-
-    public int getPerPages() {
-        return perPages;
-    }
-
-    public void setPerPage(int perPage) {
-        this.perPages = perPage;
-    }
 }
