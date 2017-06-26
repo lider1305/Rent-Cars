@@ -2,8 +2,13 @@ out
 .settings
 .idea
 .iml
+
 service/target/
 dao/target/
 web/target/
 entities/target/
 
+/entities/entities.iml
+/dao/dao.iml
+/service/service.iml
+/web/web.iml

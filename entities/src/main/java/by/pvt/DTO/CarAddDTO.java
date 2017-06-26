@@ -1,74 +1,39 @@
 package by.pvt.DTO;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Size;
 
+@NoArgsConstructor
 public class CarAddDTO{
+    @Getter
+    @Setter
     private int brand;
-    @Size(min=2,message = "Модель автомобиля не может были менее 2-х символов")
+    
+    @Getter
+    @Setter
+    @Size(min=2,message = "Model of cars shouldn't has less then 2 characters")
     private String model;
+    
+    @Getter
+    @Setter
     private int engineType;
+    
+    @Getter
+    @Setter
     private int transmissionType;
+    
+    @Getter
+    @Setter
     private int bodyType;
+    
+    @Getter
+    @Setter
     private int yearOfManufacture;
+    
+    @Getter
+    @Setter
     private int amount;
-
-    public CarAddDTO() {
-    }
-
-    public int getBrand() {
-        return brand;
-    }
-
-    public void setBrand(int brand) {
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getEngineType() {
-        return engineType;
-    }
-
-    public void setEngineType(int engineType) {
-        this.engineType = engineType;
-    }
-
-    public int getTransmissionType() {
-        return transmissionType;
-    }
-
-    public void setTransmissionType(int transmissionType) {
-        this.transmissionType = transmissionType;
-    }
-
-    public int getBodyType() {
-        return bodyType;
-    }
-
-    public void setBodyType(int bodyType) {
-        this.bodyType = bodyType;
-    }
-
-    public int getYearOfManufacture() {
-        return yearOfManufacture;
-    }
-
-    public void setYearOfManufacture(int yearOfManufacture) {
-        this.yearOfManufacture = yearOfManufacture;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 }
