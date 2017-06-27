@@ -1,5 +1,9 @@
 package by.pvt.pojo;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.GeneratedValue;
@@ -10,45 +14,16 @@ import java.io.Serializable;
 /**
  * Describe the abstract entity Entity
  */
+@ToString
+@EqualsAndHashCode(callSuper = false)
 @MappedSuperclass
 public abstract class Entity implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     protected int id;
-
-    /**
-     * @return the id of entity
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * set entity id
-     *
-     * @param id of entity
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Entity)) return false;
-
-        Entity entity = (Entity) o;
-
-        return id == entity.id;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
-    }
-
-
 }

@@ -1,5 +1,7 @@
 package by.pvt.pojo;
 
+import lombok.*;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
@@ -9,61 +11,22 @@ import java.util.Set;
 /**
  * Describe POJO of Statuses of client
  */
-
+@NoArgsConstructor
+@ToString(exclude={"client"})
+@EqualsAndHashCode(callSuper = false, exclude={"client"})
 @javax.persistence.Entity
 @AttributeOverride(name = "id", column = @Column(name = "STATUS_ID"))
 @Table(name = "STATUS_OF_CLIENT")
 public class ClientStatus extends Entity {
     private static final long serialVersionUID = 1L;
 
+    @Getter
+    @Setter
     @Column (name = "NAME_OF_STATUS",updatable = false,nullable = false)
     private String status;
 
+    @Getter
+    @Setter
     @OneToMany (mappedBy = "statusOfClient")
     private Set<Client> client;
-
-    public ClientStatus() {
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Set<Client> getClient() {
-        return client;
-    }
-
-    public void setClient(Set<Client> client) {
-        this.client = client;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ClientStatus)) return false;
-
-        ClientStatus that = (ClientStatus) o;
-
-        if (id != that.id) return false;
-        return status != null ? status.equals(that.status) : that.status == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "ClientStatus{" +
-                "status='" + status + '\'' +
-                '}';
-    }
 }
