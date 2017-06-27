@@ -29,7 +29,7 @@ public class OrderSortingDTO {
     
     @Getter
     @Setter
-    private String orderStatus;
+    private String status;
     
     @Getter
     @Setter

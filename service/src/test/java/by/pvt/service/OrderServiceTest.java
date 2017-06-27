@@ -61,7 +61,7 @@ public class OrderServiceTest {
         order.setMessage("HELLO");
         paginationDTO = new PaginationDTO();
         paginationDTO.setPages(0);
-        paginationDTO.setPerPage(10);
+        paginationDTO.setPerPages(10);
     }
 
     @After

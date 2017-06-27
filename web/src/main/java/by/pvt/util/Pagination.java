@@ -79,7 +79,7 @@ public class Pagination {
     public PaginationDTO getPaginationParams(HttpServletRequest request) {
         PaginationDTO pagination = new PaginationDTO();
         pagination.setPages((Integer) request.getAttribute("start"));
-        pagination.setPerPage((Integer) request.getAttribute("perPages"));
+        pagination.setPerPages((Integer) request.getAttribute("perPages"));
         return pagination;
     }
 }
