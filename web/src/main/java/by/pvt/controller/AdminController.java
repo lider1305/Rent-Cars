@@ -38,7 +38,7 @@ public class AdminController {
             model.addAttribute(STATUS_OF_ORDER, statusOfOrderService.getAll());
             model.addAttribute(ORDER, orderService.get(Order.class, orderId));
         } catch (ServiceException e) {
-            SystemLogger.getInstance().setLogger(getClass(),e);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             model.addAttribute(UIParams.MESSAGE_ERROR_GET_ORDERS, Message.ERROR_GET_ALL_ORDERS);
             return PAGE_PROCESS_ORDER;
         }
@@ -52,7 +52,7 @@ public class AdminController {
             order.setOrderStatus(statusOfOrderService.get(OrderStatus.class, statusId));
             orderService.update(order);
         } catch (ServiceException e) {
-            SystemLogger.getInstance().setLogger(getClass(),e);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             model.addAttribute(UIParams.MESSAGE_ERROR_GET_ORDERS, Message.ERROR_GET_ALL_ORDERS);
             return PAGE_PROCESS_ORDER;
         }

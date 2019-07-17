@@ -16,12 +16,12 @@ import java.util.Set;
  */
 @NoArgsConstructor
 @ToString(exclude = {"orders"})
-@EqualsAndHashCode(callSuper = false,exclude = {"orders"})
-@javax.persistence.Entity
+@EqualsAndHashCode(exclude = {"orders"}, callSuper = false)
+@Entity
 @AttributeOverride(name = "id", column = @Column(name = "CLIENT_ID"))
 @Table(name = "CLIENTS")
 @DynamicUpdate
-public class Client extends Entity {
+public class Client extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Getter

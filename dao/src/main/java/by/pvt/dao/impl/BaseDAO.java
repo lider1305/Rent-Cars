@@ -1,7 +1,7 @@
 package by.pvt.dao.impl;
 
 import by.pvt.dao.DAO;
-import by.pvt.pojo.Entity;
+import by.pvt.pojo.BaseEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 @Repository
-public class BaseDAO<T extends Entity> implements DAO<T> {
+public class BaseDAO<T extends BaseEntity> implements DAO<T> {
     private SessionFactory sessionFactory;
 
     @Autowired

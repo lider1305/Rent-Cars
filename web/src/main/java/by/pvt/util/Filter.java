@@ -36,9 +36,6 @@ public class Filter {
 
     /**
      * the method checks the input parameters to the filter, to send a carDTO object
-     *
-     * @param request
-     * @return
      */
     public CarDTO getCarFilter(HttpServletRequest request) {
         CarDTO carDTO = new CarDTO();
@@ -88,8 +85,6 @@ public class Filter {
 
     /**
      * sets default params
-     *
-     * @param carDTO
      */
     private void setCarDTO(CarDTO carDTO) {
         carDTO.setBrand(null);

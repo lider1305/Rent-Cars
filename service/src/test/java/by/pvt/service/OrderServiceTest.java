@@ -51,7 +51,7 @@ public class OrderServiceTest {
         order.setClient(clientService.get(Client.class, 1));
         order.setCar(carService.get(Car.class, 2));
         statusOfOrder = new OrderStatus();
-        statusOfOrder.setStatus("ПРИНЯТ");
+        statusOfOrder.setStatus("Completed");
         order.setOrderStatus(statusOfOrder);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         date = formatter.parse("2322-02-05");

@@ -12,12 +12,12 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 /**
- * Describe the abstract entity Entity
+ * Describe the abstract entity BaseEntity
  */
 @ToString
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode()
 @MappedSuperclass
-public abstract class Entity implements Serializable {
+public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Getter

@@ -20,7 +20,7 @@ public class AuthenticationFilter implements Filter {
     private List<String> adminURL = new PathList().setListURLAdmin();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
@@ -71,7 +71,7 @@ public class AuthenticationFilter implements Filter {
     }
 
     //check the url
-    private String checkIn(HttpServletRequest httpRequest, List<String> list) throws IOException, ServletException {
+    private String checkIn(HttpServletRequest httpRequest, List<String> list) {
         String path = "";
         for (String line : list) {
             path = httpRequest.getContextPath() + line;

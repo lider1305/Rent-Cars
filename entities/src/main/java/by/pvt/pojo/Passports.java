@@ -13,10 +13,10 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString(exclude = {"client"})
 @EqualsAndHashCode(exclude = { "client" }, callSuper = false)
-@javax.persistence.Entity
+@Entity
 @AttributeOverride(name = "id", column = @Column(name = "PASSPORT_NUMBER_ID"))
 @Table(name = "PASSPORTS")
-public class Passports extends Entity {
+public class Passports extends BaseEntity {
     private  static  final long serialVersionUID= 1L;
 
     @Getter

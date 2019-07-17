@@ -12,11 +12,11 @@ import java.util.Date;
  */
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode(callSuper = false)
-@javax.persistence.Entity
+@EqualsAndHashCode
+@Entity
 @AttributeOverride(name = "id", column = @Column(name = "ORDER_ID"))
 @Table(name = "ORDERS")
-public class Order extends Entity {
+public class Order extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Getter

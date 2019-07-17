@@ -2,10 +2,7 @@ package by.pvt.pojo;
 
 import lombok.*;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -13,11 +10,11 @@ import java.util.Set;
  */
 @NoArgsConstructor
 @ToString(exclude={"client"})
-@EqualsAndHashCode(callSuper = false, exclude={"client"})
-@javax.persistence.Entity
+@EqualsAndHashCode(exclude={"client"}, callSuper = false)
+@Entity
 @AttributeOverride(name = "id", column = @Column(name = "STATUS_ID"))
 @Table(name = "STATUS_OF_CLIENT")
-public class ClientStatus extends Entity {
+public class ClientStatus extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Getter

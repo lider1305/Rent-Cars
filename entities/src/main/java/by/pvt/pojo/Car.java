@@ -13,10 +13,10 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString(exclude = {"orders"})
 @EqualsAndHashCode(callSuper = false,exclude = {"orders"})
-@javax.persistence.Entity
+@Entity
 @AttributeOverride(name = "id", column = @Column(name = "CAR_ID"))
 @Table(name = "CARS")
-public class Car extends Entity {
+public class Car extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Getter

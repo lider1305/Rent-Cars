@@ -59,51 +59,51 @@ public class CarController {
     }
 
     @RequestMapping(value = VALUE_CHECK_CAR, method = RequestMethod.GET)
-    public String checkCarForReserve(@Valid @ModelAttribute(ORDER_DTO) OrderDTO orderDTO,BindingResult result,HttpServletRequest request, Model model){
+    public String checkCarForReserve(@Valid @ModelAttribute(ORDER_DTO) OrderDTO orderDTO, BindingResult result, HttpServletRequest request, Model model) {
         if (result.hasErrors()) {
             databaseData.getCarsListByFilter(request, model);
             request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
             return PAGE_ALL_CARS;
         }
-       try{
-           databaseData.getCarsListByFilter(request, model);
-           request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
-           if(orderDTO.getCarId()==0){
-               model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_NO_CHOSEN);
-               return PAGE_ALL_CARS;
-           }
-           Car car= carService.get(Car.class,orderDTO.getCarId());
-           //checks dates for relevance
-           if(DateAndAmount.checkDateOnActual(orderDTO.getStartDate())){
-               databaseData.getCarsListByFilter(request, model);
-               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
-               model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE);
-               return PAGE_ALL_CARS;
-           }
-           if(DateAndAmount.checkEndDateOnActual(orderDTO.getStartDate(),orderDTO.getEndDate())){
-               databaseData.getCarsListByFilter(request, model);
-               request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
-               model.addAttribute(UIParams.SERVICE_EXCEPTION,Message.PARAM_WRONG_DATE_END);
-               return PAGE_ALL_CARS;
-           }
-          if(orderService.isCarReserved(car, orderDTO.getStartDate(),orderDTO.getEndDate())){
-               model.addAttribute(CAR_STATUS,Message.RESERVED);
-           } else {
-               model.addAttribute(CAR_STATUS,Message.FREE);
-              return PAGE_ALL_CARS;
-           }
-       }catch (ServiceException e){
-           SystemLogger.getInstance().setLogger(getClass(),e);
-           model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
-           return PAGE_ALL_CARS;
-       }
+        try {
+            databaseData.getCarsListByFilter(request, model);
+            request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
+            if (orderDTO.getCarId() == 0) {
+                model.addAttribute(UIParams.SERVICE_EXCEPTION, Message.PARAM_NO_CHOSEN);
+                return PAGE_ALL_CARS;
+            }
+            Car car = carService.get(Car.class, orderDTO.getCarId());
+            //checks dates for relevance
+            if (DateAndAmount.checkDateOnActual(orderDTO.getStartDate())) {
+                databaseData.getCarsListByFilter(request, model);
+                request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
+                model.addAttribute(UIParams.SERVICE_EXCEPTION, Message.PARAM_WRONG_DATE);
+                return PAGE_ALL_CARS;
+            }
+            if (DateAndAmount.checkEndDateOnActual(orderDTO.getStartDate(), orderDTO.getEndDate())) {
+                databaseData.getCarsListByFilter(request, model);
+                request.getSession().setAttribute(COMMAND, VALUE_GET_CARS_BY_FILTER);
+                model.addAttribute(UIParams.SERVICE_EXCEPTION, Message.PARAM_WRONG_DATE_END);
+                return PAGE_ALL_CARS;
+            }
+            if (orderService.isCarReserved(car, orderDTO.getStartDate(), orderDTO.getEndDate())) {
+                model.addAttribute(CAR_STATUS, Message.RESERVED);
+            } else {
+                model.addAttribute(CAR_STATUS, Message.FREE);
+                return PAGE_ALL_CARS;
+            }
+        } catch (ServiceException e) {
+            SystemLogger.getInstance().setLogger(getClass(), e);
+            model.addAttribute(UIParams.SERVICE_EXCEPTION, e.getMessage());
+            return PAGE_ALL_CARS;
+        }
         return PAGE_ALL_CARS;
     }
 
     @RequestMapping(value = VALUE_GET_CARS_BY_FILTER, method = RequestMethod.GET)
     public String getCarsByFilter(HttpServletRequest request, Model model) {
         getCarsByDefaultFilter(request, model);
-        model.addAttribute(ORDER_DTO,new OrderDTO());
+        model.addAttribute(ORDER_DTO, new OrderDTO());
         return (String) request.getSession().getAttribute(REQUEST_PAGE);
     }
 
@@ -124,7 +124,7 @@ public class CarController {
             carService.save(car);
             redirectAttributes.addFlashAttribute(UIParams.REQUEST_SUCCESS_ADD_NEW_CAR, Message.SUCCESS_ADD_NEW_CAR);
         } catch (ServiceException e) {
-            SystemLogger.getInstance().setLogger(getClass(),e);
+            SystemLogger.getInstance().setLogger(getClass(), e);
             model.addAttribute(SERVICE_EXCEPTION, Message.ERROR_SAVE_OBJECT);
             return PAGE_ADD_CAR;
         }
@@ -135,7 +135,7 @@ public class CarController {
         databaseData.setToSessionCarParams(request, model);
         pagination.getStartRow(request);
         request.getSession().setAttribute(REQUEST_PAGE, path);
-        model.addAttribute(ORDER_DTO,new OrderDTO());
+        model.addAttribute(ORDER_DTO, new OrderDTO());
         getCarsByDefaultFilter(request, model);
     }
 
@@ -145,7 +145,7 @@ public class CarController {
     }
 
     @InitBinder
-    protected void initBinder(WebDataBinder binder) throws Exception {
+    protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(ConstantsValues.DATE_PATTERN);
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));

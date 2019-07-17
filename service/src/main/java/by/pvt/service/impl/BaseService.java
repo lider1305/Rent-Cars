@@ -2,7 +2,7 @@ package by.pvt.service.impl;
 
 import by.pvt.dao.DAO;
 import by.pvt.exception.ServiceException;
-import by.pvt.pojo.Entity;
+import by.pvt.pojo.BaseEntity;
 import by.pvt.service.IServices;
 import by.pvt.util.SystemLogger;
 import org.hibernate.HibernateException;
@@ -18,7 +18,7 @@ import static by.pvt.exception.ExceptionMessages.*;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-public class BaseService<T extends Entity> implements IServices<T> {
+public class BaseService<T extends BaseEntity> implements IServices<T> {
     @Autowired
     private DAO<T> baseDAO;
 

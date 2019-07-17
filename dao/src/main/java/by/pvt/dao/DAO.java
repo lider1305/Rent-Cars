@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * This class describe CRUD operation with database
  *
- * @param <T> POJO which are inheritance from class Entity
+ * @param <T> POJO which are inheritance from class BaseEntity
  */
 public interface DAO<T> {
     /**
