@@ -3,8 +3,10 @@ package by.pvt.filters;
 import by.pvt.constants.Pages;
 import by.pvt.pojo.Client;
 import by.pvt.util.PathList;
+import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,7 +14,8 @@ import java.util.List;
 
 import static by.pvt.constants.Constants.CLIENT;
 
-
+@Order(2)
+@WebFilter(filterName = "AuthenticationFilter", urlPatterns = "/*")
 public class AuthenticationFilter implements Filter {
     private static final String ADMIN = "ADMIN";
     private static final String USER = "USER";

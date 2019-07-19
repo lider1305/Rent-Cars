@@ -20,7 +20,7 @@ import static by.pvt.constants.Pages.*;
 @Controller
 public class IndexController {
 
-    @RequestMapping(value = {VALUE_START,VALUE_INDEX}, method = RequestMethod.GET)
+    @RequestMapping(value = {VALUE_START, VALUE_INDEX}, method = RequestMethod.GET)
     public String mainPage(Model model) {
         Client client = new Client();
         model.addAttribute(Constants.CLIENT, client);
