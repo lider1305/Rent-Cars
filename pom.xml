@@ -25,7 +25,7 @@
         <dbcp.version>1.4</dbcp.version>
         <aspectj.version>1.8.4</aspectj.version>
         <cglib.version>3.1</cglib.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <mysql.version>5.1.39</mysql.version>
     </properties>
 
